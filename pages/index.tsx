@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import Footer from "../components/Footer";
+
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import React from "react";
@@ -13,8 +13,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}></main>
-      <Footer />
+      <main className={styles.main}>
+        <h1>YOOO THis is HOMMEEEEEE</h1>
+      </main>
     </div>
   );
 };
