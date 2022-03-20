@@ -1,2 +1,5 @@
 # summer-portfolio
-Remake my portfolio in nextJS, reactJS. A platform for me to upload projects and blog posts in the summer
+
+A platform for me to upload projects and blog posts in the summer.
+
+Remake my portfolio in nextJS, reactJS, Tailwind-CSS and industry-standard tools.
