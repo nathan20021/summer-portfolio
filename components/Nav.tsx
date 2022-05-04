@@ -1,20 +1,17 @@
 import type { NextPage } from "next";
+import { useState } from "react";
 import Link from "next/link";
-// import styles from "../styles/Home.module.css";
 import React from "react";
 
 const Nav: NextPage = () => {
-  const [navbarOpen, setNavbarOpen] = React.useState(false);
+  const [navbarOpen, setNavbarOpen] = useState(false);
   return (
     <>
       <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-zinc-500 mb-3">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <Link href="/home">
-              <a
-                className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
-                href="#pablo"
-              >
+              <a className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white">
                 Nathan Luong
               </a>
             </Link>
@@ -35,31 +32,29 @@ const Nav: NextPage = () => {
           >
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="nav-item">
-                <a
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#pablo"
-                >
-                  <i className="fab fa-facebook-square text-lg leading-lg text-white opacity-75"></i>
-                  <span className="ml-2">Share</span>
-                </a>
+                <Link href="/">
+                  <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
+                    <i className="fab fa-facebook-square text-lg leading-lg text-white opacity-75"></i>
+                    <span className="ml-2">Portfolio</span>
+                  </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#pablo"
-                >
-                  <i className="fab fa-twitter text-lg leading-lg text-white opacity-75"></i>
-                  <span className="ml-2">Tweet</span>
-                </a>
+                <Link href="/other">
+                  <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
+                    <i className="fab fa-twitter text-lg leading-lg text-white opacity-75"></i>
+                    <span className="ml-2">Other</span>
+                  </a>
+                </Link>
               </li>
+
               <li className="nav-item">
-                <a
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#pablo"
-                >
-                  <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75"></i>
-                  <span className="ml-2">Pin</span>
-                </a>
+                <Link href="/blogs">
+                  <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
+                    <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75"></i>
+                    <span className="ml-2">Blog</span>
+                  </a>
+                </Link>
               </li>
             </ul>
           </div>

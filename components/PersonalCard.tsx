@@ -11,15 +11,26 @@ import {
 
 const PersonalCard = () => {
   return (
-    <div id="personal_card">
-      <Image
-        width={40}
-        height={40}
-        id="avatar"
-        src="https://github.com/nathan20021.png"
-        alt="Potrait"
-      />
-      <div id="intro_content_box" className="bg-black">
+    <div id="personal_card" className="flex w-full">
+      <div
+        style={{
+          width: "15%",
+          height: "0",
+          paddingTop: "15%",
+          position: "relative",
+          borderRadius: "100rem",
+          overflow: "hidden",
+        }}
+      >
+        <Image
+          id="avatar"
+          src="https://github.com/nathan20021.png"
+          alt="Potrait"
+          layout="fill"
+          objectFit="cover"
+        />
+      </div>
+      <div id="intro_content_box" className="">
         <h1>Nathan Luong</h1>
         <p>McMaster Software Engineering Co-op 2024</p>
         <ul id="social_links" className="flex-col">
