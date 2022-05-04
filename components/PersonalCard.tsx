@@ -19,10 +19,10 @@ const PersonalCard = () => {
         src="https://github.com/nathan20021.png"
         alt="Potrait"
       />
-      <div id="intro_content_box">
+      <div id="intro_content_box" className="bg-black">
         <h1>Nathan Luong</h1>
         <p>McMaster Software Engineering Co-op 2024</p>
-        <ul id="social_links">
+        <ul id="social_links" className="flex-col">
           <li>
             <a
               href="https://github.com/nathan20021"
