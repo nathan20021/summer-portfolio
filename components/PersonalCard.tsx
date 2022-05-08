@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import type { NextPage } from "next";
 import styles from "../styles/PersonalCard.module.css";
 import { Avatar } from "@mui/material";
@@ -16,24 +15,6 @@ import {
 const PersonalCard: NextPage = () => {
   return (
     <div className={styles.personal_card}>
-      {/* <div
-        style={{
-          width: "30%",
-          paddingTop: "30%",
-          height: "0",
-          position: "relative",
-          borderRadius: "100rem",
-          overflow: "hidden",
-        }}
-      >
-        <Image
-          id="avatar"
-          src="https://github.com/nathan20021.png"
-          alt="Potrait"
-          layout="fill"
-          objectFit="cover"
-        />
-      </div> */}
       <Avatar
         alt="Nathan avatar"
         src="https://github.com/nathan20021.png"
