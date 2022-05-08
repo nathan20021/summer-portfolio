@@ -1,5 +1,9 @@
 import React from "react";
 import Image from "next/image";
+import type { NextPage } from "next";
+import styles from "../styles/PersonalCard.module.css";
+import { Avatar } from "@mui/material";
+
 import {
   FaGithub,
   FaLinkedin,
@@ -9,14 +13,14 @@ import {
   FaDiscord,
 } from "react-icons/fa";
 
-const PersonalCard = () => {
+const PersonalCard: NextPage = () => {
   return (
-    <div id="personal_card" className="flex w-full">
-      <div
+    <div className={styles.personal_card}>
+      {/* <div
         style={{
-          width: "15%",
+          width: "30%",
+          paddingTop: "30%",
           height: "0",
-          paddingTop: "15%",
           position: "relative",
           borderRadius: "100rem",
           overflow: "hidden",
@@ -29,11 +33,16 @@ const PersonalCard = () => {
           layout="fill"
           objectFit="cover"
         />
-      </div>
-      <div id="intro_content_box" className="">
-        <h1>Nathan Luong</h1>
-        <p>McMaster Software Engineering Co-op 2024</p>
-        <ul id="social_links" className="flex-col">
+      </div> */}
+      <Avatar
+        alt="Nathan avatar"
+        src="https://github.com/nathan20021.png"
+        sx={{ width: "12rem", height: "12rem" }}
+      />
+      <div className={styles.intro_content_box}>
+        <h1 className={styles.name}>Nathan Luong</h1>
+        <p className={styles.bio}>McMaster Software Engineering &#39; 24</p>
+        <ul className={styles.social_links}>
           <li>
             <a
               href="https://github.com/nathan20021"
@@ -43,7 +52,7 @@ const PersonalCard = () => {
               <FaGithub />
             </a>
           </li>
-          <li className="hover_link" id="linkedin">
+          <li>
             <a
               href="https://www.linkedin.com/in/nathan-luong-303158203/"
               target="_blank"
@@ -52,12 +61,12 @@ const PersonalCard = () => {
               <FaLinkedin />
             </a>
           </li>
-          <li className="hover_link" id="email">
+          <li className={styles.hover_link + " " + styles.email} id="email">
             <a href="mailto:nhanto20021@gmail.com">
               <FaEnvelope />
             </a>
-            <span className="text_underneath" id="email_text">
-              nhanto20021@gmail.com luongn4@mcmaster.ca
+            <span className={styles.email_text + " " + styles.text_underneath}>
+              nhanto20021@gmail.com
             </span>
           </li>
 
@@ -80,9 +89,11 @@ const PersonalCard = () => {
             </a>
           </li>
 
-          <li className="hover_link" id="discord">
+          <li className={styles.hover_link + " " + styles.discord}>
             <FaDiscord />
-            <span className="text_underneath" id="discord_text">
+            <span
+              className={styles.discord_text + " " + styles.text_underneath}
+            >
               Nate_no_Nerd#7154
             </span>
           </li>
