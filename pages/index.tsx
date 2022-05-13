@@ -81,7 +81,7 @@ const Home: NextPage = () => {
             hasDemo={true}
             isPrivate={true}
             GhLink="#"
-            demoLink="#"
+            demoLink="https://macrocketry.ca/"
             style={{ backgroundColor: "#A61C2D" }}
           />
           <ProjectCard
@@ -90,8 +90,8 @@ const Home: NextPage = () => {
             des="A chess.com clone where players can play real-time chess. Created with ReactJS, Flask, nextJS, TailwindCSS, and SocketIO"
             hasDemo={true}
             isPrivate={false}
-            GhLink="#"
-            demoLink="#"
+            GhLink="https://github.com/nathan20021/chess.com-clone"
+            demoLink="https://www.youtube.com/watch?v=u94ONgnwnus"
             style={{ backgroundColor: "#118748" }}
           />
           <ProjectCard
@@ -101,7 +101,7 @@ const Home: NextPage = () => {
             hasDemo={true}
             isPrivate={true}
             GhLink="#"
-            demoLink="#"
+            demoLink="https://www.linkedin.com/feed/update/urn:li:activity:6904194822161461248/"
             style={{ backgroundColor: "#0C3B5B" }}
           />
           <ProjectCard
@@ -110,7 +110,7 @@ const Home: NextPage = () => {
             des="A programable 3x3x3 Led Cube which has multiple pre-set lighting configurations. You can also play 3d snake on this low resolution display!"
             hasDemo={false}
             isPrivate={false}
-            GhLink="#"
+            GhLink="https://github.com/nathan20021/Complete-LED-Cube-project"
             demoLink="#"
             style={{ backgroundColor: "#12728B" }}
           />
@@ -120,8 +120,8 @@ const Home: NextPage = () => {
             des="Visualize the famous A* path finding algorithm with an interactive UI. Written in Java Processing"
             hasDemo={true}
             isPrivate={false}
-            GhLink="#"
-            demoLink="#"
+            GhLink="https://github.com/nathan20021/A_star_visualization"
+            demoLink="https://youtu.be/82DPwMUWq1Q"
             style={{ backgroundColor: "#9E6A31" }}
           />
           <ProjectCard
@@ -130,7 +130,7 @@ const Home: NextPage = () => {
             des="A tech repository aiming to share my personal industry experience/ knowledge via technical blogs. Created with ReactJs and nextJS"
             hasDemo={false}
             isPrivate={false}
-            GhLink="#"
+            GhLink="https://github.com/nathan20021/summer-portfolio"
             demoLink="#"
             style={{ backgroundColor: "#6951BB" }}
           />

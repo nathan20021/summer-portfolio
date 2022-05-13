@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useState } from "react";
 import Link from "next/link";
-import React from "react";
+import * as React from "react";
 
 import { AiOutlineBug } from "react-icons/ai";
 import { FaBars } from "react-icons/fa";
@@ -38,13 +38,6 @@ const Nav: NextPage = () => {
               <Link href="/">
                 <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
                   <span className="ml-2">Portfolio</span>
-                </a>
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link href="/other">
-                <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
-                  <span className="ml-2">Other</span>
                 </a>
               </Link>
             </li>

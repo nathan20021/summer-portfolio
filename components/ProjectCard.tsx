@@ -34,7 +34,7 @@ const ProjectCard = ({
 
         <div id="Project Text Container" className="mt-2">
           <h1 className="font-bold text-2xl">{title}</h1>
-          <p className="text-sm py-2 my-3 border-y-2 border-black">{des}</p>
+          <p className="text-sm py-2 my-3 border-y-[3px] border-black">{des}</p>
         </div>
 
         <div id="link-container" className="w-full">
