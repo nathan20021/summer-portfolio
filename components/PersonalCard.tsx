@@ -1,5 +1,4 @@
 import React from "react";
-import type { NextPage } from "next";
 import styles from "../styles/PersonalCard.module.css";
 import { Avatar } from "@mui/material";
 
@@ -7,22 +6,33 @@ import {
   FaGithub,
   FaLinkedin,
   FaFacebook,
-  FaEnvelope,
+  FaRegEnvelope,
   FaInstagram,
   FaDiscord,
+  FaFileWord,
 } from "react-icons/fa";
 
-const PersonalCard: NextPage = () => {
+const PersonalCard: React.FC = () => {
   return (
-    <div className={styles.personal_card}>
-      <Avatar
-        alt="Nathan avatar"
-        src="https://github.com/nathan20021.png"
-        sx={{ width: "12rem", height: "12rem" }}
-      />
+    <div className={`${styles.personal_card} z-20`}>
+      <div className="relative">
+        <div>
+          <Avatar
+            alt="Nathan avatar"
+            src="https://github.com/nathan20021.png"
+            sx={{ width: "12rem", height: "12rem" }}
+          />
+        </div>
+        <div className={styles.chatBox}>
+          <p className={styles.chatText}>
+            👋 Hey there!! Thanks for stopping by.
+          </p>
+        </div>
+      </div>
+
       <div className={styles.intro_content_box}>
         <h1 className={styles.name}>Nathan Luong</h1>
-        <p className={styles.bio}>McMaster Software Engineering &#39; 24</p>
+        <p className={styles.bio}>Backend Developer, McMaster S.E &#39; 24</p>
         <ul className={styles.social_links}>
           <li>
             <a
@@ -42,11 +52,20 @@ const PersonalCard: NextPage = () => {
               <FaLinkedin />
             </a>
           </li>
-          <li className={styles.hover_link + " " + styles.email} id="email">
-            <a href="mailto:nhanto20021@gmail.com">
-              <FaEnvelope />
+          <li>
+            <a
+              href="https://docs.google.com/document/d/1dsUORWNwj6a6yHRkGZj2_8EQCC5DftGH/edit"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FaFileWord className="" />
             </a>
-            <span className={styles.email_text + " " + styles.text_underneath}>
+          </li>
+          <li className={`${styles.hover_link} ${styles.email}`} id="email">
+            <a href="mailto:nhanto20021@gmail.com">
+              <FaRegEnvelope />
+            </a>
+            <span className={`${styles.email_text} ${styles.text_underneath}`}>
               nhanto20021@gmail.com
             </span>
           </li>
