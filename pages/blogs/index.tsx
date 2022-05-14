@@ -2,9 +2,11 @@ import React from "react";
 
 const blogs = () => {
   return (
-    <div>
-      <h1>This is Blogs</h1>
-    </div>
+    <section className="min-h-screen z-20 flex justify-center">
+      <div className="w-[80%]">
+        <h1>This is Blogs</h1>
+      </div>
+    </section>
   );
 };
 
