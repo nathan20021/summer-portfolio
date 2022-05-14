@@ -2,6 +2,11 @@
   "name": "nathan-new-portfolio",
   "version": "0.1.0",
   "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "echo \"[Husky] pre-commit\""
+    }
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
