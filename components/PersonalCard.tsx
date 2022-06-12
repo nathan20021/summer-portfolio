@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import styles from "../styles/PersonalCard.module.css";
 import { Avatar } from "@mui/material";
 
@@ -62,7 +62,7 @@ const PersonalCard: React.FC = () => {
             </a>
           </li>
           <li className={`${styles.hover_link} ${styles.email}`} id="email">
-            <a href="mailto:nhanto20021@gmail.com">
+            <a href="mailto:nathanluong02@gmail.com">
               <FaRegEnvelope />
             </a>
             <span className={`${styles.email_text} ${styles.text_underneath}`}>
