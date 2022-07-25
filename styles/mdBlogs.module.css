@@ -1,8 +1,13 @@
 .post > ul {
   list-style: inside;
 }
+
 .post > ul > li {
   margin-left: 3rem;
+}
+
+.post > p > img {
+  text-align: center;
 }
 
 .post > * {

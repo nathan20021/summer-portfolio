@@ -11,6 +11,8 @@ guest: none
 
 ## **👋 Hi there! Welcome to my tech repository**
 
+![McMaster University](/posts/introduction/mcmaster.png)
+
 I'm a senior university student, back-end developer, tech enthusiast, and aspiring software architect.
 Throughout my co-op and leadership experiences, I realized the power of connections and mentorship within the tech space!
 
