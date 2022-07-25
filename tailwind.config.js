@@ -5,8 +5,17 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
+  safelist: [
+    {
+      pattern: /hljs+/,
+    },
+  ],
   theme: {
-    extend: {},
+    extend: {
+      hljs: {
+        theme: "atom-one-dark",
+      },
+    },
   },
-  plugins: [],
+  plugins: [require("tailwind-highlightjs")],
 };

@@ -7,7 +7,11 @@ import matter from "gray-matter";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import styles from "../../styles/mdBlogs.module.css";
+import rehypeHighlight from "rehype-highlight";
 
+const MarkdownComponents: object = {
+  // SyntaxHighlight code will go here
+};
 type prop = {
   content: string;
   metaData: any;
@@ -21,11 +25,13 @@ const Post = ({ content, metaData }: prop) => {
       </Head>
       <div
         id="Blog Container"
-        className="z-10 w-full flex flex-col items-center bg-[#232323]"
+        className="z-10 w-full flex flex-col items-center bg-[#111111]"
       >
         <ReactMarkdown
-          className={`${styles.post} w-[70%]`}
+          className={`${styles.post} w-[70%] mt-10`}
           remarkPlugins={[remarkGfm]}
+          rehypePlugins={[rehypeHighlight]}
+          components={MarkdownComponents}
         >
           {content}
         </ReactMarkdown>

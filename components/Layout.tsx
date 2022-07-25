@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import Nav from "./Nav";
 import Head from "next/head";
 import Footer from "./Footer";

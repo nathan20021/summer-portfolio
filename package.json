@@ -39,13 +39,16 @@
     "react-icons": "^4.3.1",
     "react-markdown": "^8.0.3",
     "react-tsparticles": "^1.42.2",
-    "remark-gfm": "^3.0.1"
+    "rehype-highlight": "^5.0.2",
+    "remark-gfm": "^3.0.1",
+    "tailwind-highlightjs": "^2.0.0"
   },
   "devDependencies": {
     "@types/crypto-js": "^4.1.1",
     "@types/marked": "^4.0.3",
     "@types/node": "17.0.21",
     "@types/react": "17.0.40",
+    "@types/react-syntax-highlighter": "^15.5.3",
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
     "autoprefixer": "^10.4.7",

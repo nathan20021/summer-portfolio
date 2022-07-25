@@ -1,7 +1,8 @@
-.post {
-}
 .post > ul {
   list-style: inside;
+}
+.post > ul > li {
+  margin-left: 3rem;
 }
 
 .post > * {
@@ -11,9 +12,9 @@
 
 .post > blockquote {
   background: #313131;
-  margin-left: 2rem;
-
-  padding: 0.3rem 1.5rem;
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+  padding: 0.3rem 1rem 0.3rem 1.1rem;
   border-left: #6060ff solid 0.2rem;
 }
 
@@ -25,4 +26,12 @@
   font-weight: bold;
   text-align: center;
   font-size: 2rem;
+  margin: 1rem 0rem;
+}
+.post > h2 {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+.post > hr {
+  margin: 1rem 0rem;
 }
