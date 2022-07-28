@@ -8,6 +8,8 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import styles from "../../styles/mdBlogs.module.css";
 import rehypeHighlight from "rehype-highlight";
+import Image from "next/image";
+import { BsFillEyeFill } from "react-icons/bs";
 
 type prop = {
   content: string;
@@ -15,6 +17,46 @@ type prop = {
 };
 
 const Post = ({ content, metaData }: prop) => {
+  const MarkdownComponents: object = {
+    img: (image: any) => {
+      return <Image src={image.properties.src} alt={image.properties.alt} />;
+    },
+    p: (paragraph: { children?: boolean; node?: any }) => {
+      const { node } = paragraph;
+
+      if (node.children[0].tagName === "img") {
+        const image = node.children[0];
+        const metastring = image.properties.alt;
+        const alt = metastring?.replace(/ *\{[^)]*\} */g, "");
+        const metaWidth = metastring.match(/{([^}]+)x/);
+        const metaHeight = metastring.match(/x([^}]+)}/);
+        const width = metaWidth ? metaWidth[1] : "768";
+        const height = metaHeight ? metaHeight[1] : "432";
+        const isPriority = metastring?.toLowerCase().match("{priority}");
+        const hasCaption = metastring?.toLowerCase().includes("{caption:");
+        const caption = metastring?.match(/{caption: (.*?)}/)?.pop();
+
+        return (
+          <div className="postImgWrapper flex justify-center">
+            <Image
+              src={image.properties.src}
+              width={width}
+              height={height}
+              className="postImg"
+              alt={alt}
+              priority={isPriority}
+            />
+            {hasCaption ? (
+              <div className="caption" aria-label={caption}>
+                {caption}
+              </div>
+            ) : null}
+          </div>
+        );
+      }
+      return <p>{paragraph.children}</p>;
+    },
+  };
   return (
     <div className="z-10">
       <Head>
@@ -22,12 +64,29 @@ const Post = ({ content, metaData }: prop) => {
       </Head>
       <div
         id="Blog Container"
-        className=" w-full flex flex-col items-center bg-[#121212] z-10"
+        className=" w-full flex flex-col items-center bg-[#00000a] z-10"
       >
+        <div
+          id="metadata-container"
+          className="z-10 w-[60%] text-center mb-[3rem]"
+        >
+          <h1 className="font-bold text-center text-[2rem] mt-[1rem]">
+            {metaData.title}
+          </h1>
+          <p className="text-[0.7rem] flex justify-center gap-1">
+            {metaData.author} | {metaData.published_at} |
+            <span className="flex justify-center items-center gap-1">
+              <BsFillEyeFill />
+              {metaData.views}
+            </span>
+          </p>
+        </div>
+
         <ReactMarkdown
-          className={`${styles.post} w-[70%] mt-10 z-10`}
+          className={`${styles.post} w-[60%] z-10`}
           remarkPlugins={[remarkGfm]}
           rehypePlugins={[rehypeHighlight]}
+          components={MarkdownComponents}
         >
           {content}
         </ReactMarkdown>

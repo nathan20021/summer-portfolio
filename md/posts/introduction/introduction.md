@@ -1,13 +1,12 @@
 ---
 title: Introduction
 description: A brief introduction to my tech repository
-wrote_at: 24/7/2022 - 1:43 PM
-published_at: 24/7/2022 - 1:43 PM
+published_at: 24 July, 2022
 author: Nathan Luong
 guest: none
+read-time: "3 mins"
+views: 12
 ---
-
-# Introduction
 
 ## **👋 Hi there! Welcome to my tech repository**
 
@@ -32,7 +31,7 @@ Obviously, some concepts are fundamental to the craft of software building, such
 
 ## **🤔 Which topics will be covered?**
 
-### **Technical Topics**
+### **👉 Technical Topics**
 
 My site will cover a lot of back-end fundamentals and advanced concepts:
 
@@ -44,10 +43,12 @@ My site will cover a lot of back-end fundamentals and advanced concepts:
 - Fundamental AWS services (S3, Lambda, Elastic Beanstalk, CloudFront)
 - Containerization and Orchestration (Docker, K8S, Apache Mesos)
 - Microservices architectural patterns (Too many patterns to list here 🙁🙁)
+  &nbsp;
+  &nbsp;
 
-### **Non-technical Topics**
+### **👉 Non-technical Topics**
 
-Aiming to help students landing their first tech job as fast as possible, some articles will be dedicate to:
+Aiming to help students landing their first tech job ASAP, some articles will be dedicate to:
 
 - How to build up and develop your network from zero.
 - Becoming a back-end developer from zero (The fast way).
@@ -56,11 +57,11 @@ Aiming to help students landing their first tech job as fast as possible, some a
 
 ---
 
-## **🤔How to get involved ?**
+## **🤔 How to get involved ?**
 
 If you are interested, you can subscribe to this repository to get notifications on the newest posts.
 
-Don't be afraid to reach out to ask me anything via email 😄 .
+> Don't be afraid to reach out to ask me anything via email 😄 .
 
 ---
 

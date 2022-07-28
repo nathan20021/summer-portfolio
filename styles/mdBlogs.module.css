@@ -3,11 +3,7 @@
 }
 
 .post > ul > li {
-  margin-left: 3rem;
-}
-
-.post > p > img {
-  text-align: center;
+  margin: 0.5rem 0 0.5rem 3rem;
 }
 
 .post > * {
@@ -17,8 +13,7 @@
 
 .post > blockquote {
   background: #313131;
-  margin-left: 2.5rem;
-  margin-right: 2.5rem;
+  margin: 1.5rem 2.5rem;
   padding: 0.3rem 1rem 0.3rem 1.1rem;
   border-left: #6060ff solid 0.2rem;
 }
@@ -33,10 +28,17 @@
   font-size: 2rem;
   margin: 1rem 0rem;
 }
+
 .post > h2 {
   font-weight: bold;
   font-size: 1.3rem;
+  margin-bottom: 0.1rem;
 }
+
+.post > h3 {
+  margin-left: 1rem;
+}
+
 .post > hr {
   margin: 1rem 0rem;
 }
