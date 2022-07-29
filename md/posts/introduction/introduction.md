@@ -1,10 +1,12 @@
 ---
+file_name: introduction
 title: Introduction
+cover: /posts/introduction/cover.webp
 description: A brief introduction to my tech repository
 published_at: 24 July, 2022
 author: Nathan Luong
 guest: none
-read-time: "3 mins"
+read_time: 3 mins
 views: 12
 ---
 
@@ -23,9 +25,9 @@ Witnessing lots of students struggling with their starting point in tech, I noti
 
 > Students are **NOT** exposed to industry-standard technologies at school, yet mastering these technologies is the only way to get started with the industry.
 
-Obviously, some concepts are fundamental to the craft of software building, such as Data Structures, Algorithms, OOP, Theory of Computation, etc. However, knowing how and when to apply these concepts within an enterprise environment is another craft by itself.
+Obviously, some concepts are fundamental to the craft of software building (such as Data Structures, Algorithms, OOP, Theory of Computation, etc). However, knowing how and when to apply these concepts within an enterprise environment is another craft by itself.
 
-> Therefore, I created this free platform, aiming to **speed up student's learning** journey in becoming a job-ready software engineers, at the same time sharing about all things back-end.
+> Therefore, I created this free platform, aiming to **speed up student's learning** journey in becoming a job-ready software engineer, at the same time, sharing about all things back-end.
 
 ---
 
@@ -48,12 +50,12 @@ My site will cover a lot of back-end fundamentals and advanced concepts:
 
 ### **👉 Non-technical Topics**
 
-Aiming to help students landing their first tech job ASAP, some articles will be dedicate to:
+Aiming to help students landing their first tech job ASAP, some articles will be dedicated to:
 
 - How to build up and develop your network from zero.
 - Becoming a back-end developer from zero (The fast way).
 - A different way of looking at university/college.
-- What to do when you have zero job experience.
+- What to do when you have zero job experiences.
 
 ---
 
@@ -61,7 +63,7 @@ Aiming to help students landing their first tech job ASAP, some articles will be
 
 If you are interested, you can subscribe to this repository to get notifications on the newest posts.
 
-> Don't be afraid to reach out to ask me anything via email 😄 .
+> and don't be afraid to reach out to me via [luongn4@mcmaster.ca](mailto:luongn4@mcmaster.ca) 😄 .
 
 ---
 

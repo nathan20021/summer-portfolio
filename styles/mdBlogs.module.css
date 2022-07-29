@@ -29,6 +29,13 @@
   margin: 1rem 0rem;
 }
 
+.post a {
+  color: #018fbd;
+}
+.post a:hover {
+  color: #00c1ff;
+}
+
 .post > h2 {
   font-weight: bold;
   font-size: 1.3rem;
