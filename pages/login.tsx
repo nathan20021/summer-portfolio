@@ -18,7 +18,7 @@ const login = () => {
             <Button
               variant="contained"
               onClick={() => {
-                router.push("/blogs")
+                router.push("/blogs");
                 window.open("/admin/dashboard", "_ blank");
               }}
             >

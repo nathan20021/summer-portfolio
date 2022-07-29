@@ -3,7 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import * as React from "react";
 
-import { AiOutlineBug } from "react-icons/ai";
+import { FiChevronsRight } from "react-icons/fi";
 import { FaBars } from "react-icons/fa";
 
 const Nav: NextPage = () => {
@@ -14,7 +14,7 @@ const Nav: NextPage = () => {
         <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
           <Link href="/">
             <a className="text-lg font-bold leading-relaxed flex justify-center gap-2 items-center mr-4 py-2 whitespace-nowrap uppercase text-white">
-              <AiOutlineBug />
+              <FiChevronsRight />
               Nathan Luong
             </a>
           </Link>

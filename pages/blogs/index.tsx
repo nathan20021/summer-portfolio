@@ -25,39 +25,43 @@ const blogs = ({ metaDataArray }: prop) => {
   return (
     <section className="min-h-screen z-10 flex justify-center">
       <div className="w-[80%] z-10">
-        {metaDataArray.map((metaData, index) => {
-          return (
-            <div
-              id="blog-container-box"
-              key={index}
-              className="w-[30%] h-[50%] rounded-md bg-[#000000] pl-2 pr-2 flex flex-col justify-around items-center"
-            >
-              <div className="w-[90%] h-full rounded-md bg-[#000000] pl-2 pr-2">
+        <div className="h-10"></div>
+        <div className="w-full h-full flex justify-around">
+          {metaDataArray.map((metaData, index) => {
+            return (
+              <div
+                id="blog-container-box"
+                key={index}
+                className="w-[30%] h-[45%] rounded-md bg-[#282828] shadow-sm shadow-zinc-600
+                  flex flex-col justify-around items-center ease-out duration-300 hover:scale-110"
+              >
                 <Link href={`/blogs/${metaData.file_name}`} key={index}>
-                  <a className="w-full h-full">
-                    <div className="w-[100%] h-[50%] relative">
-                      <Image
-                        alt={`Cover Image ${index} : ${metaData.title} `}
-                        src={metaData.cover}
-                        layout="fill"
-                        objectFit="contain"
-                      />
-                    </div>
-                    <div className="w-[100%] h-[50%]">
-                      <h1 className="font-bold text-lg mb-2 text-teal-400">
-                        {metaData.title}
-                      </h1>
-                      <p className="mb-[0.5rem] pb-[0.5rem] border-b-2 text-xs">
-                        {metaData.published_at}
-                      </p>
-                      <p className="text-sm">{metaData.description}</p>
+                  <a className="w-full h-full flex justify-center items-center">
+                    <div id="div-inside-a-tag" className="w-[90%] h-[90%] ">
+                      <div id="image-container" className="h-[40%] relative">
+                        <Image
+                          alt={`Cover Image ${index} : ${metaData.title} `}
+                          src={metaData.cover}
+                          layout="fill"
+                          objectFit="contain"
+                        />
+                      </div>
+                      <div id="text-container" className="h-[50%] w-full">
+                        <h1 className="font-bold text-lg mb-1 text-teal-400">
+                          {metaData.title}
+                        </h1>
+                        <p className="mb-[0.5rem] pb-[0.5rem] border-b-2 text-xs">
+                          {metaData.published_at} | {metaData.read_time} read
+                        </p>
+                        <p className="text-sm">{metaData.description}</p>
+                      </div>
                     </div>
                   </a>
                 </Link>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </section>
   );

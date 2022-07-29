@@ -1,4 +1,3 @@
-// import { Button } from "@mui/material";
 import React from "react";
 import * as fs from "fs";
 import path from "path";
@@ -18,9 +17,6 @@ type prop = {
 
 const Post = ({ content, metaData }: prop) => {
   const MarkdownComponents: object = {
-    img: (image: any) => {
-      return <Image src={image.properties.src} alt={image.properties.alt} />;
-    },
     p: (paragraph: { children?: boolean; node?: any }) => {
       const { node } = paragraph;
 
@@ -30,7 +26,7 @@ const Post = ({ content, metaData }: prop) => {
         const alt = metastring?.replace(/ *\{[^)]*\} */g, "");
         const metaWidth = metastring.match(/{([^}]+)x/);
         const metaHeight = metastring.match(/x([^}]+)}/);
-        const width = metaWidth ? metaWidth[1] : "768";
+        const width = metaWidth ? metaWidth[1] : "700";
         const height = metaHeight ? metaHeight[1] : "432";
         const isPriority = metastring?.toLowerCase().match("{priority}");
         const hasCaption = metastring?.toLowerCase().includes("{caption:");
@@ -45,6 +41,7 @@ const Post = ({ content, metaData }: prop) => {
               className="postImg"
               alt={alt}
               priority={isPriority}
+              layout="intrinsic"
             />
             {hasCaption ? (
               <div className="caption" aria-label={caption}>
@@ -64,7 +61,7 @@ const Post = ({ content, metaData }: prop) => {
       </Head>
       <div
         id="Blog Container"
-        className=" w-full flex flex-col items-center bg-[#00000a] z-10"
+        className=" w-full flex flex-col items-center bg-[#252525] z-10"
       >
         <div
           id="metadata-container"
