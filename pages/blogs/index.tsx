@@ -34,13 +34,13 @@ const blogs = ({ metaDataArray }: prop) => {
               <div
                 id="blog-container-box"
                 key={index}
-                className="w-[33%] h-[40%] rounded-md bg-[#181818] overflow-hidden
-                  flex flex-col justify-start items-center ease-out duration-300 hover:scale-[105%]"
+                className="w-[28%] max-w-[351px] h-[40vh] min-h-[500px] rounded-md bg-[#181818] overflow-hidden
+                  flex flex-col justify-start items-center ease-out duration-1000 hover:bg-[#292929] active:scale-95"
               >
                 <Link href={`/blogs/${metaData.file_name}`} key={index}>
                   <a className="w-full h-full flex justify-center items-start">
                     <div id="div-inside-link-tag" className="w-full">
-                      <div id="image-container" className=" relative">
+                      <div id="image-container" className=" w-full relative">
                         <Image
                           alt={`Cover Image ${index} : ${metaData.title} `}
                           src={metaData.cover}
@@ -54,10 +54,10 @@ const blogs = ({ metaDataArray }: prop) => {
                         <p className="mb-[0.5rem] py-[0.5rem] border-b-[1px] border-[#696969] text-xs text-[#ffffff]">
                           {metaData.published_at} | {metaData.read_time} read
                         </p>
-                        <h1 className="font-bold text-lg mb-1 text-[#ffffff]">
+                        <h1 className="font-bold text-lg mb-1 text-[#7285f2]">
                           {metaData.title}
                         </h1>
-                        <p className="text-sm">{metaData.description}</p>
+                        <p className=" text-sm">{metaData.description}</p>
                       </div>
                     </div>
                   </a>

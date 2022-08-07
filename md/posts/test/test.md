@@ -1,7 +1,7 @@
 ---
-file_name: introduction
-title: Introduction
-cover: /posts/introduction/cover2.webp
+file_name: test
+title: aklsdmfksdmfkds
+cover: /posts/test/cover2.webp
 description: Welcome aboard! Are you a student and want to pursue a career in backend development? Click here to learn more!
 published_at: 24 July, 2022
 author: Nathan Luong
@@ -15,7 +15,7 @@ views: 12
 I'm a senior university student, back-end developer, tech enthusiast, and aspiring software architect.
 Throughout my co-op and leadership experiences, I realized the power of connections and mentorship within the tech space!
 
-![Intro Cover Picture {700x300}](/posts/introduction/cover.webp)
+![Intro Cover Picture {700x300}](/posts/test/cover.webp)
 
 ## **🤔 Why does this repository exist?**
 
