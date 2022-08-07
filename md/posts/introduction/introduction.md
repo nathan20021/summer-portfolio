@@ -41,8 +41,6 @@ My site will cover a lot of back-end fundamentals and advanced concepts:
 - Fundamental AWS services (S3, Lambda, Elastic Beanstalk, CloudFront)
 - Containerization and Orchestration (Docker, K8S, Apache Mesos)
 - Microservices architectural patterns (Too many patterns to list here 🙁🙁)
-  &nbsp;
-  &nbsp;
 
 ### **👉 Non-technical Topics**
 

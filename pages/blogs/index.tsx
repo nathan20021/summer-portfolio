@@ -24,7 +24,7 @@ type prop = {
 
 const blogs = ({ metaDataArray }: prop) => {
   return (
-    <section className="min-h-screen z-10 flex justify-center">
+    <section className="min-h-screen z-10 flex justify-center bg-[#0a0a0a]">
       <ParticleBg />
       <div className="w-[80%] z-10">
         <div className="h-10"></div>
@@ -34,30 +34,29 @@ const blogs = ({ metaDataArray }: prop) => {
               <div
                 id="blog-container-box"
                 key={index}
-                className="w-[30%] h-[45%] rounded-md bg-[#282828] shadow-sm shadow-zinc-600
-                  flex flex-col justify-start items-center ease-out duration-300 hover:scale-110"
+                className="w-[33%] h-[40%] rounded-md bg-[#181818] overflow-hidden
+                  flex flex-col justify-start items-center ease-out duration-300 hover:scale-[105%]"
               >
                 <Link href={`/blogs/${metaData.file_name}`} key={index}>
-                  <a className="w-full h-full flex justify-center items-center">
-                    <div id="div-inside-a-tag" className="w-full h-[90%] ">
-                      <div
-                        id="image-container"
-                        className=" w-[100%] h-[55%] relative"
-                      >
+                  <a className="w-full h-full flex justify-center items-start">
+                    <div id="div-inside-link-tag" className="w-full">
+                      <div id="image-container" className=" relative">
                         <Image
                           alt={`Cover Image ${index} : ${metaData.title} `}
                           src={metaData.cover}
-                          layout="fill"
-                          objectFit="contain"
+                          layout="responsive"
+                          width={740}
+                          height={493}
+                          objectFit="cover"
                         />
                       </div>
-                      <div id="text-container" className="h-[50%] w-full">
-                        <h1 className="font-bold text-lg mb-1 text-teal-400">
-                          {metaData.title}
-                        </h1>
-                        <p className="mb-[0.5rem] pb-[0.5rem] border-b-2 text-xs">
+                      <div id="text-container" className="h-[55%] w-full px-4">
+                        <p className="mb-[0.5rem] py-[0.5rem] border-b-[1px] border-[#696969] text-xs text-[#ffffff]">
                           {metaData.published_at} | {metaData.read_time} read
                         </p>
+                        <h1 className="font-bold text-lg mb-1 text-[#ffffff]">
+                          {metaData.title}
+                        </h1>
                         <p className="text-sm">{metaData.description}</p>
                       </div>
                     </div>

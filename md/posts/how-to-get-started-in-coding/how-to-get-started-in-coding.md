@@ -1,7 +1,7 @@
 ---
 file_name: how-to-get-started-in-coding
 title: Getting Started in Coding
-cover: /posts/how-to-get-started-in-coding/cover.webp
+cover: /posts/how-to-get-started-in-coding/cover.png
 description: My name is Jeff and you are an idiot
 published_at: 24 July, 2022
 author: Nathan Luong
