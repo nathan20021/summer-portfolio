@@ -13,13 +13,14 @@
 
 .post > blockquote {
   background: #313131;
-  margin: 1.5rem 2.5rem;
+  margin: 1rem 2.5rem;
   padding: 0.3rem 1rem 0.3rem 1.1rem;
   border-left: #6060ff solid 0.2rem;
 }
 
 .post > p {
   padding-left: 1.5rem;
+  line-height: 1.7;
 }
 
 .post > h1 {
@@ -40,6 +41,7 @@
   font-weight: bold;
   font-size: 1.3rem;
   margin-bottom: 0.1rem;
+  margin-top: 3rem;
 }
 
 .post > h3 {

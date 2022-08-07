@@ -17,8 +17,6 @@ Throughout my co-op and leadership experiences, I realized the power of connecti
 
 ![Intro Cover Picture {700x300}](/posts/introduction/cover.webp)
 
----
-
 ## **🤔 Why does this repository exist?**
 
 Witnessing lots of students struggling with their starting point in tech, I noticed a big problem:
@@ -28,8 +26,6 @@ Witnessing lots of students struggling with their starting point in tech, I noti
 Obviously, some concepts are fundamental to the craft of software building (such as Data Structures, Algorithms, OOP, Theory of Computation, etc). However, knowing how and when to apply these concepts within an enterprise environment is another craft by itself.
 
 > Therefore, I created this free platform, aiming to **speed up student's learning** journey in becoming a job-ready software engineer, at the same time, sharing about all things back-end.
-
----
 
 ## **🤔 Which topics will be covered?**
 
@@ -57,14 +53,10 @@ Aiming to help students landing their first tech job ASAP, some articles will be
 - A different way of looking at university/college.
 - What to do when you have zero job experiences.
 
----
-
 ## **🤔 How to get involved ?**
 
 If you are interested, you can subscribe to this repository to get notifications on the newest posts.
 
 > and don't be afraid to reach out to me via [luongn4@mcmaster.ca](mailto:luongn4@mcmaster.ca) 😄 .
-
----
 
 ## **Thanks for your time! 🥐**

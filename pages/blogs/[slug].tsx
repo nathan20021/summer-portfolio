@@ -33,7 +33,7 @@ const Post = ({ content, metaData }: prop) => {
         const caption = metastring?.match(/{caption: (.*?)}/)?.pop();
 
         return (
-          <div className="postImgWrapper flex justify-center">
+          <div className="mt-4 flex justify-center">
             <Image
               src={image.properties.src}
               width={width}
@@ -63,14 +63,11 @@ const Post = ({ content, metaData }: prop) => {
         id="Blog Container"
         className=" w-full flex flex-col items-center bg-[#252525] z-10"
       >
-        <div
-          id="metadata-container"
-          className="z-10 w-[60%] text-center mb-[3rem]"
-        >
-          <h1 className="font-bold text-center text-[2rem] mt-[1rem]">
+        <div id="metadata-container" className="z-10 w-[60%] text-center">
+          <h1 className="font-medium text-center text-5xl mt-12 tracking-wide">
             {metaData.title}
           </h1>
-          <p className="text-[0.7rem] flex justify-center gap-1">
+          <p className="text-base opacity-75 mt-2 flex justify-center gap-1">
             {metaData.author} | {metaData.published_at} |
             <span className="flex justify-center items-center gap-1">
               <BsFillEyeFill />

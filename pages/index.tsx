@@ -9,12 +9,14 @@ import { AiOutlineProject, AiOutlineCloudServer } from "react-icons/ai";
 
 import { BsChevronDoubleDown } from "react-icons/bs";
 import { FaBtc } from "react-icons/fa";
+import ParticleBg from "../components/particleBg";
 
 // import Image from "next/img"
 
 const Home: NextPage = () => {
   return (
     <main className="min-h-screen z-20 flex flex-col justify-start items-center">
+      <ParticleBg />
       <div className={styles.container}>
         <PersonalCard />
       </div>

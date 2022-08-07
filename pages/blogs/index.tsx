@@ -4,6 +4,7 @@ import path from "path";
 import matter from "gray-matter";
 import Image from "next/image";
 import Link from "next/link";
+import ParticleBg from "../../components/particleBg";
 
 type metaData = {
   title: string;
@@ -24,6 +25,7 @@ type prop = {
 const blogs = ({ metaDataArray }: prop) => {
   return (
     <section className="min-h-screen z-10 flex justify-center">
+      <ParticleBg />
       <div className="w-[80%] z-10">
         <div className="h-10"></div>
         <div className="w-full h-full flex justify-around">
@@ -33,12 +35,15 @@ const blogs = ({ metaDataArray }: prop) => {
                 id="blog-container-box"
                 key={index}
                 className="w-[30%] h-[45%] rounded-md bg-[#282828] shadow-sm shadow-zinc-600
-                  flex flex-col justify-around items-center ease-out duration-300 hover:scale-110"
+                  flex flex-col justify-start items-center ease-out duration-300 hover:scale-110"
               >
                 <Link href={`/blogs/${metaData.file_name}`} key={index}>
                   <a className="w-full h-full flex justify-center items-center">
-                    <div id="div-inside-a-tag" className="w-[90%] h-[90%] ">
-                      <div id="image-container" className="h-[40%] relative">
+                    <div id="div-inside-a-tag" className="w-full h-[90%] ">
+                      <div
+                        id="image-container"
+                        className=" w-[100%] h-[55%] relative"
+                      >
                         <Image
                           alt={`Cover Image ${index} : ${metaData.title} `}
                           src={metaData.cover}
