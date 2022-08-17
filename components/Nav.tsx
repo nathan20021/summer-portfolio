@@ -8,7 +8,7 @@ import { FaBars } from "react-icons/fa";
 const Nav = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
   return (
-    <nav className="relative flex flex-wrap items-center justify-between px-2 py-7 bg-[#121316] z-10">
+    <nav className="relative flex flex-wrap items-center justify-between px-2 py-7 z-10">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
           <Link href="/">

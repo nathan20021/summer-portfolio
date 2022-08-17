@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import React from "react";
+import * as React from "react";
 import path from "path";
 import matter from "gray-matter";
 import Image from "next/image";
