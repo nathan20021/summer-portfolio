@@ -1,0 +1,47 @@
+      {/* <div className={styles.container}>
+        <PersonalCard />
+      </div>
+      <section className="bg-white/80 z-20 w-full flex justify-center items-center mt-44">
+        <div
+          className={`${styles.container} ${styles.intro_text_box} text-center w-full py-10`}
+        >
+          <h1 className=" font-bold text-xl text-black pb-9">
+            I&#39;m learning and improving on:
+          </h1>
+          <div className="intro_small_box w-full flex justify-around items-start">
+            <Card
+              Icon={<AiOutlineCloudServer />}
+              title="Cloud Architecture"
+              des={["Microservices", "System Design", "Integration Patterns"]}
+            />
+            <Card
+              Icon={<RiCodeSSlashLine />}
+              title="Back-end Development"
+              des={[
+                "Apache Projects",
+                "Database Engineering",
+                "Communication Protocols",
+              ]}
+            />
+            <Card
+              Icon={<AiOutlineProject />}
+              title="Project Management"
+              des={[
+                "Dev-Team Scalling",
+                "Timeline Management",
+                "Managing Methodologies",
+              ]}
+            />
+            <Card
+              Icon={<FaBtc className="-rotate-12" />}
+              title="Algorithmic Trading"
+              des={[
+                "Risk Management",
+                "Trading Stategies",
+                "Portfolio Diversification",
+              ]}
+            />
+          </div>
+          <BsChevronDoubleDown className="text-5xl mt-10 text-black" />
+        </div>
+      </section> */}

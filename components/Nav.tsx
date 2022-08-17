@@ -1,4 +1,3 @@
-import type { NextPage } from "next";
 import { useState } from "react";
 import Link from "next/link";
 import * as React from "react";
@@ -6,10 +5,10 @@ import * as React from "react";
 import { FiChevronsRight } from "react-icons/fi";
 import { FaBars } from "react-icons/fa";
 
-const Nav: NextPage = () => {
+const Nav = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
   return (
-    <nav className="relative flex flex-wrap items-center justify-between px-2 py-7 bg-[#1B1B1B] z-10">
+    <nav className="relative flex flex-wrap items-center justify-between px-2 py-7 bg-[#121316] z-10">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
           <Link href="/">
@@ -36,7 +35,7 @@ const Nav: NextPage = () => {
           <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
             <li className="nav-item">
               <Link href="/">
-                <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
+                <a className="px-3 py-2 flex items-center text-base uppercase font-bold leading-snug text-white hover:opacity-75">
                   <span className="ml-2">Portfolio</span>
                 </a>
               </Link>
@@ -44,7 +43,7 @@ const Nav: NextPage = () => {
 
             <li className="nav-item">
               <Link href="/blogs">
-                <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
+                <a className="px-3 py-2 flex items-center text-base uppercase font-bold leading-snug text-white hover:opacity-75">
                   <span className="ml-2">Blog</span>
                 </a>
               </Link>
@@ -52,7 +51,7 @@ const Nav: NextPage = () => {
 
             <li className="nav-item">
               <Link href="/contact">
-                <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
+                <a className="px-3 py-2 flex items-center text-base uppercase font-bold leading-snug text-white hover:opacity-75">
                   <span className="ml-2">Contact</span>
                 </a>
               </Link>
