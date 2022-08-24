@@ -1,12 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import * as React from "react";
 
 import { FiChevronsRight } from "react-icons/fi";
 import { FaBars } from "react-icons/fa";
+import { NextRouter } from "next/router";
+type props = {
+  router: NextRouter;
+};
 
-const Nav = () => {
+const Nav = ({ router }: props) => {
   const [navbarOpen, setNavbarOpen] = useState(false);
+  useEffect(() => {
+    console.log(router.asPath);
+  }, []);
   return (
     <nav className="relative flex flex-wrap items-center justify-between px-2 py-7 z-10">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
@@ -35,7 +42,7 @@ const Nav = () => {
           <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
             <li className="nav-item">
               <Link href="/">
-                <a className="px-3 py-2 flex items-center text-base uppercase font-bold leading-snug text-white hover:opacity-75">
+                <a className="px-3 py-2 flex items-center text-sm uppercase font-bold leading-snug text-white hover:opacity-75">
                   <span className="ml-2">Portfolio</span>
                 </a>
               </Link>
@@ -43,7 +50,7 @@ const Nav = () => {
 
             <li className="nav-item">
               <Link href="/blogs">
-                <a className="px-3 py-2 flex items-center text-base uppercase font-bold leading-snug text-white hover:opacity-75">
+                <a className="px-3 py-2 flex items-center text-sm uppercase font-bold leading-snug text-white hover:opacity-75">
                   <span className="ml-2">Blog</span>
                 </a>
               </Link>
@@ -51,7 +58,7 @@ const Nav = () => {
 
             <li className="nav-item">
               <Link href="/contact">
-                <a className="px-3 py-2 flex items-center text-base uppercase font-bold leading-snug text-white hover:opacity-75">
+                <a className="px-3 py-2 flex items-center text-sm uppercase font-bold leading-snug text-white hover:opacity-75">
                   <span className="ml-2">Contact</span>
                 </a>
               </Link>
