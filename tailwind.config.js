@@ -22,9 +22,12 @@ module.exports = {
       silver: "#ecebff",
       "bubble-gum": "#ff77e9",
       bermuda: "#78dcca",
-      primary: "#1B1B1B"
+      primary: "#1B1B1B",
     },
     extend: {
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+      },
       hljs: {
         theme: "atom-one-dark",
       },
