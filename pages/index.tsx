@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
 import type { NextPage } from "next";
 // import ProjectCard from "../components/ProjectCard";
-import Spline from "@splinetool/react-spline";
-import NonSSRWrapper from "../components/no-ssr-wrapper";
-import ImageGalary from "../components/ImageGalary";
-import TechLink from "../components/TechLink";
-import ReactTextTransition, { presets } from "react-text-transition";
-import { GoArrowRight } from "react-icons/go";
 import {
   SiReact,
   SiRedux,
   SiFlask,
   SiPostgresql,
   SiVercel,
+  SiNextdotjs,
+  SiGraphql,
+  SiFirebase,
 } from "react-icons/si";
+import { BsThreeDots } from "react-icons/bs";
+import Spline from "@splinetool/react-spline";
+import NonSSRWrapper from "../components/no-ssr-wrapper";
+import ReactTextTransition, { presets } from "react-text-transition";
+import { GoArrowRight } from "react-icons/go";
+import ProjectShowcase from "../components/ProjectShowcase";
+
 import { motion, AnimatePresence } from "framer-motion";
 
 const lol = ["Full-stack Developer", "Cloud-Tech Enthusiast", "AWS Trainee"];
@@ -106,114 +110,135 @@ const Home: NextPage = () => {
               <Spline scene="https://prod.spline.design/RwmvyKIRcAII4-yT/scene.splinecode" />
             </div>
           </div>
-          <div className="w-[15%]">
-            <h1 className="text-3xl font-bold after:content-[''] after:block after:pt-2 after:border-b-[#3BB5DB] after:border-b-4">
-              Projects
+
+          <div className="w-[70%] flex justify-center items-center">
+            <h1 className="text-4xl font-bold after:content-[''] after:block after:pt-2 after:border-b-[#3BB5DB] after:border-b-4">
+              Top Projects
             </h1>
           </div>
         </section>
       </NonSSRWrapper>
       <section
         id="portfolio"
-        className="z-20 flex flex-col items-center justify-start bg-primary h-screen w-screen"
+        className="z-20 flex flex-col items-center justify-start bg-primary min-h-max w-screen"
       >
-        <div className="w-[80%] h-full">
-          <div className="relative h-1/2 w-full flex">
-            <div className="h-full w-2/5 flex justify-center items-center">
-              <div className=" bg-[#333333] px-6 py-7 rounded-l-xl">
-                <div className="w-full h-full flex flex-col gap-6">
-                  <div id="logo-header-container" className="flex h-20 gap-4">
-                    <div className=" w-20 rounded-lg">
-                      <img
-                        className="rounded-lg"
-                        src="/viz-logo-no-grad.png"
-                        alt="Viz Logo"
-                        draggable={false}
-                      />
-                    </div>
-                    <div className="flex flex-col justify-center items-start">
-                      <h1 className="text-xl font-bold">Viz</h1>
-                      <h2 className="text-base text-[#ebebeb]">
-                        Diagramming Made Easy
-                      </h2>
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-3 border-t-2 pt-4 border-[#7a7a7a]">
-                    <p className="text-[#e4e4e4]">
-                      A web-based editor to help backend engineers create, edit,
-                      visualize and maitain their cloud infastructure diagrams.
-                      | Beta 1.0
-                    </p>
-                    <div id="tech-link-container" className="w-full">
-                      <TechLink
-                        links={[
-                          {
-                            link: "https://reactjs.org/",
-                            icon: <SiReact />,
-                            name: "React",
-                          },
-                          {
-                            link: "https://redux.js.org/",
-                            icon: <SiRedux />,
-                            name: "Redux",
-                          },
-                          {
-                            link: "https://flask.palletsprojects.com/en/2.2.x/",
-                            icon: <SiFlask />,
-                            name: "Flask",
-                          },
-                          {
-                            link: "https://www.postgresql.org/",
-                            icon: <SiPostgresql />,
-                            name: "PostgreSQL",
-                          },
-                          {
-                            link: "https://vercel.com/",
-                            icon: <SiVercel />,
-                            name: "Vercel",
-                          },
-                        ]}
-                      />
-                    </div>
-                  </div>
-                  <div
-                    id="button-container"
-                    className="w-full flex justify-around"
-                  >
-                    <motion.a
-                      whileHover={{ borderColor: "#01629a" }}
-                      href="https://github.com/nathan20021/VIZ-PROD"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="w-28 py-2 rounded-xl text-base border-4 border-[#01529a] flex justify-center items-center"
-                    >
-                      Github
-                    </motion.a>
-                    <motion.a
-                      whileHover={{ backgroundColor: "#01629a" }}
-                      href="https://viz.nathanluong.me"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="bg-[#01529a] py-2 w-28 rounded-xl text-base flex justify-center items-center"
-                    >
-                      Live demo
-                    </motion.a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="relative w-3/5">
-              <ImageGalary
-                images={[
-                  "viz-screenshot.png",
-                  "IOT-Solution-Diagram.jpeg",
-                  "ML-in-Swimming.jpeg",
-                ]}
-              />
-            </div>
-          </div>
+        <div className="w-[80%] min-h-max flex flex-col justify-center items-center relative py-20">
+          <ProjectShowcase
+            side="right"
+            name="Viz"
+            slogan="Diagramming Made Easy"
+            paragraph="A web-based editor to help backend engineers create, edit,
+                visualize and maitain their cloud infastructure diagrams. | Beta
+                1.1"
+            githubLink="https://github.com/nathan20021/VIZ-PROD"
+            demoLink="https://viz.nathanluong.me"
+            imagePath="/viz-logo-no-grad.png"
+            images={[
+              "viz-screenshot.png",
+              "IOT-Solution-Diagram.jpeg",
+              "ML-in-Swimming.jpeg",
+            ]}
+            links={[
+              {
+                link: "https://reactjs.org/",
+                icon: <SiReact />,
+                name: "React",
+              },
+              {
+                link: "https://redux.js.org/",
+                icon: <SiRedux />,
+                name: "Redux",
+              },
+              {
+                link: "https://flask.palletsprojects.com/en/2.2.x/",
+                icon: <SiFlask />,
+                name: "Flask",
+              },
+              {
+                link: "https://www.postgresql.org/",
+                icon: <SiPostgresql />,
+                name: "PostgreSQL",
+              },
+              {
+                link: "https://vercel.com/",
+                icon: <SiVercel />,
+                name: "Vercel",
+              },
+            ]}
+          />
         </div>
-        <div></div>
+        <div className="w-[80%] h-[90vh] flex justify-center items-center relative">
+          <ProjectShowcase
+            side="left"
+            name="McMaster Rocketry"
+            slogan="Fueling Innovation."
+            paragraph="A platform for the McMaster Rocketry Team to showcase their advancements, recruiting members, publishing blogs, and seeking external sponsorships."
+            githubLink="None"
+            demoLink="https://www.macrocketry.ca/"
+            imagePath="/rocketry_logo.webp"
+            images={[
+              "rocketry-landing.png",
+              "void-lake-5.png",
+              "flight-profile.png",
+            ]}
+            links={[
+              {
+                link: "https://reactjs.org/",
+                icon: <SiReact />,
+                name: "React",
+              },
+              {
+                link: "https://nextjs.org/",
+                icon: <SiNextdotjs />,
+                name: "Next.js",
+              },
+              {
+                link: "https://graphql.org/",
+                icon: <SiGraphql />,
+                name: "GraphQL",
+              },
+              {
+                link: "https://firebase.google.com/",
+                icon: <SiFirebase />,
+                name: "Firebase",
+              },
+              {
+                link: "https://vercel.com/",
+                icon: <SiVercel />,
+                name: "Vercel",
+              },
+            ]}
+          />
+        </div>
+        <div className="w-[80%] h-[90vh] flex justify-center items-center relative">
+          <ProjectShowcase
+            side="right"
+            name="Project: BPSN"
+            slogan="Conencting professionals."
+            paragraph="A platform for professionals McMaster Students to connect and share knowledge | Coming soon... "
+            githubLink="None"
+            demoLink="None"
+            imagePath="/dotdotdot.webp"
+            images={["coming_soon.png"]}
+            links={[
+              {
+                link: "https://reactjs.org/",
+                icon: <SiReact />,
+                name: "React",
+              },
+              {
+                link: "https://nextjs.org/",
+                icon: <SiNextdotjs />,
+                name: "Next.js",
+              },
+              {
+                link: null,
+                icon: <BsThreeDots />,
+                name: "_",
+              },
+            ]}
+          />
+        </div>
       </section>
     </main>
   );

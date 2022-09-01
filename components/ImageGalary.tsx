@@ -61,12 +61,14 @@ const ImageGalary = ({ images }: props) => {
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={1}
           onDragEnd={(e, { offset, velocity }) => {
-            const swipe = swipePower(offset.x, velocity.x);
+            if (images.length !== 1) {
+              const swipe = swipePower(offset.x, velocity.x);
 
-            if (swipe < -swipeConfidenceThreshold) {
-              paginate(1);
-            } else if (swipe > swipeConfidenceThreshold) {
-              paginate(-1);
+              if (swipe < -swipeConfidenceThreshold) {
+                paginate(1);
+              } else if (swipe > swipeConfidenceThreshold) {
+                paginate(-1);
+              }
             }
           }}
         >
@@ -81,12 +83,24 @@ const ImageGalary = ({ images }: props) => {
 
         <motion.div style={{ opacity: 0 }}></motion.div>
       </AnimatePresence>
-      <div className="next right-[10px] shadow-lg" onClick={() => paginate(1)}>
-        <GrFormNext />
-      </div>
-      <div className="prev left-[10px] shadow-lg" onClick={() => paginate(-1)}>
-        <GrFormPrevious />
-      </div>
+      {images.length === 1 ? (
+        void 0
+      ) : (
+        <div>
+          <div
+            className="next right-[10px] shadow-lg"
+            onClick={() => paginate(1)}
+          >
+            <GrFormNext />
+          </div>
+          <div
+            className="prev left-[10px] shadow-lg"
+            onClick={() => paginate(-1)}
+          >
+            <GrFormPrevious />
+          </div>
+        </div>
+      )}
     </>
   );
 };

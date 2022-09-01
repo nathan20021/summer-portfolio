@@ -2,7 +2,7 @@ import * as React from "react";
 import { motion } from "framer-motion";
 
 type displayIcons = {
-  link: string;
+  link: string | null;
   name: string;
   icon: React.ReactElement;
 };
@@ -20,9 +20,10 @@ const TechLink = ({ links }: props) => {
             <motion.a
               whileHover={{ color: "#ffffff" }}
               href={link.link}
+              style={{ pointerEvents: link.link === "None" ? "none" : `auto` }}
               target="_blank"
               rel="noreferrer"
-              className="flex justify-center items-center text-sm gap-1 text-[#d2d2d2]"
+              className="flex justify-center items-center text-sm gap-1 text-[#eaeaea]"
             >
               {link.icon}
               <p>{link.name}</p>

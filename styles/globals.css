@@ -41,15 +41,6 @@ a {
   box-sizing: border-box;
 }
 
-.example-container {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .next,
 .prev {
   top: calc(50% - 20px);
@@ -71,19 +62,4 @@ a {
 #project-image {
   position: absolute;
   max-width: 100%;
-}
-
-.refresh {
-  padding: 10px;
-  position: absolute;
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 10px;
-  width: 20px;
-  height: 20px;
-  top: 10px;
-  right: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
 }
