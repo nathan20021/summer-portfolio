@@ -15,7 +15,7 @@ const Nav = ({ router }: props) => {
     console.log(router.asPath);
   }, []);
   return (
-    <nav className="relative flex flex-wrap items-center justify-between px-2 py-7 z-10">
+    <nav className="relative flex flex-wrap items-center justify-between px-2 py-7 z-50 bg-[#202020]">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
           <Link href="/">

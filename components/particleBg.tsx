@@ -3,10 +3,9 @@ import Particles from "react-tsparticles";
 
 const ParticleBg = () => {
   return (
-    <div className="z-0">
+    <div className="-z-50 h-full w-full">
       <Particles
         id="tsparticles"
-        className="relative"
         options={{
           particles: {
             number: {

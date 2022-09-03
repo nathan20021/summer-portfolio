@@ -25,7 +25,9 @@ type prop = {
 const blogs = ({ metaDataArray }: prop) => {
   return (
     <section className="min-h-screen z-10 flex justify-center bg-[#0a0a0a]">
-      <ParticleBg />
+      <div>
+        <ParticleBg />
+      </div>
       <div className="w-[80%] z-10">
         <div className="h-[10vh] min-h-[7rem] flex justify-center items-center"></div>
         <div className="w-full h-full flex justify-around">

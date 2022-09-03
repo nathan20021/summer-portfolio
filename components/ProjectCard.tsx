@@ -29,12 +29,14 @@ const ProjectCard = ({
     >
       <div className="h-full z-20 text-center flex flex-col justify-around items-center w-[75%] py-3">
         <div id="image-container" className=" w-1/3">
-          <img src={imagePath} />
+          <img src={imagePath} draggable={false} />
         </div>
 
         <div id="Project Text Container" className="mt-2">
           <h1 className="font-bold text-2xl">{title}</h1>
-          <p className="text-sm py-2 my-3 border-y-[3px] border-black">{des}</p>
+          <p className="text-sm py-2 my-3 border-y-[2px] border-[#d2d2d2]">
+            {des}
+          </p>
         </div>
 
         <div id="link-container" className="w-full">

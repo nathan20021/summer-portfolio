@@ -45,8 +45,8 @@ const ProjectShowcase = ({
         <div
           className={
             side === "right"
-              ? `bg-[#333333] px-6 py-7 rounded-l-xl`
-              : `bg-[#333333] px-6 py-7 rounded-r-xl`
+              ? `bg-[#333333] w-full px-6 py-7 rounded-l-xl`
+              : `bg-[#333333] w-full px-6 py-7 rounded-r-xl`
           }
         >
           <div className="w-full h-full flex flex-col gap-6">
@@ -57,7 +57,7 @@ const ProjectShowcase = ({
                     <img
                       className="rounded-lg w-14"
                       src={imagePath}
-                      alt="Viz Logo"
+                      alt={`${name}-logo`}
                       draggable={false}
                     />
                   </div>
@@ -75,7 +75,7 @@ const ProjectShowcase = ({
                     <img
                       className="rounded-lg bg-white"
                       src={imagePath}
-                      alt="Viz Logo"
+                      alt={`${name}-logo`}
                       draggable={false}
                     />
                   </a>

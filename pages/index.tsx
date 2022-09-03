@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import type { NextPage } from "next";
-// import ProjectCard from "../components/ProjectCard";
+import ParticleBg from "../components/particleBg";
+import ProjectCard from "../components/ProjectCard";
 import {
   SiReact,
   SiRedux,
   SiFlask,
   SiPostgresql,
-  SiVercel,
   SiNextdotjs,
   SiGraphql,
   SiFirebase,
@@ -59,7 +59,7 @@ const Home: NextPage = () => {
       </AnimatePresence>
 
       <NonSSRWrapper>
-        <section className="w-full h-screen flex flex-col justify-start items-center ">
+        <section className="w-full h-screen flex flex-col justify-start items-center z-40 bg-primary">
           <div className="container h-[90%] w-[95%] flex">
             <div className="w-[29%] h-full flex flex-col justify-start pt-16 items-start">
               <div className="flex flex-col gap-6">
@@ -89,19 +89,22 @@ const Home: NextPage = () => {
                     <h1 className="text-3xl">{lol[lolIndex % lol.length]}</h1>
                   </ReactTextTransition>
                   <div className="flex items-center justify-center text-xl mt-12 w-auto">
-                    <motion.button
+                    <motion.a
                       className="transition-all
-                      bg-gradient-to-r to-[#5f2387] from-[#1669b2]
-                      hover:to-[#7d2bb3] hover:from-[#1b78ca]
-                      gap-1 flex items-center justify-center px-5 py-2 rounded-xl
-                      shadow-md shadow-[#333333]  
-                     "
+                        bg-gradient-to-r to-[#5f2387] from-[#1669b2]
+                        hover:to-[#7d2bb3] hover:from-[#1b78ca]
+                        gap-1 flex items-center justify-center px-5 py-2 rounded-xl
+                        shadow-md shadow-[#333333]  
+                        "
+                      href="https://www.linkedin.com/in/nathan-luong-mac-eng/"
+                      target="_blank"
+                      rel="noreferrer"
                     >
                       <h1 className="font-[650] text-[#fcfcfc]">
                         Get in touch
                       </h1>
                       <GoArrowRight />
-                    </motion.button>
+                    </motion.a>
                   </div>
                 </div>
               </div>
@@ -120,9 +123,9 @@ const Home: NextPage = () => {
       </NonSSRWrapper>
       <section
         id="portfolio"
-        className="z-20 flex flex-col items-center justify-start bg-primary min-h-max w-screen"
+        className="flex flex-col items-center justify-start min-h-max w-screen pt-16 z-40 bg-primary"
       >
-        <div className="w-[80%] min-h-max flex flex-col justify-center items-center relative py-20">
+        <div className="w-[80%] min-h-max mb-[20vh] flex flex-col justify-start items-center relative">
           <ProjectShowcase
             side="right"
             name="Viz"
@@ -130,7 +133,7 @@ const Home: NextPage = () => {
             paragraph="A web-based editor to help backend engineers create, edit,
                 visualize and maitain their cloud infastructure diagrams. | Beta
                 1.1"
-            githubLink="https://github.com/nathan20021/VIZ-PROD"
+            githubLink="https://github.com/nathan20021/VIZ"
             demoLink="https://viz.nathanluong.me"
             imagePath="/viz-logo-no-grad.png"
             images={[
@@ -159,15 +162,10 @@ const Home: NextPage = () => {
                 icon: <SiPostgresql />,
                 name: "PostgreSQL",
               },
-              {
-                link: "https://vercel.com/",
-                icon: <SiVercel />,
-                name: "Vercel",
-              },
             ]}
           />
         </div>
-        <div className="w-[80%] h-[90vh] flex justify-center items-center relative">
+        <div className="w-[80%] h-[80vh] flex justify-center items-center relative">
           <ProjectShowcase
             side="left"
             name="McMaster Rocketry"
@@ -202,20 +200,15 @@ const Home: NextPage = () => {
                 icon: <SiFirebase />,
                 name: "Firebase",
               },
-              {
-                link: "https://vercel.com/",
-                icon: <SiVercel />,
-                name: "Vercel",
-              },
             ]}
           />
         </div>
         <div className="w-[80%] h-[90vh] flex justify-center items-center relative">
           <ProjectShowcase
             side="right"
-            name="Project: BPSN"
+            name="Project BPSN"
             slogan="Conencting professionals."
-            paragraph="A platform for professionals McMaster Students to connect and share knowledge | Coming soon... "
+            paragraph="Coming soon ... "
             githubLink="None"
             demoLink="None"
             imagePath="/dotdotdot.webp"
@@ -238,6 +231,85 @@ const Home: NextPage = () => {
               },
             ]}
           />
+        </div>
+      </section>
+
+      <section
+        id="Honorable Mentions"
+        className="z-20 flex flex-col items-center justify-start bg-primary min-h-max w-screen mt-16 relative"
+      >
+        <ParticleBg />
+        <div className="w-[80%] min-h-max flex flex-col justify-center items-center">
+          <h1 className="text-3xl font-bold after:content-[''] after:block after:pt-2 after:border-b-[#3BB5DB] after:border-b-4">
+            Honorable Mentions
+          </h1>
+
+          <div
+            id="project-box-container"
+            className={`w-[80%] z-20 flex justify-center flex-wrap gap-[10%]`}
+          >
+            <ProjectCard
+              imagePath="chess.png"
+              title="Online Chess"
+              des="A chess.com clone where players can play real-time chess. Created with ReactJS, Flask, nextJS, TailwindCSS, and SocketIO"
+              hasDemo={true}
+              isPrivate={false}
+              GhLink="https://github.com/nathan20021/chess.com-clone"
+              demoLink="https://www.youtube.com/watch?v=u94ONgnwnus"
+              style={{ backgroundColor: "#11723d" }}
+            />
+            <ProjectCard
+              imagePath="Computer.png"
+              title="Personal Blog"
+              des="A tech repository aiming to share my personal industry experience/ knowledge via technical blogs. Created with ReactJs and nextJS"
+              hasDemo={false}
+              isPrivate={false}
+              GhLink="https://github.com/nathan20021/summer-portfolio"
+              demoLink="#"
+              style={{ backgroundColor: "#4f3f89" }}
+            />
+            <ProjectCard
+              imagePath="live.png"
+              title="Live Telemetry"
+              des="A real-time data visualizer works over LORA. Processing, graphing, and analyzing avionic telemetry on ground."
+              hasDemo={true}
+              isPrivate={true}
+              GhLink="#"
+              demoLink="https://www.linkedin.com/feed/update/urn:li:activity:6904194822161461248/"
+              style={{ backgroundColor: "#024381" }}
+            />
+            <ProjectCard
+              imagePath="cube.png"
+              title="L.E.D Cube"
+              des="A programable 3x3x3 Led cube which has multiple pre-set lighting configurations. You can also play 3d snake on this low resolution display!"
+              hasDemo={false}
+              isPrivate={false}
+              GhLink="https://github.com/nathan20021/Complete-LED-Cube-project"
+              demoLink="#"
+              style={{ backgroundColor: "#0C3B5B" }}
+            />
+            <ProjectCard
+              imagePath="A_star.png"
+              title="A* Visualization"
+              des="Visualize the famous A* path finding algorithm with an interactive UI. Written in Java Processing"
+              hasDemo={true}
+              isPrivate={false}
+              GhLink="https://github.com/nathan20021/A_star_visualization"
+              demoLink="https://youtu.be/82DPwMUWq1Q"
+              style={{ backgroundColor: "#9E6A31" }}
+            />
+
+            <ProjectCard
+              imagePath="minesweeper.png"
+              title="Minesweeper"
+              des="A desktop minesweeper playgorund where user can enjoy the good-old vibe. Written in Processing."
+              hasDemo={false}
+              isPrivate={false}
+              GhLink="https://github.com/nathan20021/MineSweeper"
+              demoLink="#"
+              style={{ backgroundColor: "#7f1822" }}
+            />
+          </div>
         </div>
       </section>
     </main>
