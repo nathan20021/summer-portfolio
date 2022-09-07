@@ -8,7 +8,7 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #1b1b1b;
+  background: rgba(0, 0, 0, 0);
 }
 
 /* Handle */

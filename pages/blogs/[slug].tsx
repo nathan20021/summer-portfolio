@@ -61,7 +61,7 @@ const Post = ({ content, metaData }: prop) => {
       </Head>
       <div
         id="Blog Container"
-        className=" w-full flex flex-col items-center bg-[#252525] z-10"
+        className=" w-full flex flex-col items-center bg-primary z-10"
       >
         <div id="metadata-container" className="z-10 w-[60%] text-center">
           <h1 className="font-medium text-center text-5xl mt-12 tracking-wide">

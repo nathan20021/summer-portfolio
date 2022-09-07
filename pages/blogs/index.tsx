@@ -24,7 +24,7 @@ type prop = {
 
 const blogs = ({ metaDataArray }: prop) => {
   return (
-    <section className="min-h-screen z-10 flex justify-center bg-[#0a0a0a]">
+    <section className="min-h-screen z-10 flex justify-center bg-primary">
       <div>
         <ParticleBg />
       </div>
@@ -36,8 +36,8 @@ const blogs = ({ metaDataArray }: prop) => {
               <div
                 id="blog-container-box"
                 key={index}
-                className="w-[28%] max-w-[351px] h-[40vh] min-h-[500px] rounded-md bg-[#181818] overflow-hidden
-                  flex flex-col justify-start items-center ease-out duration-1000 hover:bg-[#292929] active:scale-95"
+                className="w-[28%] max-w-[351px] h-[40vh] min-h-[500px] rounded-md bg-[#222222] overflow-hidden
+                  flex flex-col justify-start items-center ease-out duration-1000 hover:bg-[#333333] active:scale-95"
               >
                 <Link href={`/blogs/${metaData.file_name}`} key={index}>
                   <a className="w-full h-full flex justify-center items-start">
@@ -56,10 +56,12 @@ const blogs = ({ metaDataArray }: prop) => {
                         <p className="mb-[0.5rem] py-[0.5rem] border-b-[1px] border-[#696969] text-xs text-[#ffffff]">
                           {metaData.published_at} | {metaData.read_time} read
                         </p>
-                        <h1 className="font-bold text-lg mb-1 text-[#7285f2]">
+                        <h1 className="font-bold text-lg mb-1 text-[#4bd8ed]">
                           {metaData.title}
                         </h1>
-                        <p className=" text-sm">{metaData.description}</p>
+                        <p className="text-sm text-[#c9c9c9]">
+                          {metaData.description}
+                        </p>
                       </div>
                     </div>
                   </a>

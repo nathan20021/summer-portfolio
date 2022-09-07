@@ -1,10 +1,9 @@
-import type { NextPage } from "next";
 import * as React from "react";
 import { useState } from "react";
 
-const Footer: NextPage = () => {
+const Footer = () => {
   const [formValue, setValue] = useState("");
-  const [placeHolder, setPlaceHolder] = useState("youareawsome@gmail.com");
+  const [placeHolder, setPlaceHolder] = useState("youareawesome@gmail.com");
 
   return (
     <footer className="z-50 relative h-auto w-full">
@@ -16,7 +15,7 @@ const Footer: NextPage = () => {
           <div className="z-40 flex w-full">
             <input
               onFocus={() => setPlaceHolder("")}
-              onBlur={() => setPlaceHolder("youareawsome@gmail.com")}
+              onBlur={() => setPlaceHolder("youareawesome@gmail.com")}
               className="text-sm py-1 text-[#595959] w-3/4 indent-3"
               placeholder={placeHolder}
               type="text"

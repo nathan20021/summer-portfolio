@@ -246,7 +246,7 @@ const Home: NextPage = () => {
 
           <div
             id="project-box-container"
-            className={`w-[80%] z-20 flex justify-center flex-wrap gap-[10%]`}
+            className={`w-[80%] z-20 flex justify-center flex-wrap gap-[10%] min-h-max`}
           >
             <ProjectCard
               imagePath="chess.png"

@@ -1,7 +1,7 @@
 ---
 file_name: how-to-get-started-in-backend
 title: Getting started in backend development
-cover: /posts/how-to-get-started-in-backend/cover.png
+cover: /posts/how-to-get-started-in-backend/cover.jpg
 description: Ready to begin your journey? Here are some project suggestions to get familiarized with back-end concepts
 published_at: 7 August, 2022
 author: Nathan Luong
@@ -15,7 +15,7 @@ views: 12
 Before getting into backend development, make sure to fimiliarize with the following concept and technologies:
 
 - **VSCode**: Most professional software engineers use VSCode as their primary development editor. VSCode comes on top with its endless support and plugins for web-dev and especially backend-related work.
-- **Python**: [By servey](https://statisticsanddata.org/data/most-popular-backend-frameworks-2012-2022/), both Python [Flask](https://flask.palletsprojects.com/en/2.2.x/) and [Django](https://www.djangoproject.com/) are in the Top 10 most popular backend framework. With its simple syntax and amazing support from the community, learning Python is the easiest entry to backend development.
+- **Python**: [By servey](https://statisticsanddata.org/data/most-popular-backend-frameworks-2012-2022/), both Python [Flask](https://flask.palletsprojects.com/en/2.2.x/) and [Django](https://www.djangoproject.com/) are in the Top 10 most popular backend framework. With its beginer-friendly syntax and amazing support from the community, learning Python is **the easiest** entry to backend development.
 
 ## **Starter Projects**
 
@@ -23,7 +23,7 @@ Before getting into backend development, make sure to fimiliarize with the follo
 
 **Task**: Create a RESTFUL API which reverse a string on requests
 
-**Purpose**: Getting fimiliar with REST, browsers, servers and localhost
+**Purpose**: Getting fimiliar with REST, browsers, servers and local development.
 
 ## **Intermidiate Projects**
 
@@ -31,9 +31,9 @@ Before getting into backend development, make sure to fimiliarize with the follo
 
 **Task**: Create todo app where users can add, remove, edit and manage todos.
 
-**Purpose**: Getting fimiliar with the front-end and back-end dynamics, as well as front-end Javascript.
+**Purpose**: Getting fimiliar with the front-end/ back-end dynamics, as well as front-end Javascript.
 
-**Hint**: Todos do not need to be stored in a database, a text file in the backend should work.
+**Hint**: Todos do not need to be stored in a database, a text file on the backend side should work.
 
 ### **👉 Real-time Stock/Crypto Price Monitoring** (★★★☆☆)
 
