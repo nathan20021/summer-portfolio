@@ -3,7 +3,7 @@ import { useState } from "react";
 
 const Footer = () => {
   const [formValue, setValue] = useState("");
-  const [placeHolder, setPlaceHolder] = useState("youareawesome@gmail.com");
+  const [placeHolder, setPlaceHolder] = useState("example@gmail.com");
 
   return (
     <footer className="z-50 relative h-auto w-full">
@@ -15,7 +15,7 @@ const Footer = () => {
           <div className="z-40 flex w-full">
             <input
               onFocus={() => setPlaceHolder("")}
-              onBlur={() => setPlaceHolder("youareawesome@gmail.com")}
+              onBlur={() => setPlaceHolder("example@gmail.com")}
               className="text-sm py-1 text-[#595959] w-3/4 indent-3"
               placeholder={placeHolder}
               type="text"
@@ -23,7 +23,7 @@ const Footer = () => {
               onChange={(e) => setValue(e.target.value)}
             />
             <button
-              className="transition-colors w-1/4 text-sm bg-[#268679] hover:bg-[#2fa495] py-2"
+              className="transition-colors w-1/4 text-sm font-bold text-white bg-[#268679] hover:bg-[#2fa495] py-2"
               onClick={() => {
                 setValue("");
               }}

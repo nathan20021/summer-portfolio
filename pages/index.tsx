@@ -110,6 +110,7 @@ const Home: NextPage = () => {
               </div>
             </div>
             <div className="w-[71%] h-full relative hover:cursor-grab">
+              <div className=""></div>
               <Spline scene="https://prod.spline.design/RwmvyKIRcAII4-yT/scene.splinecode" />
             </div>
           </div>
