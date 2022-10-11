@@ -1,36 +1,66 @@
 import * as React from "react";
-import { useState } from "react";
-
+import { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
 const Footer = () => {
-  const [formValue, setValue] = useState("");
-  const [placeHolder, setPlaceHolder] = useState("example@gmail.com");
+  const form = useRef();
+  const [formValue, setValue] = useState<string>("");
+  const [waiting, setIsWaiting] = useState<boolean>(false);
+  // const [notSubbed, setNotSubbed] = useState<boolean>(false);
+  const [placeHolder, setPlaceHolder] = useState<string>("example@gmail.com");
+  const isValidEmail = (email: string) => {
+    return /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
+  };
 
+  const sendEmail = (e: Event) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_mxkr2ui",
+        "template_vv3sard",
+        form.current,
+        "tFewBi5JGZg2ADF7h"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          setIsWaiting(false);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
   return (
     <footer className="z-50 relative h-auto w-full">
       <div className="z-40 absolute w-full h-[75%] flex justify-center items-end">
         <div className="flex flex-col gap-3 w-[20%]">
           <h2 className="z-40 text-lg font-bold text-[#ffffff]">
-            Subscribe to my tech blog
+            Subscribe to my tech blog 😄
           </h2>
-          <div className="z-40 flex w-full">
+          <form ref={form} className="z-40 flex w-full">
             <input
               onFocus={() => setPlaceHolder("")}
               onBlur={() => setPlaceHolder("example@gmail.com")}
               className="text-sm py-1 text-[#595959] w-3/4 indent-3"
               placeholder={placeHolder}
-              type="text"
+              type="email"
               value={formValue}
               onChange={(e) => setValue(e.target.value)}
+              required
             />
             <button
               className="transition-colors w-1/4 text-sm font-bold text-white bg-[#268679] hover:bg-[#2fa495] py-2"
               onClick={() => {
-                setValue("");
+                if (isValidEmail(formValue)) {
+                  setIsWaiting(true);
+                }
               }}
+              type="button"
             >
-              Submit
+              {waiting ? "Sending..." : "Submit"}
             </button>
-          </div>
+          </form>
         </div>
       </div>
       <div className="z-50 top-0 left-0 w-full overflow-hidden">

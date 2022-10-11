@@ -40,7 +40,6 @@ const ImageGalary = ({ images }: props) => {
   const paginate = (newDirection: number) => {
     setPage([page + newDirection, newDirection]);
   };
-
   return (
     <>
       <AnimatePresence initial={false} custom={direction}>

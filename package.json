@@ -19,11 +19,14 @@
     "os": false
   },
   "dependencies": {
+    "@emailjs/browser": "^3.7.0",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@mui/material": "^5.10.1",
     "@splinetool/react-spline": "^2.2.2",
     "@splinetool/runtime": "^0.9.106",
+    "axios": "^1.1.2",
+    "bcryptjs": "^2.4.3",
     "crypto-js": "^4.1.1",
     "cryptojs": "^2.5.3",
     "framer-motion": "^7.2.1",
@@ -42,7 +45,8 @@
     "rehype-highlight": "^5.0.2",
     "remark-gfm": "^3.0.1",
     "sharp": "^0.30.7",
-    "tailwind-highlightjs": "^2.0.1"
+    "tailwind-highlightjs": "^2.0.1",
+    "tailwindcss": "^3.1.8"
   },
   "devDependencies": {
     "@types/crypto-js": "^4.1.1",
@@ -60,7 +64,6 @@
     "eslint-plugin-react": "^7.30.1",
     "postcss": "^8.4.16",
     "prettier": "^2.7.1",
-    "tailwindcss": "^3.1.8",
     "typescript": "4.7.4"
   }
 }

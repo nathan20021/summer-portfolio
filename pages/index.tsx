@@ -26,9 +26,6 @@ const Home: NextPage = () => {
   const [lolIndex, setIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
     const timer = setInterval(() => {
       setIndex((lolIndex) => lolIndex + 1);
     }, 3500);
@@ -45,7 +42,7 @@ const Home: NextPage = () => {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.5 } }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="absolute h-screen w-screen bg-primary z-50 flex justify-center items-center top-0 left-0"
+            className="absolute h-screen w-screen bg-primary z-50 flex justify-center items-center top-0 left-0 "
           >
             <div className="dots">
               <div></div>
@@ -59,9 +56,9 @@ const Home: NextPage = () => {
       </AnimatePresence>
 
       <NonSSRWrapper>
-        <section className="w-full h-screen flex flex-col justify-start items-center z-40 bg-primary">
-          <div className="container h-[90%] w-[95%] flex">
-            <div className="w-[29%] h-full flex flex-col justify-start pt-16 items-start">
+        <section className="w-full h-screen flex flex-col justify-center items-center z-40 bg-primary ">
+          <div className="container h-[90%] w-[95%] flex ">
+            <div className="min-w-[450px] w-[30%] h-full flex flex-col justify-start pt-16 items-start">
               <div className="flex flex-col gap-6">
                 <div className="bg-[#01529a] text-base w-max rounded-2xl">
                   <p className="py-1 px-4 font-bold">Welcome , I&rsquo;m</p>
@@ -109,23 +106,26 @@ const Home: NextPage = () => {
                 </div>
               </div>
             </div>
-            <div className="w-[71%] h-full relative hover:cursor-grab">
+            <div className=" w-[1272px] h-full relative hover:cursor-grab scale-[70%] xl:scale-[80%] 2xl:scale-100">
               <div className=""></div>
-              <Spline scene="https://prod.spline.design/RwmvyKIRcAII4-yT/scene.splinecode" />
+              <Spline
+                className="absolute"
+                scene="https://prod.spline.design/RwmvyKIRcAII4-yT/scene.splinecode"
+                onLoad={() => setLoading(false)}
+              />
             </div>
-          </div>
-
-          <div className="w-[70%] flex justify-center items-center">
-            <h1 className="text-4xl font-bold after:content-[''] after:block after:pt-2 after:border-b-[#3BB5DB] after:border-b-4">
-              Top Projects
-            </h1>
           </div>
         </section>
       </NonSSRWrapper>
       <section
         id="portfolio"
-        className="flex flex-col items-center justify-start min-h-max w-screen pt-16 z-40 bg-primary"
+        className="flex flex-col items-center justify-start min-h-max w-screen z-40 bg-primary"
       >
+        <div className="w-[70%] h-[20vh] mb-[5vh] flex justify-center items-center">
+          <h1 className="text-4xl font-bold after:content-[''] after:block after:pt-2 after:border-b-[#3BB5DB] after:border-b-4">
+            Top Projects
+          </h1>
+        </div>
         <div className="w-[80%] min-h-max mb-[20vh] flex flex-col justify-start items-center relative">
           <ProjectShowcase
             side="right"
@@ -262,7 +262,7 @@ const Home: NextPage = () => {
             <ProjectCard
               imagePath="Computer.png"
               title="Personal Blog"
-              des="A tech repository aiming to share my personal industry experience/ knowledge via technical blogs. Created with ReactJs and nextJS"
+              des="A tech repository aiming to share my personal industry experience via technical blogs. Created with ReactJs and nextJS"
               hasDemo={false}
               isPrivate={false}
               GhLink="https://github.com/nathan20021/summer-portfolio"

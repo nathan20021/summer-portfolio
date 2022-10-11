@@ -49,17 +49,20 @@ const Nav = ({ router }: props) => {
             </li>
 
             <li className="nav-item">
-              <Link href="/blogs">
-                <a className="px-3 py-2 flex items-center text-sm uppercase font-bold leading-snug text-white hover:opacity-75">
-                  <span className="ml-2">Blog</span>
-                </a>
-              </Link>
-            </li>
-
-            <li className="nav-item">
               <Link href="/contact">
                 <a className="px-3 py-2 flex items-center text-sm uppercase font-bold leading-snug text-white hover:opacity-75">
                   <span className="ml-2">Contact</span>
+                </a>
+              </Link>
+            </li>
+            <div className="md:opacity-100 select-none flex justify-center items-center text-[#aaaaaa]">
+              |
+            </div>
+
+            <li className="nav-item">
+              <Link href="/blogs">
+                <a className="px-3 py-2 flex items-center text-sm uppercase font-bold leading-snug text-white hover:opacity-75">
+                  <span className="ml-2">Blog</span>
                 </a>
               </Link>
             </li>
