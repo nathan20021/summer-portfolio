@@ -1,66 +1,120 @@
 import * as React from "react";
 import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
+import axios from "axios";
+
+import { BsArrowClockwise } from "react-icons/bs";
+
 const Footer = () => {
   const form = useRef();
   const [formValue, setValue] = useState<string>("");
   const [waiting, setIsWaiting] = useState<boolean>(false);
-  // const [notSubbed, setNotSubbed] = useState<boolean>(false);
+  const [userFound, setUserFound] = useState<boolean>(false);
   const [placeHolder, setPlaceHolder] = useState<string>("example@gmail.com");
+  const [canValidate, setCanValidate] = useState<boolean>(true);
   const isValidEmail = (email: string) => {
     return /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
   };
 
-  const sendEmail = (e: Event) => {
-    e.preventDefault();
-
+  const sendEmail = (email: string) => {
     emailjs
-      .sendForm(
+      .send(
         "service_mxkr2ui",
         "template_vv3sard",
-        form.current,
+        { email: email },
         "tFewBi5JGZg2ADF7h"
       )
       .then(
         (result) => {
-          console.log(result.text);
-          setIsWaiting(false);
+          console.log("Successful LMAOOOO");
+          console.log(result);
         },
         (error) => {
-          console.log(error.text);
+          console.log(error);
         }
       );
   };
+
+  const handleClick = async () => {
+    setIsWaiting(true);
+    if (isValidEmail(formValue)) {
+      const { data } = await axios.put(
+        `http://localhost:3000/api/user/${formValue}`,
+        {
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+      if (data.message.toLowerCase() === "user found") {
+        setUserFound(true);
+      }
+      if (data.message.toLowerCase() === "user added") {
+        sendEmail(formValue);
+        setUserFound(true);
+      }
+    } else {
+      setCanValidate(false);
+    }
+    setIsWaiting(false);
+  };
+
   return (
     <footer className="z-50 relative h-auto w-full">
       <div className="z-40 absolute w-full h-[75%] flex justify-center items-end">
-        <div className="flex flex-col gap-3 w-[20%]">
-          <h2 className="z-40 text-lg font-bold text-[#ffffff]">
-            Subscribe to my tech blog 😄
-          </h2>
-          <form ref={form} className="z-40 flex w-full">
-            <input
-              onFocus={() => setPlaceHolder("")}
-              onBlur={() => setPlaceHolder("example@gmail.com")}
-              className="text-sm py-1 text-[#595959] w-3/4 indent-3"
-              placeholder={placeHolder}
-              type="email"
-              value={formValue}
-              onChange={(e) => setValue(e.target.value)}
-              required
-            />
-            <button
-              className="transition-colors w-1/4 text-sm font-bold text-white bg-[#268679] hover:bg-[#2fa495] py-2"
-              onClick={() => {
-                if (isValidEmail(formValue)) {
-                  setIsWaiting(true);
-                }
-              }}
-              type="button"
-            >
-              {waiting ? "Sending..." : "Submit"}
-            </button>
-          </form>
+        <div className="flex flex-col gap-3 w-[40%]">
+          {userFound ? (
+            <div className="text-base py-1 text-[#ffffff] bg-[#000000] font-bold flex justify-center item-center bg-opacity-30 w-full indent-3 py-2">
+              <p>Thanks for your sub 😄, Have a lovely day </p>
+            </div>
+          ) : (
+            <div>
+              <h2 className="z-40 text-lg font-bold text-[#ffffff]">
+                Subscribe to my tech blog 😄
+              </h2>
+              {canValidate ? (
+                <>
+                  <form ref={form} className="z-40 flex w-full">
+                    <input
+                      onFocus={() => setPlaceHolder("")}
+                      onBlur={() => setPlaceHolder("example@gmail.com")}
+                      className="text-sm py-1 text-[#595959] w-3/4 indent-3"
+                      placeholder={placeHolder}
+                      type="email"
+                      value={formValue}
+                      onChange={(e) => setValue(e.target.value)}
+                      required
+                    />
+                    <button
+                      className="transition-colors w-1/4 text-sm font-bold text-white bg-[#268679] hover:bg-[#2fa495] py-2"
+                      onClick={handleClick}
+                      type="button"
+                    >
+                      {waiting ? "Sending..." : "Submit"}
+                    </button>
+                  </form>
+                </>
+              ) : (
+                <div className="z-40 flex w-full">
+                  <div className="text-base py-1 text-[#ffffff] bg-[#000000] flex item-center bg-opacity-30 w-3/4 indent-3">
+                    <p className="">
+                      Your email was not a valid, please try again 😒
+                    </p>
+                  </div>
+                  <button
+                    className="transition-colors w-1/4 flex justify-center text-xl text-white bg-[#e87025] hover:bg-[#d66118] py-2"
+                    onClick={() => {
+                      setCanValidate(true);
+                      setValue("");
+                    }}
+                    type="button"
+                  >
+                    <BsArrowClockwise />
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
       <div className="z-50 top-0 left-0 w-full overflow-hidden">
