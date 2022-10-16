@@ -39,7 +39,7 @@ const Footer = () => {
     setIsWaiting(true);
     if (isValidEmail(formValue)) {
       const { data } = await axios.put(
-        `http://localhost:3000/api/user/${formValue}`,
+        `https://nathanluong.me/api/user/${formValue}`,
         {
           headers: {
             Accept: "application/json",
