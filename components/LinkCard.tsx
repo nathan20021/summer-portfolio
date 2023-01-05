@@ -11,6 +11,7 @@ const LinkCard = ({ data }: props) => {
       onMouseDown={(e) => e.preventDefault()}
       href={data.link}
       target="_blank"
+      rel="noreferrer"
       className="group flex items-center hover:text-[#353535] hover:bg-[#c7c7c7] py-6 px-4 rounded-sm
                  relative w-full h-full text-base ease-out duration-200 bg-[#353535]
                 "

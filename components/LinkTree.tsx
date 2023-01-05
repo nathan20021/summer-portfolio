@@ -14,8 +14,10 @@ const LinkTree = ({ header, linkCardPropsArray }: LinkTreeProps) => {
         <h1 className="text-center mb-7 mt-14 text-2xl ">{header}</h1>
       </div>
       <div id="link-container" className="w-[70%] flex flex-col gap-7">
-        {linkCardPropsArray.map((data) => (
-          <LinkCard data={data} />
+        {linkCardPropsArray.map((data, index) => (
+          <div key={index}>
+            <LinkCard data={data} />
+          </div>
         ))}
       </div>
     </>
