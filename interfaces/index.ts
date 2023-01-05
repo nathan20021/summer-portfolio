@@ -4,3 +4,9 @@ export type User = {
   dateCreated: string;
   dateUpdated: string;
 };
+
+export type LinkCardProps = {
+  icon: React.ReactNode | null;
+  title: string;
+  link: string;
+};

@@ -12,7 +12,7 @@ import {
   FaFileWord,
 } from "react-icons/fa";
 
-const PersonalCard: React.FC = () => {
+const PersonalCard = () => {
   return (
     <div className={`${styles.personal_card} z-20`}>
       <div className="relative">

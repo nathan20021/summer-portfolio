@@ -97,9 +97,7 @@ const Footer = () => {
               ) : (
                 <div className="z-40 flex w-full">
                   <div className="text-base py-1 text-[#ffffff] bg-[#000000] flex item-center bg-opacity-30 w-3/4 indent-3">
-                    <p className="">
-                      Your email was not a valid, please try again 😒
-                    </p>
+                    <p className="">Your email was not a valid, try again 😒</p>
                   </div>
                   <button
                     className="transition-colors w-1/4 flex justify-center text-xl text-white bg-[#e87025] hover:bg-[#d66118] py-2"

@@ -129,12 +129,11 @@ const Home: NextPage = () => {
         <div className="w-[80%] min-h-max mb-[20vh] flex flex-col justify-start items-center relative">
           <ProjectShowcase
             side="right"
-            name="Viz"
+            name="Viz| v0.6"
             slogan="Diagramming Made Easy"
             paragraph="A web-based editor to help backend engineers create, edit,
-                visualize and maitain their cloud infastructure diagrams. | Beta
-                1.1"
-            githubLink="https://github.com/nathan20021/VIZ"
+                visualize and maitain their cloud infastructure diagrams."
+            githubLink="https://github.com/nathan20021/VIZ-PROD"
             demoLink="https://viz.nathanluong.me"
             imagePath="/viz-logo-no-grad.png"
             images={[

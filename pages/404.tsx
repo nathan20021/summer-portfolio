@@ -6,12 +6,16 @@ import ParticleBg from "../components/particleBg";
 
 const _404: NextPage = () => {
   return (
-    <div className="flex w-screen h-[80vh] justify-center items-center text-2xl z-50">
-      <ParticleBg />
-      <div className=" transition-opacity px-20 py-10 bg-white/70 hover:bg-white/80 z-50">
-        <h1 className="text-black font-bold z-50">
-          Error 404 | Page Not Found
-        </h1>
+    <div className="flex justify-center items-center w-screen min-h-[80vh] z-50 pt-7">
+      <div>
+        <ParticleBg />
+      </div>
+      <div className="z-40 w-full h-full flex items-center justify-center">
+        <div className=" transition-opacity px-20 py-10 bg-white/80 backdrop-blur-sm hover:bg-white/90 z-50">
+          <h1 className="text-[#000000] font-bold z-50">
+            😐 404 | Page Not Found 😐
+          </h1>
+        </div>
       </div>
     </div>
   );
