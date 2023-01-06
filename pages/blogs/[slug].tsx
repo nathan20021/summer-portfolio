@@ -55,20 +55,21 @@ const Post = ({ content, metaData }: prop) => {
     },
   };
   return (
-    <div className="z-10">
+    <div className="z-10 w-full flex justify-center items-center">
       <Head>
         <title>{metaData.title}</title>
       </Head>
       <div
         id="Blog Container"
-        className=" w-full flex flex-col items-center bg-primary z-10"
+        className="w-[90%] lg:w-[60%] flex flex-col items-center bg-primary z-10"
       >
-        <div id="metadata-container" className="z-10 w-[60%] text-center">
-          <h1 className="font-medium text-center text-5xl mt-12 tracking-wide">
+        <div id="metadata-container" className="z-10 w-full text-center">
+          <h1 className="sm:font-medium text-center text-3xl sm:text-5xl mt-12 tracking-wide">
             {metaData.title}
           </h1>
-          <p className="text-base opacity-75 mt-2 flex justify-center gap-1">
-            {metaData.author} | {metaData.published_at} |
+          <p className="text-sm sm:text-base opacity-75 mt-2 flex flex-col sm:flex-row justify-center gap-1">
+            {metaData.author} | {metaData.published_at}{" "}
+            <span className="hidden sm:inline-block">|</span>
             <span className="flex justify-center items-center gap-1">
               <BsFillEyeFill />
               {metaData.views}
@@ -77,7 +78,7 @@ const Post = ({ content, metaData }: prop) => {
         </div>
 
         <ReactMarkdown
-          className={`${styles.post} w-[60%] z-10`}
+          className={`${styles.post} w-full z-10`}
           remarkPlugins={[remarkGfm]}
           rehypePlugins={[rehypeHighlight]}
           components={MarkdownComponents}
