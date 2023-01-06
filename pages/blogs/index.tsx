@@ -29,20 +29,20 @@ const blogs = ({ metaDataArray }: prop) => {
         <ParticleBg />
       </div>
       <div className="w-[80%] z-10">
-        <div className="h-[10vh] min-h-[7rem] flex justify-center items-center"></div>
-        <div className="w-full h-full flex justify-around">
+        {/* <div className="h-[10vh] min-h-[7rem] flex justify-center items-center"></div> */}
+        <div className="w-full h-full flex flex-wrap gap-3 justify-around my-[10vh]">
           {metaDataArray.map((metaData, index) => {
             return (
               <div
                 id="blog-container-box"
                 key={index}
-                className="w-[28%] max-w-[351px] h-[40vh] min-h-[500px] rounded-md bg-[#222222] overflow-hidden
+                className="w-[28%] min-w-[300px] max-w-[351px] h-[40vh] min-h-[500px] rounded-md bg-[#222222] overflow-hidden
                   flex flex-col justify-start items-center ease-out duration-1000 hover:bg-[#333333] active:scale-95"
               >
                 <Link href={`/blogs/${metaData.file_name}`} key={index}>
                   <a className="w-full h-full flex justify-center items-start">
                     <div id="div-inside-link-tag" className="w-full">
-                      <div id="image-container" className=" w-full relative">
+                      <div id="image-container" className="w-full relative">
                         <Image
                           alt={`Cover Image ${index} : ${metaData.title} `}
                           src={metaData.cover}

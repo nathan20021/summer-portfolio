@@ -55,7 +55,7 @@ const Nav = ({ router }: props) => {
                 </a>
               </Link>
             </li>
-            <div className="md:opacity-100 select-none flex justify-center items-center text-[#aaaaaa]">
+            <div className="hidden lg:inline-block select-none lg:flex lg:justify-center lg:items-center text-[#aaaaaa]">
               |
             </div>
 

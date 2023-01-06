@@ -7,6 +7,6 @@ export type User = {
 
 export type LinkCardProps = {
   icon: React.ReactNode | null;
-  title: string;
+  title: JSX.Element | null;
   link: string;
 };
