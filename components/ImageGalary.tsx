@@ -41,7 +41,7 @@ const ImageGalary = ({ images }: props) => {
     setPage([page + newDirection, newDirection]);
   };
   return (
-    <>
+    <div id="image-galary" className="h-[50%] w-full">
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           className="w-full h-full flex justify-center items-center"
@@ -100,7 +100,7 @@ const ImageGalary = ({ images }: props) => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 export default ImageGalary;

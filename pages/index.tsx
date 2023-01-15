@@ -126,10 +126,10 @@ const Home: NextPage = () => {
             Top Projects
           </h1>
         </div>
-        <div className="w-[80%] min-h-max mb-[20vh] flex flex-col justify-start items-center relative">
+        <div className="w-[90%] xl:w-[80%] min-h-max mb-[20vh] flex flex-col justify-start items-center relative">
           <ProjectShowcase
             side="right"
-            name="Viz| v0.6"
+            name="Viz"
             slogan="Diagramming Made Easy"
             paragraph="A web-based editor to help backend engineers create, edit,
                 visualize and maitain their cloud infastructure diagrams."
@@ -165,13 +165,13 @@ const Home: NextPage = () => {
             ]}
           />
         </div>
-        <div className="w-[80%] h-[80vh] flex justify-center items-center relative">
+        <div className="w-[90%] xl:w-[80%] h-[80vh] flex justify-center items-center relative">
           <ProjectShowcase
             side="left"
             name="McMaster Rocketry"
             slogan="Fueling Innovation."
             paragraph="A platform for the McMaster Rocketry Team to showcase their advancements, recruiting members, publishing blogs, and seeking external sponsorships."
-            githubLink="None"
+            githubLink={null}
             demoLink="https://www.macrocketry.ca/"
             imagePath="/rocketry_logo.webp"
             images={[
@@ -209,8 +209,8 @@ const Home: NextPage = () => {
             name="Project BPSN"
             slogan="Conencting professionals."
             paragraph="Coming soon ... "
-            githubLink="None"
-            demoLink="None"
+            githubLink={null}
+            demoLink={null}
             imagePath="/dotdotdot.webp"
             images={["coming_soon.png"]}
             links={[
@@ -239,14 +239,14 @@ const Home: NextPage = () => {
         className="z-20 flex flex-col items-center justify-start bg-primary min-h-max w-screen mt-16 relative"
       >
         <ParticleBg />
-        <div className="w-[80%] min-h-max flex flex-col justify-center items-center">
-          <h1 className="text-3xl font-bold after:content-[''] after:block after:pt-2 after:border-b-[#3BB5DB] after:border-b-4">
+        <div className="w-full lg:w-[90%] min-h-max flex flex-col justify-center items-center">
+          <h1 className="text-center text-3xl font-bold after:content-[''] after:block after:pt-2 after:border-b-[#3BB5DB] after:border-b-4">
             Honorable Mentions
           </h1>
 
           <div
             id="project-box-container"
-            className={`w-[80%] z-20 flex justify-center flex-wrap gap-[10%] min-h-max`}
+            className="w-[85%] z-20 flex justify-around gap-[5%] flex-wrap min-h-max"
           >
             <ProjectCard
               imagePath="chess.png"

@@ -13,7 +13,7 @@ type props = {
 
 const TechLink = ({ links }: props) => {
   return (
-    <div className="flex overflow-hidden justify-center gap-7">
+    <div className="flex flex-wrap gap-2 overflow-hidden justify-around">
       {links.map((link, index) => {
         return (
           <div key={index}>
@@ -26,7 +26,7 @@ const TechLink = ({ links }: props) => {
               className="flex justify-center items-center text-sm gap-1 text-[#eaeaea]"
             >
               {link.icon}
-              <p>{link.name}</p>
+              <p className="text-xs xl:text-sm">{link.name}</p>
             </motion.a>
           </div>
         );

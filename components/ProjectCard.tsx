@@ -23,9 +23,9 @@ const ProjectCard = ({
   style,
 }: CardProps) => {
   return (
-    <Tilt className="z-50 w-1/4 py-2 min-h-max max-w-[269px] my-10">
+    <Tilt className="z-50 w-[260px] py-2 my-10">
       <div
-        className={` h-[22rem] rounded-3xl z-20 flex flex-col items-center`}
+        className="scale-95 sm:scale-100 h-[22rem] w-full rounded-3xl z-20 flex flex-col items-center"
         style={style}
       >
         <div className="h-full z-20 text-center flex flex-col justify-around items-center w-[75%] py-3">

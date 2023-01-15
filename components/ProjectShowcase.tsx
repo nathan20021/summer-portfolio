@@ -13,8 +13,8 @@ type props = {
   name: string;
   slogan: string;
   paragraph: string;
-  githubLink: string;
-  demoLink: string;
+  githubLink: string | null;
+  demoLink: string | null;
   images: Array<string>;
   links: Array<displayIcons>;
   imagePath: string;
@@ -33,15 +33,21 @@ const ProjectShowcase = ({
   side,
 }: props) => {
   return (
-    <div className="relative h-1/2 w-full flex">
-      {side === "left" ? (
-        <div className="relative w-3/5">
-          <ImageGalary images={images} />
-        </div>
-      ) : (
-        void 0
-      )}
-      <div className="h-full w-2/5 flex justify-center items-center">
+    <div
+      id="project-showcase-container"
+      className={
+        side === "right"
+          ? `relative h-full w-full lg:flex lg:flex-row-reverse`
+          : `relative h-full w-full lg:flex lg:flex-row`
+      }
+    >
+      <div
+        id="image-galary-container"
+        className="h-2/3 lg:h-full w-full lg:w-[70%] xl:w-3/5"
+      >
+        <ImageGalary images={images} />
+      </div>
+      <div className="h-1/3 lg:h-full w-[30%] xl:w-2/5 flex justify-center items-center">
         <div
           className={
             side === "right"
@@ -50,12 +56,20 @@ const ProjectShowcase = ({
           }
         >
           <div className="w-full h-full flex flex-col gap-6">
-            <div id="logo-header-container" className="flex h-20 gap-4">
+            <div
+              id="logo-header-container"
+              className="flex items-center h-20 gap-4"
+            >
               {name === "McMaster Rocketry" ? (
-                <a href={demoLink} target="_blank" rel="noreferrer">
-                  <div className="w-20 h-20 flex justify-center items-center bg-[#e9e9e9] rounded-lg">
+                <a
+                  href={demoLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex justify-center items-center"
+                >
+                  <div className="w-16 h-16 xl:w-20 xl:h-20 flex justify-center items-center bg-[#e9e9e9] rounded-lg">
                     <img
-                      className="rounded-lg w-14"
+                      className="w-10 xl:w-14"
                       src={imagePath}
                       alt={`${name}-logo`}
                       draggable={false}
@@ -63,13 +77,13 @@ const ProjectShowcase = ({
                   </div>
                 </a>
               ) : (
-                <div className="w-20 rounded-lg">
+                <div className="w-16 h-16 xl:w-20 xl:h-20 rounded-lg flex justify-center items-center">
                   <a
                     href={demoLink}
                     target="_blank"
                     rel="noreferrer"
                     style={{
-                      pointerEvents: demoLink === "None" ? "none" : `auto`,
+                      pointerEvents: demoLink === null ? "none" : "auto",
                     }}
                   >
                     <img
@@ -82,35 +96,43 @@ const ProjectShowcase = ({
                 </div>
               )}
               <div className="flex flex-col justify-center items-start">
-                <h1 className="text-xl font-bold text-white shadow-sm">
+                <h1 className="text-lg xl:text-xl font-bold text-white shadow-sm">
                   {name}
                 </h1>
-                <h2 className="text-base text-[#ebebeb]">{slogan}</h2>
+                <h2 className="hidden xl:inline-block text-base text-[#ebebeb]">
+                  {slogan}
+                </h2>
               </div>
             </div>
-            <div className="flex flex-col gap-3">
-              <p className="text-[#e4e4e4] border-y-2 border-[#7a7a7a] py-5">
+            <div
+              id="tech-link-and-para-containter"
+              className="flex flex-col gap-3"
+            >
+              <p className="text-sm xl:text-base text-[#e4e4e4] border-y-2 border-[#7a7a7a] py-5">
                 {paragraph}
               </p>
               <div id="tech-link-container" className="w-full">
                 <TechLink links={links} />
               </div>
             </div>
-            <div id="button-container" className="w-full flex justify-around">
-              {githubLink !== "None" ? (
+            <div
+              id="button-container"
+              className="w-full flex justify-around gap-3"
+            >
+              {githubLink !== null ? (
                 <motion.a
                   whileHover={{ borderColor: "#01629a" }}
                   href={githubLink}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-28 py-2 rounded-xl text-base border-[3px] bg-[#2a2a2a] border-[#01529a] flex justify-center items-center"
+                  className="w-[70%] min-w-[6rem] xl:w-28 py-1.5 xl:py-2 rounded-xl text-sm xl:text-base border-[3px] bg-[#2a2a2a] border-[#01529a] flex justify-center items-center"
                 >
                   Github
                 </motion.a>
               ) : (
                 void 0
               )}
-              {demoLink === "None" ? (
+              {demoLink === null ? (
                 void 0
               ) : (
                 <motion.a
@@ -125,22 +147,15 @@ const ProjectShowcase = ({
                     backgroundColor:
                       name === "McMaster Rocketry" ? `#7A003C` : `#01529a`,
                   }}
-                  className="py-2 w-28 rounded-xl text-base flex justify-center items-center shadow-md"
+                  className="w-[70%] min-w-[6rem] xl:w-28 py-1.5 xl:py-2 rounded-xl text-sm xl:text-base flex justify-center items-center shadow-md"
                 >
-                  Live demo
+                  Demo
                 </motion.a>
               )}
             </div>
           </div>
         </div>
       </div>
-      {side === "right" ? (
-        <div className="relative w-3/5">
-          <ImageGalary images={images} />
-        </div>
-      ) : (
-        void 0
-      )}
     </div>
   );
 };
