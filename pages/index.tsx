@@ -57,8 +57,8 @@ const Home: NextPage = () => {
 
       <NonSSRWrapper>
         <section className="w-full h-screen flex flex-col justify-center items-center z-40 bg-primary ">
-          <div className="container h-[90%] w-[95%] flex ">
-            <div className="min-w-[450px] w-[30%] h-full flex flex-col justify-start pt-16 items-start">
+          <div className="h-[90%] w-[95%] flex">
+            <div className="min-w-max w-[30%] h-full flex flex-col justify-start pt-16 items-start">
               <div className="flex flex-col gap-6">
                 <div className="bg-[#01529a] text-base w-max rounded-2xl">
                   <p className="py-1 px-4 font-bold">Welcome , I&rsquo;m</p>
@@ -106,10 +106,12 @@ const Home: NextPage = () => {
                 </div>
               </div>
             </div>
-            <div className=" w-[1272px] h-full relative hover:cursor-grab scale-[70%] xl:scale-[80%] 2xl:scale-100">
-              <div className=""></div>
+            <div
+              id="spline-container"
+              className="h-full w-[70%] hover:cursor-grab
+              "
+            >
               <Spline
-                className="absolute"
                 scene="https://prod.spline.design/RwmvyKIRcAII4-yT/scene.splinecode"
                 onLoad={() => setLoading(false)}
               />
@@ -126,7 +128,7 @@ const Home: NextPage = () => {
             Top Projects
           </h1>
         </div>
-        <div className="w-[90%] xl:w-[80%] min-h-max mb-[20vh] flex flex-col justify-start items-center relative">
+        <div className="mb-[10vh] max-w-[1400px] md:mb-0 w-[90%] xl:w-[80%] h-[80vh] flex justify-center items-center relative">
           <ProjectShowcase
             side="right"
             name="Viz"
@@ -165,7 +167,7 @@ const Home: NextPage = () => {
             ]}
           />
         </div>
-        <div className="w-[90%] xl:w-[80%] h-[80vh] flex justify-center items-center relative">
+        <div className="mb-[10vh] max-w-[1400px] md:mb-0 w-[90%] xl:w-[80%] h-[80vh] flex justify-center items-center relative">
           <ProjectShowcase
             side="left"
             name="McMaster Rocketry"
@@ -203,7 +205,7 @@ const Home: NextPage = () => {
             ]}
           />
         </div>
-        <div className="w-[80%] h-[90vh] flex justify-center items-center relative">
+        <div className="mb-[10vh] max-w-[1400px] md:mb-0 w-[90%] h-[65vh]  md:h-[90vh] flex justify-center items-center relative">
           <ProjectShowcase
             side="right"
             name="Project BPSN"
@@ -246,7 +248,7 @@ const Home: NextPage = () => {
 
           <div
             id="project-box-container"
-            className="w-[85%] z-20 flex justify-around gap-[5%] flex-wrap min-h-max"
+            className="w-[85%] min-w-[320px] max-w-[1050px] z-20 flex justify-around gap-[5%] flex-wrap min-h-max"
           >
             <ProjectCard
               imagePath="chess.png"

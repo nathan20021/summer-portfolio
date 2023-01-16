@@ -41,8 +41,8 @@ const ImageGalary = ({ images }: props) => {
     setPage([page + newDirection, newDirection]);
   };
   return (
-    <div id="image-galary" className="h-[50%] w-full">
-      <AnimatePresence initial={false} custom={direction}>
+    <AnimatePresence initial={false} custom={direction}>
+      <div id="image-galary" className="relative w-full h-max md:h-full">
         <motion.div
           className="w-full h-full flex justify-center items-center"
           id="project-image"
@@ -71,36 +71,40 @@ const ImageGalary = ({ images }: props) => {
             }
           }}
         >
-          <div className="relative">
-            <motion.div
-              whileHover={{ opacity: 0 }}
-              className="absolute bg-primary opacity-20 z-[1000] w-full h-full"
-            ></motion.div>
-            <img src={images[imageIndex]} draggable={false} alt="" />
+          <div
+            id="haha"
+            className="relative w-full h-full flex justify-center items-center"
+          >
+            <img
+              src={images[imageIndex]}
+              draggable={false}
+              alt=""
+              className="w-full aspect-[16/10] md:aspect-auto opacity-80 hover:opacity-100 duration-150 ease-in-out"
+            />
           </div>
         </motion.div>
 
         <motion.div style={{ opacity: 0 }}></motion.div>
-      </AnimatePresence>
-      {images.length === 1 ? (
-        void 0
-      ) : (
-        <div>
-          <div
-            className="next right-[10px] shadow-lg"
-            onClick={() => paginate(1)}
-          >
-            <GrFormNext />
+        {images.length === 1 ? (
+          void 0
+        ) : (
+          <div>
+            <div
+              className="next right-[10px] shadow-lg"
+              onClick={() => paginate(1)}
+            >
+              <GrFormNext />
+            </div>
+            <div
+              className="prev left-[10px] shadow-lg"
+              onClick={() => paginate(-1)}
+            >
+              <GrFormPrevious />
+            </div>
           </div>
-          <div
-            className="prev left-[10px] shadow-lg"
-            onClick={() => paginate(-1)}
-          >
-            <GrFormPrevious />
-          </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </AnimatePresence>
   );
 };
 export default ImageGalary;

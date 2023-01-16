@@ -37,22 +37,22 @@ const ProjectShowcase = ({
       id="project-showcase-container"
       className={
         side === "right"
-          ? `relative h-full w-full lg:flex lg:flex-row-reverse`
-          : `relative h-full w-full lg:flex lg:flex-row`
+          ? `relative w-full h-full flex flex-col justify-center items-center md:flex-row-reverse`
+          : `relative w-full h-full flex flex-col justify-center items-center md:flex-row`
       }
     >
       <div
         id="image-galary-container"
-        className="h-2/3 lg:h-full w-full lg:w-[70%] xl:w-3/5"
+        className="h-1/2 md:h-full w-[90%] md:w-[70%] xl:w-3/5 flex justify-center items-center"
       >
         <ImageGalary images={images} />
       </div>
-      <div className="h-1/3 lg:h-full w-[30%] xl:w-2/5 flex justify-center items-center">
+      <div className="h-1/2 md:h-full w-[90%] md:w-[30%] xl:w-2/5 flex justify-center items-center">
         <div
           className={
             side === "right"
-              ? `bg-[#333333] w-full px-6 py-7 rounded-l-xl`
-              : `bg-[#333333] w-full px-6 py-7 rounded-r-xl`
+              ? `bg-[#333333] w-full px-6 py-7 rounded-b-xl md:rounded-l-xl`
+              : `bg-[#333333] w-full px-6 py-7 rounded-b-xl md:rounded-r-xl`
           }
         >
           <div className="w-full h-full flex flex-col gap-6">
@@ -99,7 +99,7 @@ const ProjectShowcase = ({
                 <h1 className="text-lg xl:text-xl font-bold text-white shadow-sm">
                   {name}
                 </h1>
-                <h2 className="hidden xl:inline-block text-base text-[#ebebeb]">
+                <h2 className="inline-block md:hidden xl:inline-block text-base text-[#ebebeb]">
                   {slogan}
                 </h2>
               </div>
