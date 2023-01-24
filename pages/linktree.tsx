@@ -5,6 +5,8 @@ import LinkTree from "../components/LinkTree";
 import { LinkCardProps } from "../interfaces";
 import { FaGithub, FaLinkedin, FaLink } from "react-icons/fa";
 import { MdEmail, MdLocationOn } from "react-icons/md";
+import { AiTwotoneFilePdf } from "react-icons/ai";
+
 import { HiCode } from "react-icons/hi";
 
 // import Image from "next/img"
@@ -23,6 +25,11 @@ const contactInfo: Array<LinkCardProps> = [
     icon: <FaGithub />,
     title: <p>Github Profile</p>,
     link: "https://github.com/nathan20021",
+  },
+  {
+    icon: <AiTwotoneFilePdf />,
+    title: <p>Resume</p>,
+    link: "/Resume.pdf",
   },
   {
     icon: <MdEmail />,
