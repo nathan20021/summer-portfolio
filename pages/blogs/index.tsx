@@ -52,7 +52,7 @@ const blogs = ({ metaDataArray }: prop) => {
                       </div>
                       <div id="text-container" className="h-[55%] w-full px-4">
                         <p className="mb-[0.5rem] py-[0.5rem] border-b-[1px] border-[#696969] text-xs text-[#ffffff]">
-                          {metaData.published_at} | {metaData.read_time} read
+                          {metaData.published_at} | {metaData.read_time} mins read
                         </p>
                         <h1 className="font-bold text-lg mb-1 text-[#4bd8ed]">
                           {metaData.title}
