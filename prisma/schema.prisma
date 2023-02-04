@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+  relationMode = "prisma"
+} 
+
+model BlogPost {
+  id              Int       @default(autoincrement()) @id
+  title           String    @db.VarChar(255)
+  url             String    @default("/") @db.VarChar(255)
+  cover           String    @db.VarChar(255)
+  description     String    @db.VarChar(255)
+  publishedAt     DateTime  @default(now())
+  readTime        Int       @db.UnsignedTinyInt
+  views           Int       @db.Int
+}
+
+model Subcribers {
+  id              Int       @default(autoincrement()) @id
+  email           String    @db.VarChar(255)
+}

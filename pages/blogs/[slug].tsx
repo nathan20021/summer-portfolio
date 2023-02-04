@@ -9,11 +9,18 @@ import styles from "../../styles/mdBlogs.module.css";
 import rehypeHighlight from "rehype-highlight";
 import Image from "next/image";
 import { BsFillEyeFill } from "react-icons/bs";
-
+import { BlogPost, PrismaClient } from "@prisma/client";
+import { ParsedUrlQuery } from "querystring";
+import config from "../../config.json";
 type prop = {
   content: string;
   metaData: any;
 };
+interface IParams extends ParsedUrlQuery {
+  slug: string;
+}
+
+const prisma = new PrismaClient();
 
 const Post = ({ content, metaData }: prop) => {
   const MarkdownComponents: object = {
@@ -68,7 +75,7 @@ const Post = ({ content, metaData }: prop) => {
             {metaData.title}
           </h1>
           <p className="text-sm sm:text-base opacity-75 mt-2 flex flex-col sm:flex-row justify-center gap-1">
-            {metaData.author} | {metaData.published_at}{" "}
+            Nathan Luong | {metaData.publishedAt}{" "}
             <span className="hidden sm:inline-block">|</span>
             <span className="flex justify-center items-center gap-1">
               <BsFillEyeFill />
@@ -93,7 +100,7 @@ const Post = ({ content, metaData }: prop) => {
 // Generating the Paths that the page need
 // eslint-disable-next-line require-jsdoc
 export async function getStaticPaths() {
-  const files = fs.readdirSync("md/posts");
+  const files = await prisma.blogPost.findMany();
   return {
     paths: getParamFromList(files),
     fallback: false,
@@ -102,7 +109,13 @@ export async function getStaticPaths() {
 
 // Fetch the data
 // eslint-disable-next-line require-jsdoc
-export async function getStaticProps({ params: { slug } }: any) {
+export async function getStaticProps(context: any) {
+  const { slug } = context.params as IParams;
+  const metaData: BlogPost | null = await prisma.blogPost.findFirst({
+    where: {
+      url: slug,
+    },
+  });
   const parsedMDwithMetaData = fs
     .readFileSync(path.join("md/posts", slug, `${slug}.md`))
     .toString();
@@ -112,16 +125,26 @@ export async function getStaticProps({ params: { slug } }: any) {
     // Passed to the page component as props
     props: {
       content: parsedMarkdown.content,
-      metaData: parsedMarkdown.data,
+      metaData: {
+        ...metaData,
+        publishedAt: metaData?.publishedAt.toLocaleString(
+          config.DATE_TIME_FORMAT,
+          {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          }
+        ),
+      },
     },
   };
 }
 
-const getParamFromList = (data: Array<string>) => {
+const getParamFromList = (data: Array<BlogPost>) => {
   const result: Array<{ params: { slug: string } }> = [];
   data.forEach((element) => {
     result.push({
-      params: { slug: element },
+      params: { slug: element.url },
     });
   });
   return result;

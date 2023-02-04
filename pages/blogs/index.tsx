@@ -1,20 +1,18 @@
-import * as fs from "fs";
 import * as React from "react";
-import path from "path";
-import matter from "gray-matter";
 import Image from "next/image";
 import Link from "next/link";
 import ParticleBg from "../../components/particleBg";
+import { PrismaClient } from "@prisma/client";
 
-type metaData = {
+export type metaData = {
   title: string;
   cover: string;
   description: string;
   published_at: string;
   author: string;
   guest: string;
-  read_time: string;
-  views: string;
+  read_time: number;
+  views: number;
   file_name: string;
 };
 
@@ -77,26 +75,22 @@ const blogs = ({ metaDataArray }: prop) => {
 
 // eslint-disable-next-line require-jsdoc
 export async function getStaticProps() {
-  const postsName = fs.readdirSync(path.join("md/posts"));
+  const prisma = new PrismaClient();
+  const posts = await prisma.blogPost.findMany();
 
   const metaDataArray: Array<metaData> = [];
 
-  postsName.forEach((value, index) => {
-    const parsedMDwithMetaData = fs
-      .readFileSync(path.join("md/posts", value, `${value}.md`))
-      .toString();
-    const parsedMarkdown = matter(parsedMDwithMetaData);
-
+  posts.forEach((data, ind) => {
     metaDataArray.push({
-      title: parsedMarkdown.data.title,
-      cover: parsedMarkdown.data.cover,
-      description: parsedMarkdown.data.description,
-      published_at: parsedMarkdown.data.published_at,
-      author: parsedMarkdown.data.author,
-      guest: parsedMarkdown.data.guest,
-      read_time: parsedMarkdown.data.read_time,
-      views: parsedMarkdown.data.views,
-      file_name: parsedMarkdown.data.file_name,
+      title: data.title,
+      cover: data.cover,
+      description: data.description,
+      published_at: data.publishedAt.toLocaleDateString("en-US"),
+      author: "Nathan Luong",
+      guest: "None",
+      read_time: data.readTime,
+      views: data.views,
+      file_name: data.url,
     });
   });
 

@@ -1,12 +1,17 @@
 /* eslint-disable require-jsdoc */
 import { NextApiRequest, NextApiResponse } from "next";
-import { usersRepo } from "../../../helpers/usersHelper";
+import { PrismaClient } from "@prisma/client";
 
 const isValidEmail = (email: string) => {
   return /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 };
 
-export default function userHandler(req: NextApiRequest, res: NextApiResponse) {
+const prisma = new PrismaClient();
+
+export default async function userHandler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const {
     query: { email },
     method,
@@ -19,15 +24,24 @@ export default function userHandler(req: NextApiRequest, res: NextApiResponse) {
         break;
       }
       if (email !== undefined && isValidEmail(email)) {
-        if (usersRepo.find(email) === undefined) {
-          usersRepo.create(email);
+        // Check if user exists
+        const userData = await prisma.subcribers.findFirst({
+          where: {
+            email: email,
+          },
+        });
+        if (userData === null) {
+          await prisma.subcribers.create({
+            data: {
+              email: email,
+            },
+          });
           res.status(200).json({ message: "User Added" });
           break;
         }
         res.status(200).json({ message: "User found" });
         break;
       }
-
       res.status(400).json({ error: "Email not valid" });
       break;
     default:

@@ -1,14 +1,4 @@
----
-file_name: introduction
-title: Introduction
-cover: /posts/introduction/cover2.webp
-description: Welcome aboard! Are you a student and want to pursue a career in backend development? Click here to learn more!
-published_at: 24 July, 2022
-author: Nathan Luong
-guest: none
-read_time: 3 mins
-views: 12
----
+#
 
 ## **👋 Hi there! Welcome to my tech repository**
 

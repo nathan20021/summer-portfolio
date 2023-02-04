@@ -12,6 +12,9 @@ const Footer = () => {
   const [userFound, setUserFound] = useState<boolean>(false);
   const [placeHolder, setPlaceHolder] = useState<string>("example@gmail.com");
   const [canValidate, setCanValidate] = useState<boolean>(true);
+  const [message, setMessage] = useState<string>(
+    "Thanks for the sub! Have a lovely day 😄"
+  );
   const isValidEmail = (email: string) => {
     return /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
   };
@@ -25,12 +28,9 @@ const Footer = () => {
         "tFewBi5JGZg2ADF7h"
       )
       .then(
-        (result) => {
-          console.log("Successful LMAOOOO");
-          console.log(result);
-        },
+        (result) => {},
         (error) => {
-          console.log(error);
+          // console.log(error);
         }
       );
   };
@@ -47,10 +47,12 @@ const Footer = () => {
         }
       );
       if (data.message.toLowerCase() === "user found") {
+        setMessage("You are on the subcribers list! 😄");
         setUserFound(true);
       }
       if (data.message.toLowerCase() === "user added") {
         sendEmail(formValue);
+        setMessage("Thanks for the sub! Have a lovely day 😄");
         setUserFound(true);
       }
     } else {
@@ -65,11 +67,11 @@ const Footer = () => {
         <div className="flex flex-col gap-3 w-[80%] sm:w-[70%] md:w-[45%]">
           {userFound ? (
             <div className="text-center text-sm sm:text-base py-3 text-[#ffffff] bg-[#000000] font-bold flex justify-center item-center bg-opacity-30 w-full px-4">
-              <p>Thanks for the sub! Have a lovely day 😄 </p>
+              <p>{message}</p>
             </div>
           ) : (
             <div>
-              <h2 className="z-40 text-base sm:text-lg sm:font-bold text-[#ffffff] mb-2">
+              <h2 className="z-40 text-lg sm:text-lg sm:font-bold text-[#ffffff] mb-2">
                 Subscribe for more
                 <span className="invisible sm-[335px]:visible"> 😄</span>
               </h2>
@@ -82,7 +84,7 @@ const Footer = () => {
                     <input
                       onFocus={() => setPlaceHolder("")}
                       onBlur={() => setPlaceHolder("example@gmail.com")}
-                      className="text-sm py-1 text-[#595959] w-full py-2 sm:w-3/4 indent-3"
+                      className="text-sm text-[#000] w-full py-2 sm:w-3/4 indent-3 bg-[#d6d6d6] focus:bg-white outline-none hover:bg-[#e7e7e7] transition-colors duration-150 placeholder:text-[#696969]"
                       placeholder={placeHolder}
                       type="email"
                       value={formValue}

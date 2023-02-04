@@ -1,14 +1,4 @@
----
-file_name: how-to-get-started-in-backend
-title: Getting started in backend development
-cover: /posts/how-to-get-started-in-backend/cover.jpg
-description: Ready to begin your journey? Here are some project suggestions to get familiarized with back-end concepts
-published_at: 7 August, 2022
-author: Nathan Luong
-guest: none
-read_time: 3 mins
-views: 12
----
+#
 
 ## **Pre-requisite**
 

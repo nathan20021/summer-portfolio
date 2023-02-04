@@ -1,5 +1,6 @@
 {
   "DEBUG": true,
   "DEV_API_ENDPOINT": "localhost:3000/api",
-  "PROD_API_ENDPOINT": "nathanluong.me/api"
+  "PROD_API_ENDPOINT": "nathanluong.me/api",
+  "DATE_TIME_FORMAT": "en-US"
 }

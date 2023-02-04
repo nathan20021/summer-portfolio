@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import * as React from "react";
 
@@ -11,9 +11,6 @@ type props = {
 
 const Nav = ({ router }: props) => {
   const [navbarOpen, setNavbarOpen] = useState(false);
-  useEffect(() => {
-    console.log(router.asPath);
-  }, []);
   return (
     <nav className="relative flex flex-wrap items-center justify-between px-2 py-7 z-50 bg-[#202020]">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
@@ -55,7 +52,7 @@ const Nav = ({ router }: props) => {
                 </a>
               </Link>
             </li>
-            <div className="hidden lg:inline-block select-none lg:flex lg:justify-center lg:items-center text-[#aaaaaa]">
+            <div className="hidden select-none lg:flex lg:justify-center lg:items-center text-[#aaaaaa]">
               |
             </div>
 
