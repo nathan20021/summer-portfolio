@@ -38,14 +38,11 @@ const Footer = () => {
   const handleClick = async () => {
     setIsWaiting(true);
     if (isValidEmail(formValue)) {
-      const { data } = await axios.put(
-        `https://nathanluong.me/api/user/${formValue}`,
-        {
-          headers: {
-            Accept: "application/json",
-          },
-        }
-      );
+      const { data } = await axios.put(`/api/user/${formValue}`, {
+        headers: {
+          Accept: "application/json",
+        },
+      });
       if (data.message.toLowerCase() === "user found") {
         setMessage("You are on the subcribers list! 😄");
         setUserFound(true);
