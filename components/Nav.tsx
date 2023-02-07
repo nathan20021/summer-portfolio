@@ -46,7 +46,7 @@ const Nav = ({ router }: props) => {
             </li>
 
             <li className="nav-item">
-              <Link href="/contact">
+              <Link href="/linktree">
                 <a className="px-3 py-2 flex items-center text-sm uppercase font-bold leading-snug text-white hover:opacity-75">
                   <span className="ml-2">Contact</span>
                 </a>

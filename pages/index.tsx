@@ -36,7 +36,7 @@ const Home: NextPage = () => {
     };
   }, []);
   return (
-    <main className="z-20 w-screen flex flex-col justify-start items-center">
+    <div className="z-20 w-screen flex flex-col justify-start items-center">
       <AnimatePresence>
         {loading ? (
           <motion.div
@@ -355,7 +355,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 };
 
