@@ -1,12 +1,11 @@
 /* eslint-disable require-jsdoc */
 import { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/db";
 
 const isValidEmail = (email: string) => {
   return /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 };
 
-const prisma = new PrismaClient();
 
 export default async function userHandler(
   req: NextApiRequest,

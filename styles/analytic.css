@@ -1,0 +1,8 @@
+.analytic-table,
+.analytic-table * {
+  border-sizing: border-box;
+}
+
+.analytic-table tr > * + * {
+  padding-left: 4em;
+}

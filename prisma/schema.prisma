@@ -21,4 +21,5 @@ model BlogPost {
 model Subcribers {
   id              Int       @default(autoincrement()) @id
   email           String    @db.VarChar(255)
+  subbedAt        DateTime  @default(now())
 }

@@ -9,8 +9,19 @@ export default async function handler(
   const { method } = _req;
   switch (method) {
     case "GET":
-      const subs = await prisma.subcribers.findMany();
-      res.status(200).json({ data: subs });
+      const stats = await prisma.blogPost.findMany({
+        select: {
+          id: true,
+          url: true,
+          publishedAt: true,
+          views: true,
+        },
+      });
+      let total = 0;
+      stats.forEach((val) => {
+        total += val.views;
+      });
+      res.status(200).json({ data: { stats: stats, totalViews: total } });
       break;
     default:
       res.status(405).end(`Method ${method} Not Allowed`);

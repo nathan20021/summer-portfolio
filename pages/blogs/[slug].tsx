@@ -9,7 +9,8 @@ import styles from "../../styles/mdBlogs.module.css";
 import rehypeHighlight from "rehype-highlight";
 import Image from "next/image";
 import { BsFillEyeFill } from "react-icons/bs";
-import { BlogPost, PrismaClient } from "@prisma/client";
+import { BlogPost } from "@prisma/client";
+import { prisma } from "@/db";
 import { ParsedUrlQuery } from "querystring";
 import config from "../../config.json";
 type prop = {
@@ -19,8 +20,6 @@ type prop = {
 interface IParams extends ParsedUrlQuery {
   slug: string;
 }
-
-const prisma = new PrismaClient();
 
 const Post = ({ content, metaData }: prop) => {
   const MarkdownComponents: object = {

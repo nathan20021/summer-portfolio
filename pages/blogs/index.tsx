@@ -2,7 +2,7 @@ import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ParticleBg from "../../components/particleBg";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/db";
 
 export type metaData = {
   title: string;
@@ -52,7 +52,8 @@ const blogs = ({ metaDataArray }: prop) => {
                       </div>
                       <div id="text-container" className="h-[55%] w-full px-4">
                         <p className="mb-[0.5rem] py-[0.5rem] border-b-[1px] border-[#696969] text-xs text-[#ffffff]">
-                          {metaData.published_at} | {metaData.read_time} mins read
+                          {metaData.published_at} | {metaData.read_time} mins
+                          read
                         </p>
                         <h1 className="font-bold text-lg mb-1 text-[#4bd8ed]">
                           {metaData.title}
@@ -75,7 +76,6 @@ const blogs = ({ metaDataArray }: prop) => {
 
 // eslint-disable-next-line require-jsdoc
 export async function getStaticProps() {
-  const prisma = new PrismaClient();
   const posts = await prisma.blogPost.findMany();
 
   const metaDataArray: Array<metaData> = [];
