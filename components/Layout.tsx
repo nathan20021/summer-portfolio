@@ -62,7 +62,7 @@ const Layout = ({ router, children }: any) => {
         </div>
         <Nav router={router} />
         {children}
-        <Footer />
+        <Footer isBlog={router.asPath === "/blogs"} />
       </div>
     </div>
   );

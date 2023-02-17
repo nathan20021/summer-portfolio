@@ -16,10 +16,17 @@ model BlogPost {
   publishedAt     DateTime  @default(now())
   readTime        Int       @db.UnsignedTinyInt
   views           Int       @db.Int
+  tags            Tags[]
 }
 
 model Subcribers {
   id              Int       @default(autoincrement()) @id
   email           String    @db.VarChar(255)
   subbedAt        DateTime  @default(now())
+}
+
+model Tags {
+  id              Int       @default(autoincrement()) @id
+  name            String    @db.VarChar(255)
+  blogs           BlogPost[]
 }

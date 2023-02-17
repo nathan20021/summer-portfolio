@@ -19,7 +19,7 @@ const login = () => {
               variant="contained"
               className="bg-[#2e7c9e] hover:bg-[#47849f]"
               onClick={() => {
-                window.open("/admin/dashboard", "_ blank");
+                window.open("/admin/dashboard", "_blank");
               }}
             >
               Dash Board

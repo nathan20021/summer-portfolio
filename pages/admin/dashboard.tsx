@@ -1,9 +1,11 @@
 import React from "react";
 import type { NextPage } from "next";
+import { getSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import AnalyticCard from "@/components/Analytics/AnalyticCard";
 import Head from "next/head";
+import { GetServerSidePropsContext } from "next/types";
 // import Image from "next/img"
 type SubSerialized = {
   id: number;
@@ -60,9 +62,7 @@ const DashBoard: NextPage = () => {
         </div>
       </div>
       <div className="z-50">
-        <div>
-          
-        </div>
+        <div></div>
         <table className="analytic-table text-lg">
           <thead>
             <tr>
@@ -85,4 +85,22 @@ const DashBoard: NextPage = () => {
     </section>
   );
 };
+
+// eslint-disable-next-line require-jsdoc
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
+}
 export default DashBoard;

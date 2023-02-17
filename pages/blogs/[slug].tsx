@@ -13,6 +13,7 @@ import { BlogPost } from "@prisma/client";
 import { prisma } from "@/db";
 import { ParsedUrlQuery } from "querystring";
 import config from "../../config.json";
+import { GetStaticPropsContext } from "next";
 type prop = {
   content: string;
   metaData: any;
@@ -21,45 +22,46 @@ interface IParams extends ParsedUrlQuery {
   slug: string;
 }
 
+const MarkdownComponents: object = {
+  p: (paragraph: { children?: boolean; node?: any }) => {
+    const { node } = paragraph;
+
+    if (node.children[0].tagName === "img") {
+      const image = node.children[0];
+      const metastring = image.properties.alt;
+      const alt = metastring?.replace(/ *\{[^)]*\} */g, "");
+      const metaWidth = metastring.match(/{([^}]+)x/);
+      const metaHeight = metastring.match(/x([^}]+)}/);
+      const width = metaWidth ? metaWidth[1] : "700";
+      const height = metaHeight ? metaHeight[1] : "432";
+      const isPriority = metastring?.toLowerCase().match("{priority}");
+      const hasCaption = metastring?.toLowerCase().includes("{caption:");
+      const caption = metastring?.match(/{caption: (.*?)}/)?.pop();
+
+      return (
+        <div className="mt-4 flex justify-center">
+          <Image
+            src={image.properties.src}
+            width={width}
+            height={height}
+            className="postImg"
+            alt={alt}
+            priority={isPriority}
+            layout="intrinsic"
+          />
+          {hasCaption ? (
+            <div className="caption" aria-label={caption}>
+              {caption}
+            </div>
+          ) : null}
+        </div>
+      );
+    }
+    return <p>{paragraph.children}</p>;
+  },
+};
+
 const Post = ({ content, metaData }: prop) => {
-  const MarkdownComponents: object = {
-    p: (paragraph: { children?: boolean; node?: any }) => {
-      const { node } = paragraph;
-
-      if (node.children[0].tagName === "img") {
-        const image = node.children[0];
-        const metastring = image.properties.alt;
-        const alt = metastring?.replace(/ *\{[^)]*\} */g, "");
-        const metaWidth = metastring.match(/{([^}]+)x/);
-        const metaHeight = metastring.match(/x([^}]+)}/);
-        const width = metaWidth ? metaWidth[1] : "700";
-        const height = metaHeight ? metaHeight[1] : "432";
-        const isPriority = metastring?.toLowerCase().match("{priority}");
-        const hasCaption = metastring?.toLowerCase().includes("{caption:");
-        const caption = metastring?.match(/{caption: (.*?)}/)?.pop();
-
-        return (
-          <div className="mt-4 flex justify-center">
-            <Image
-              src={image.properties.src}
-              width={width}
-              height={height}
-              className="postImg"
-              alt={alt}
-              priority={isPriority}
-              layout="intrinsic"
-            />
-            {hasCaption ? (
-              <div className="caption" aria-label={caption}>
-                {caption}
-              </div>
-            ) : null}
-          </div>
-        );
-      }
-      return <p>{paragraph.children}</p>;
-    },
-  };
   return (
     <div className="z-10 w-full flex justify-center items-center">
       <Head>
@@ -108,7 +110,7 @@ export async function getStaticPaths() {
 
 // Fetch the data
 // eslint-disable-next-line require-jsdoc
-export async function getStaticProps(context: any) {
+export async function getStaticProps(context: GetStaticPropsContext) {
   const { slug } = context.params as IParams;
   const metaData: BlogPost | null = await prisma.blogPost.findFirst({
     where: {

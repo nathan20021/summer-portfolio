@@ -5,7 +5,11 @@ import axios from "axios";
 
 import { BsArrowClockwise } from "react-icons/bs";
 
-const Footer = () => {
+type prop = {
+  isBlog: boolean;
+};
+
+const Footer = ({ isBlog }: prop) => {
   const form = useRef();
   const [formValue, setValue] = useState<string>("");
   const [waiting, setIsWaiting] = useState<boolean>(false);
@@ -35,7 +39,8 @@ const Footer = () => {
       );
   };
 
-  const handleClick = async () => {
+  const handleClick = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
     setIsWaiting(true);
     if (isValidEmail(formValue)) {
       const { data } = await axios.put(`/api/user/${formValue}`, {
@@ -57,9 +62,13 @@ const Footer = () => {
     }
     setIsWaiting(false);
   };
-
   return (
-    <footer className="z-50 relative h-[400px] sm:h-[350px] w-full">
+    <footer
+      className="z-50 relative h-[400px] sm:h-[350px] w-full"
+      style={{
+        backgroundColor: isBlog ? "rgba(17, 17, 17, 0.9)" : "inherit",
+      }}
+    >
       <div className="z-40 absolute w-full h-[80%] sm:h-[75%] flex justify-center items-end">
         <div className="flex flex-col gap-3 w-[80%] sm:w-[70%] md:w-[45%]">
           {userFound ? (
@@ -90,7 +99,7 @@ const Footer = () => {
                     />
                     <button
                       className="transition-colors w-full sm:w-1/4 text-sm font-bold text-white bg-[#268679] hover:bg-[#2fa495] py-2"
-                      onClick={handleClick}
+                      onClick={(e) => handleClick(e)}
                       type="button"
                     >
                       {waiting ? "Sending..." : "Submit"}
