@@ -28,6 +28,9 @@ type prop = {
 const blogs = ({ metaDataArray, tags, tagsMetaData }: prop) => {
   const [metaData, setMetaData] = useState<Array<metaData>>(metaDataArray);
   const [currentFilterId, setCurrentFilterId] = useState<number>(-1);
+  const sortedTags = tags.sort((a, b) =>
+    tagsMetaData[a.id - 1] < tagsMetaData[b.id - 1] ? 1 : -1
+  );
 
   const filterMetaData = useCallback((id: number) => {
     setMetaData(
@@ -56,27 +59,23 @@ const blogs = ({ metaDataArray, tags, tagsMetaData }: prop) => {
           >
             All Tags ({metaDataArray.length})
           </li>
-          {tags
-            .sort((a, b) =>
-              tagsMetaData[a.id - 1] < tagsMetaData[b.id - 1] ? 1 : -1
-            )
-            .map((val) => {
-              return (
-                <li
-                  key={val.id}
-                  style={{
-                    color: currentFilterId === val.id ? "#4bd8ed" : "white",
-                  }}
-                  className="w-full py-1 indent-6 ease-out duration-300 hover:bg-[#333333] cursor-pointer flex items-center"
-                  onClick={() => {
-                    setCurrentFilterId(val.id);
-                    filterMetaData(val.id);
-                  }}
-                >
-                  ({tagsMetaData[val.id - 1]}) {val.name}
-                </li>
-              );
-            })}
+          {sortedTags.map((val) => {
+            return (
+              <li
+                key={val.id}
+                style={{
+                  color: currentFilterId === val.id ? "#4bd8ed" : "white",
+                }}
+                className="w-full py-1 indent-6 ease-out duration-300 hover:bg-[#333333] cursor-pointer flex items-center"
+                onClick={() => {
+                  setCurrentFilterId(val.id);
+                  filterMetaData(val.id);
+                }}
+              >
+                ({tagsMetaData[val.id - 1]}) {val.name}
+              </li>
+            );
+          })}
         </ul>
       </aside>
       <div className="lg:w-[85%] w-full z-10 my-[10vh]">
