@@ -28,9 +28,6 @@ type prop = {
 const blogs = ({ metaDataArray, tags, tagsMetaData }: prop) => {
   const [metaData, setMetaData] = useState<Array<metaData>>(metaDataArray);
   const [currentFilterId, setCurrentFilterId] = useState<number>(-1);
-  const sortedTags = tags.sort((a, b) =>
-    tagsMetaData[a.id - 1] < tagsMetaData[b.id - 1] ? 1 : -1
-  );
 
   const filterMetaData = useCallback((id: number) => {
     setMetaData(
@@ -59,7 +56,7 @@ const blogs = ({ metaDataArray, tags, tagsMetaData }: prop) => {
           >
             All Tags ({metaDataArray.length})
           </li>
-          {sortedTags.map((val) => {
+          {tags.map((val) => {
             return (
               <li
                 key={val.id}
@@ -192,7 +189,11 @@ export async function getStaticProps() {
   return {
     props: {
       metaDataArray: metaDataArray,
-      tags: tags,
+      tags: tags.sort(
+        (a, b) =>
+          tagsMetaData[b.id - 1] - tagsMetaData[a.id - 1] ||
+          a.name.localeCompare(b.name)
+      ),
       tagsMetaData: tagsMetaData,
     },
   };
