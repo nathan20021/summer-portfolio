@@ -62,7 +62,6 @@ const AdminEditor = ({ mdTemplate, tags }: props) => {
   const submitFunc = async () => {
     setSubmitting(true);
     for (let i = 0; i < 3; i++) {
-      console.log(`Waiting ${i} seconds...`);
       await sleep(i * 1000);
     }
     setSubmitting(false);
@@ -502,9 +501,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const tags = await prisma.tags.findMany();
 
+  const sth = path.resolve(process.cwd(), "md/templates");
+  console.log(path.join(sth, "template.md"));
   const parsedMDwithMetaData = fs
     // .readFileSync("md/templates/template.md")
-    .readFileSync(path.join("md/templates/template.md"))
+    .readFileSync(path.join(sth, "template.md"))
     .toString();
   return {
     props: {
