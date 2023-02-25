@@ -18,6 +18,7 @@ import { prisma } from "@/db";
 import { Tags } from "@prisma/client";
 import { AiFillTags } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
+import path from "path";
 
 const CodeEditor = dynamic<any>(
   () => import("@uiw/react-textarea-code-editor").then((mod) => mod.default),
@@ -502,7 +503,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const tags = await prisma.tags.findMany();
 
   const parsedMDwithMetaData = fs
-    .readFileSync("md/templates/template.md")
+    // .readFileSync("md/templates/template.md")
+    .readFileSync(path.join("md/templates/template.md"))
     .toString();
   return {
     props: {
