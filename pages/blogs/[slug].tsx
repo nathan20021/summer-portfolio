@@ -7,10 +7,10 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import styles from "../../styles/mdBlogs.module.css";
 import rehypeHighlight from "rehype-highlight";
-import Image from "next/image";
 import { BsFillEyeFill } from "react-icons/bs";
 import { BlogPost } from "@prisma/client";
 import { prisma } from "@/db";
+import MarkdownComponents from "@/components/Markdown/MarkdownComponents";
 import { ParsedUrlQuery } from "querystring";
 import config from "../../config.json";
 import { GetStaticPropsContext } from "next";
@@ -21,46 +21,7 @@ type prop = {
 interface IParams extends ParsedUrlQuery {
   slug: string;
 }
-
 const Post = ({ content, metaData }: prop) => {
-  const MarkdownComponents: object = {
-    p: (paragraph: { children?: boolean; node?: any }) => {
-      const { node } = paragraph;
-
-      if (node.children[0].tagName === "img") {
-        const image = node.children[0];
-        const metastring = image.properties.alt;
-        const alt = metastring?.replace(/ *\{[^)]*\} */g, "");
-        const metaWidth = metastring.match(/{([^}]+)x/);
-        const metaHeight = metastring.match(/x([^}]+)}/);
-        const width = metaWidth ? metaWidth[1] : "700";
-        const height = metaHeight ? metaHeight[1] : "432";
-        const isPriority = metastring?.toLowerCase().match("{priority}");
-        const hasCaption = metastring?.toLowerCase().includes("{caption:");
-        const caption = metastring?.match(/{caption: (.*?)}/)?.pop();
-
-        return (
-          <div className="mt-4 flex justify-center">
-            <Image
-              src={image.properties.src}
-              width={width}
-              height={height}
-              className="postImg"
-              alt={alt}
-              priority={isPriority}
-              layout="intrinsic"
-            />
-            {hasCaption ? (
-              <div className="caption" aria-label={caption}>
-                {caption}
-              </div>
-            ) : null}
-          </div>
-        );
-      }
-      return <p>{paragraph.children}</p>;
-    },
-  };
   return (
     <div className="z-10 w-full flex justify-center items-center">
       <Head>

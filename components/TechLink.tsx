@@ -2,7 +2,7 @@ import * as React from "react";
 import { motion } from "framer-motion";
 
 type displayIcons = {
-  link: string | null;
+  link: string | undefined;
   name: string;
   icon: React.ReactElement;
 };

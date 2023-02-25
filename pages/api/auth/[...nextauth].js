@@ -27,7 +27,7 @@ export default NextAuth({
           return {
             id: 1,
             name: "Nathan",
-            email: "luongn4@mcmaster.ca",
+            email: "nhanto20021@gmail.com",
           };
         }
         return null;
@@ -35,13 +35,16 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    jwt: ({ token, user }) => {
+    redirect: async ({ url, baseUrl }) => {
+      return `${baseUrl}/login`;
+    },
+    jwt: async ({ token, user }) => {
       if (user) {
         token.id = user.id;
       }
       return token;
     },
-    session: ({ session, token }) => {
+    session: async ({ session, token }) => {
       if (token) {
         session.id = token.id;
       }

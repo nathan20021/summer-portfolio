@@ -4,7 +4,7 @@ import TechLink from "./TechLink";
 import ImageGalary from "./ImageGalary";
 
 type displayIcons = {
-  link: string | null;
+  link: string | undefined;
   name: string;
   icon: React.ReactElement;
 };
@@ -13,8 +13,8 @@ type props = {
   name: string;
   slogan: string;
   paragraph: string;
-  githubLink: string | null;
-  demoLink: string | null;
+  githubLink: string | undefined;
+  demoLink: string | undefined;
   images: Array<string>;
   links: Array<displayIcons>;
   imagePath: string;

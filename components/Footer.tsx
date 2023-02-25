@@ -6,11 +6,11 @@ import axios from "axios";
 import { BsArrowClockwise } from "react-icons/bs";
 
 type prop = {
-  isBlog: boolean;
+  currentPath: string;
 };
 
-const Footer = ({ isBlog }: prop) => {
-  const form = useRef();
+const Footer = ({ currentPath }: prop) => {
+  const form = useRef(null);
   const [formValue, setValue] = useState<string>("");
   const [waiting, setIsWaiting] = useState<boolean>(false);
   const [userFound, setUserFound] = useState<boolean>(false);
@@ -33,9 +33,7 @@ const Footer = ({ isBlog }: prop) => {
       )
       .then(
         (result) => {},
-        (error) => {
-          // console.log(error);
-        }
+        (error) => {}
       );
   };
 
@@ -66,7 +64,9 @@ const Footer = ({ isBlog }: prop) => {
     <footer
       className="z-50 relative h-[400px] sm:h-[350px] w-full"
       style={{
-        backgroundColor: isBlog ? "rgba(17, 17, 17, 0.9)" : "inherit",
+        backgroundColor:
+          currentPath === "/blogs" ? "rgba(17, 17, 17, 0.9)" : "inherit",
+        display: currentPath === "/admin/editor" ? "none" : "block",
       }}
     >
       <div className="z-40 absolute w-full h-[80%] sm:h-[75%] flex justify-center items-end">

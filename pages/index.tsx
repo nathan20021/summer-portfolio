@@ -24,7 +24,6 @@ const lol = ["Full-stack Developer", "Cloud-Tech Enthusiast", "AWS Trainee"];
 
 const Home: NextPage = () => {
   const splineContainer = useRef<HTMLDivElement>(null!);
-  const splineMinimumWidth = 1053;
   const [lolIndex, setIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -143,15 +142,20 @@ const Home: NextPage = () => {
             <div
               ref={splineContainer}
               id="spline-container"
-              className="hidden sm:block h-[400px] lg:h-full w-[636px] lg:w-[70%] hover:cursor-grab"
+              className="hidden sm:block h-[400px] lg:h-full w-[90%] lg:w-[70%] hover:cursor-grab"
             >
               <Spline
                 scene="https://prod.spline.design/RwmvyKIRcAII4-yT/scene.splinecode"
                 onLoad={(spline) => {
                   setLoading(false);
-                  if (splineContainer.current !== null) {
+                  if (
+                    splineContainer.current !== null &&
+                    window !== undefined
+                  ) {
                     spline.setZoom(
-                      splineContainer.current.offsetWidth / splineMinimumWidth
+                      window.innerWidth > 1024
+                        ? splineContainer.current.offsetWidth / 1200
+                        : splineContainer.current.offsetWidth / 700
                     );
                   }
                 }}
@@ -214,7 +218,7 @@ const Home: NextPage = () => {
             name="McMaster Rocketry"
             slogan="Fueling Innovation."
             paragraph="A platform for the McMaster Rocketry Team to showcase their advancements, recruiting members, publishing blogs, and seeking external sponsorships."
-            githubLink={null}
+            githubLink={undefined}
             demoLink="https://www.macrocketry.ca/"
             imagePath="/rocketry_logo.webp"
             images={[
@@ -252,8 +256,8 @@ const Home: NextPage = () => {
             name="Project BPSN"
             slogan="Conencting professionals."
             paragraph="Coming soon ... "
-            githubLink={null}
-            demoLink={null}
+            githubLink={undefined}
+            demoLink={undefined}
             imagePath="/dotdotdot.webp"
             images={["coming_soon.png"]}
             links={[
@@ -268,7 +272,7 @@ const Home: NextPage = () => {
                 name: "Next.js",
               },
               {
-                link: null,
+                link: undefined,
                 icon: <BsThreeDots />,
                 name: "_",
               },

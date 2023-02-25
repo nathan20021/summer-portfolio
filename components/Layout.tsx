@@ -8,23 +8,29 @@ import { TbArrowBarToUp } from "react-icons/tb";
 
 const Layout = ({ router, children }: any) => {
   const [showButton, setShowButton] = useState<boolean>(false);
-  const [height, setHeight] = useState(undefined);
+  const [height, setHeight] = useState<number | undefined>(undefined);
 
   useEffect(() => {
     const buttonVisibleHandler = () => {
       window.scrollY > 400 ? setShowButton(true) : setShowButton(false);
     };
     window.addEventListener("scroll", buttonVisibleHandler);
-    setHeight(window.document.body.scrollHeight);
+    window === undefined
+      ? void 0
+      : setHeight(window.document.body.scrollHeight);
 
     return () => {
-      window.removeEventListener("scroll", buttonVisibleHandler);
+      window === undefined
+        ? void 0
+        : window.removeEventListener("scroll", buttonVisibleHandler);
     };
   }, [showButton, height]);
 
   useEffect(() => {
     const handleRouteChange = () => {
-      setHeight(window.document.body.scrollHeight);
+      window === undefined
+        ? void 0
+        : setHeight(window.document.body.scrollHeight);
     };
     router.events.on("routeChangeComplete", handleRouteChange);
 
@@ -40,7 +46,11 @@ const Layout = ({ router, children }: any) => {
         <meta name="description" content="Welcome to my portfolio 👀" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div id="main-layout-container" className="z-[100] w-screen h-fit">
+      <div
+        id="main-layout-container"
+        className="z-[100] w-screen h-fit"
+        data-color-mode="dark"
+      >
         <div
           id="to-top-button-container"
           className="absolute w-full h-full"
@@ -62,7 +72,7 @@ const Layout = ({ router, children }: any) => {
         </div>
         <Nav router={router} />
         {children}
-        <Footer isBlog={router.asPath === "/blogs"} />
+        <Footer currentPath={router.asPath} />
       </div>
     </div>
   );
