@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import * as React from "react";
@@ -15,35 +14,38 @@ const login = () => {
             🗿🗿 Welcome back Master Nathan 🗿🗿
           </h1>
           <div className="flex gap-3">
-            <Button
-              variant="contained"
-              className="bg-[#2e7c9e] hover:bg-[#47849f]"
+            <button
+              className="bg-[#2e7c9e] hover:bg-[#47849f] px-3 py-1 rounded-sm text-lg"
               onClick={() => {
                 window.open("/admin/dashboard", "_blank");
               }}
             >
               Dash Board
-            </Button>
-            <Button
-              variant="contained"
-              className="bg-[#9c2c2c] hover:bg-[#9b4444]"
+            </button>
+            <button
+              className="bg-[#9c2c2c] hover:bg-[#9b4444] px-3 py-1 rounded-sm text-lg"
               onClick={() => {
                 signOut();
               }}
             >
               Log Out
-            </Button>
+            </button>
           </div>
         </div>
       ) : (
-        <Button
-          variant="contained"
-          onClick={() => {
-            router.push("/api/auth/signin");
-          }}
-        >
-          Sign In
-        </Button>
+        <>
+          <button
+            className="bg-[#2e7c9e] hover:bg-[#47849f] px-3 py-1 rounded-sm text-lg z-50"
+            onClick={() => {
+              router.push("/api/auth/signin");
+            }}
+          >
+            Sign In
+          </button>
+          <h2 className=" mt-10 bg-silver/10 py-3 px-6 backdrop-blur-md">
+            You are not supposed to be here 😡
+          </h2>
+        </>
       )}
     </div>
   );

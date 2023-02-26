@@ -119,7 +119,7 @@ const ProjectShowcase = ({
               id="button-container"
               className="w-full flex justify-around gap-3"
             >
-              {githubLink !== null ? (
+              {githubLink !== undefined ? (
                 <motion.a
                   whileHover={{ borderColor: "#01629a" }}
                   href={githubLink}
@@ -132,7 +132,7 @@ const ProjectShowcase = ({
               ) : (
                 void 0
               )}
-              {demoLink === null ? (
+              {demoLink === undefined ? (
                 void 0
               ) : (
                 <motion.a
