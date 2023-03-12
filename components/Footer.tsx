@@ -62,10 +62,16 @@ const Footer = ({ currentPath }: prop) => {
   };
   return (
     <footer
-      className="z-50 relative h-[400px] sm:h-[350px] w-full"
+      // refactor this className block
+      className={
+        currentPath.split("/")[1] === "blogs" &&
+        currentPath.split("/").length > 2
+          ? "z-50 relative h-[400px] sm:h-[350px] w-full dark:bg-primary bg-light"
+          : currentPath.split("/").length === 2
+          ? "z-50 relative h-[400px] sm:h-[350px] w-full bg-[#111111]"
+          : "z-50 relative h-[400px] sm:h-[350px] w-full bg-primary"
+      }
       style={{
-        backgroundColor:
-          currentPath === "/blogs" ? "rgba(17, 17, 17, 0.9)" : "inherit",
         display: currentPath === "/admin/editor" ? "none" : "block",
       }}
     >

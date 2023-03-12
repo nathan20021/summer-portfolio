@@ -38,7 +38,7 @@ const blogs = ({ metaDataArray, tags, tagsMetaData }: prop) => {
     );
   }, []);
   return (
-    <section className="min-h-screen z-10 flex flex-col lg:flex-row lg:items-center justify-center bg-[#111111]">
+    <section className="min-h-screen z-10 flex flex-col lg:flex-row lg:items-start justify-center bg-[#111111]">
       <div>
         <ParticleBg />
       </div>
@@ -75,7 +75,7 @@ const blogs = ({ metaDataArray, tags, tagsMetaData }: prop) => {
           })}
         </ul>
       </aside>
-      <div className="lg:w-[85%] w-full z-10 my-[10vh]">
+      <div className="lg:w-[70%] w-full z-10 my-[10vh]">
         {/* <div className="h-[10vh] min-h-[7rem] flex justify-center items-center"></div> */}
         <div className="w-full h-full flex flex-wrap gap-3 justify-around">
           {metaData.map((metaData, index) => {
@@ -83,7 +83,7 @@ const blogs = ({ metaDataArray, tags, tagsMetaData }: prop) => {
               <div
                 id="blog-container-box"
                 key={index}
-                className="w-[28%] min-w-[300px] max-w-[351px] h-[40vh] min-h-[500px] rounded-md bg-[#222222] overflow-hidden
+                className="my-5 w-[28%] min-w-[300px] max-w-[351px] h-[40vh] min-h-[500px] rounded-md bg-[#222222] overflow-hidden
                   flex flex-col justify-start items-center"
               >
                 <Link href={`/blogs/${metaData.file_name}`} key={index}>

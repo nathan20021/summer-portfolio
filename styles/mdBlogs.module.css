@@ -2,20 +2,30 @@
   list-style: inside;
 }
 
-.post > ul > li {
+.post > ul ol > li {
   margin: 0.5rem 0 0.5rem 3rem;
+}
+
+.post li > p {
+  margin: 0.5rem 0rem;
+}
+
+.post > blockquote {
+  margin: 1rem 2.5rem;
+  padding: 0.3rem 1rem 0.3rem 1.1rem;
+  border-left: #6060ff solid 0.2rem;
+}
+
+.postLight > blockquote {
+  background: #d1d1d1;
+}
+.postDark > blockquote {
+  background: #313131;
 }
 
 .post > * {
   padding: 0.2rem;
   font-size: 1rem;
-}
-
-.post > blockquote {
-  background: #313131;
-  margin: 1rem 2.5rem;
-  padding: 0.3rem 1rem 0.3rem 1.1rem;
-  border-left: #6060ff solid 0.2rem;
 }
 
 .post > p {
@@ -28,13 +38,6 @@
   text-align: center;
   font-size: 2rem;
   padding: 1rem 0rem;
-}
-
-.post a {
-  color: #018fbd;
-}
-.post a:hover {
-  color: #00c1ff;
 }
 
 .post > h2 {
@@ -50,4 +53,32 @@
 
 .post > hr {
   margin: 1rem 0rem;
+}
+
+.post a {
+  color: #018fbd;
+}
+.post a:hover {
+  color: #00c1ff;
+}
+
+.post ol {
+  list-style-type: numeric;
+  margin-left: 1.5rem;
+}
+
+.post ul {
+  list-style-type: square;
+  margin-left: 1.5rem;
+}
+
+.post pre > code {
+  margin-left: 1.5rem;
+}
+
+.post code:not(pre *) {
+  color: #d9959b;
+  background: #282c34;
+  padding: 0.1rem 0.2rem;
+  border-radius: 0.2rem;
 }

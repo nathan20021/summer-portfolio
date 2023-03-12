@@ -2,7 +2,7 @@
 
 ## **Introduction**
 
-Starting off the dev-log journey, let us start with the creation of this very website you are looking at.
+Starting the dev-log journey, let us start with the creation of this very website you are looking at.
 
 This blog platform has been an ongoing personal project of mine starting in the Summer of 2022 alongside [Viz- Diagramming made easy](https://viz.nathanluong.me).
 

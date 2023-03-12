@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as fs from "fs";
 import path from "path";
 import Head from "next/head";
@@ -14,6 +14,8 @@ import MarkdownComponents from "@/components/Markdown/MarkdownComponents";
 import { ParsedUrlQuery } from "querystring";
 import config from "../../config.json";
 import { GetStaticPropsContext } from "next";
+import { useTheme } from "next-themes";
+
 type prop = {
   content: string;
   metaData: any;
@@ -22,16 +24,23 @@ interface IParams extends ParsedUrlQuery {
   slug: string;
 }
 const Post = ({ content, metaData }: prop) => {
+  const { theme, setTheme } = useTheme();
+  useEffect(() => {
+    setTheme("dark");
+  }, []);
   return (
-    <div className="z-10 w-full flex justify-center items-center">
+    <div className="bg-light dark:bg-primary z-10 w-full flex justify-center items-center">
       <Head>
         <title>{metaData.title}</title>
       </Head>
       <div
         id="Blog Container"
-        className="w-[90%] lg:w-[60%] flex flex-col items-center bg-primary z-10"
+        className="w-[90%] lg:w-[60%] flex flex-col items-center bg-light dark:bg-primary z-10"
       >
-        <div id="metadata-container" className="z-10 w-full text-center">
+        <div
+          id="metadata-container"
+          className="z-10 w-full text-center text-darktext dark:text-lighttext"
+        >
           <h1 className="sm:font-medium text-center text-3xl sm:text-5xl mt-12 tracking-wide">
             {metaData.title}
           </h1>
@@ -46,7 +55,11 @@ const Post = ({ content, metaData }: prop) => {
         </div>
 
         <ReactMarkdown
-          className={`${styles.post} w-full z-10`}
+          className={
+            theme === "dark"
+              ? `${styles.postDark} ${styles.post} w-full z-10 text-lighttext`
+              : `${styles.postLight} ${styles.post} w-full z-10 text-darktext`
+          }
           remarkPlugins={[remarkGfm]}
           rehypePlugins={[rehypeHighlight]}
           components={MarkdownComponents}

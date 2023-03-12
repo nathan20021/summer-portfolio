@@ -5,10 +5,13 @@ import Footer from "./Footer";
 import Nav from "./Nav";
 import { withRouter } from "next/router";
 import { TbArrowBarToUp } from "react-icons/tb";
+import { useTheme } from "next-themes";
+import { FaSun, FaMoon } from "react-icons/fa";
 
 const Layout = ({ router, children }: any) => {
   const [showButton, setShowButton] = useState<boolean>(false);
   const [height, setHeight] = useState<number | undefined>(undefined);
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     const buttonVisibleHandler = () => {
@@ -56,6 +59,26 @@ const Layout = ({ router, children }: any) => {
           className="absolute w-full h-full"
           style={{ height: height }}
         >
+          {router.asPath.split("/")[1] === "blogs" &&
+          router.asPath.split("/").length > 2 ? (
+            <button
+              id="theme-toggle-button"
+              onClick={() => {
+                theme === "dark" ? setTheme("light") : setTheme("dark");
+              }}
+              className="sticky z-[100] top-[79dvh] left-[91dvw] bg-[#ffffff]/40 hover:bg-[#ffffff]/80 duration-300 
+              transition-opacity ease-in-out w-12 h-12 flex justify-center items-center rounded-full backdrop-blur-sm font-bold
+              "
+            >
+              {theme === "dark" ? (
+                <FaSun className="text-xl bg-clip-text text-[#3f3f3f]" />
+              ) : (
+                <FaMoon className="text-xl bg-clip-text text-[#3f3f3f]" />
+              )}
+            </button>
+          ) : (
+            void 0
+          )}
           <button
             onClick={() => {
               window.scrollTo({

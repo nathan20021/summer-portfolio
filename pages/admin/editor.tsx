@@ -78,7 +78,7 @@ const AdminEditor = ({ mdTemplate, tags }: props) => {
 
   const [code, setCode] = useLocalStorage("parsedMarkdown", mdTemplate);
   const [highLightMD, setHighLightMD] = useState<boolean>(false);
-  const [isPreview, setIsPreview] = useState<boolean>(false);
+  const [isPreview, setIsPreview] = useState<boolean>(true);
   const [formState, setFormState] = useState<formProps>({
     title: "Untitled",
     url: "",
@@ -502,10 +502,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const tags = await prisma.tags.findMany();
 
   const sth = path.resolve(process.cwd(), "md/templates");
-  console.log(path.join(sth, "template.md"));
   const parsedMDwithMetaData = fs
-    // .readFileSync("md/templates/template.md")
-    .readFileSync(path.join(sth, "template.md"))
+    .readFileSync(path.join(sth, "portfolio-dev-log-1.md"))
     .toString();
   return {
     props: {

@@ -30,6 +30,14 @@ const login = () => {
             >
               Log Out
             </button>
+            <button
+              className="bg-[#9c2c2c] hover:bg-[#9b4444] px-3 py-1 rounded-sm text-lg"
+              onClick={() => {
+                signOut();
+              }}
+            >
+              Log Out
+            </button>
           </div>
         </div>
       ) : (

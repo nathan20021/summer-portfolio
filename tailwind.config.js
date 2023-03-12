@@ -1,5 +1,6 @@
 module.exports = {
   mode: "jit",
+  darkMode: "class",
   content: [
     "./pages/index.html",
     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -27,9 +28,11 @@ module.exports = {
       metal: "#565584",
       tahiti: "#3ab7bf",
       silver: "#ecebff",
-      "bubble-gum": "#ff77e9",
       bermuda: "#78dcca",
       primary: "#1B1B1B",
+      lighttext: "#ffffff",
+      light: "#f0f0f0",
+      darktext: "#1B1B1B",
     },
     extend: {
       backgroundImage: {
