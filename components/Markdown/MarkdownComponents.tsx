@@ -67,21 +67,21 @@ const MarkdownComponents: object = {
   },
 
   span: (element: {
-    className?: string;
-    children?: Array<string>;
-    node?: object;
+    className: string;
+    children: Array<string>;
+    node: object;
   }) => {
     if (element.className === "math math-inline") {
       return <InlineMath>{element.children[0]}</InlineMath>;
     }
-    return <span className={element.className}>{element.children}</span>;
+    return <span className={element?.className}>{element.children}</span>;
   },
 
   a: (element: {
-    className?: string;
-    children?: Array<string>;
-    href?: string;
-    node?: object;
+    className: string;
+    children: Array<string>;
+    href: string;
+    node: object;
   }) => {
     return (
       <a
@@ -96,10 +96,10 @@ const MarkdownComponents: object = {
   },
 
   input: (element: {
-    type?: string;
-    checked?: boolean;
-    disabled?: boolean;
-    node?: object;
+    type: string;
+    checked: boolean;
+    disabled: boolean;
+    node: object;
   }) => {
     if (element.type === "checkbox") {
       console.log(element);
@@ -116,7 +116,7 @@ const MarkdownComponents: object = {
     return <input type={element.type} />;
   },
 
-  pre: (element: { children?: any; node?: any }) => {
+  pre: (element: { children: any; node: any }) => {
     const [copied, setCopied] = useState(false);
     return (
       <div className="relative my-3 cursor-text">
@@ -156,9 +156,9 @@ const MarkdownComponents: object = {
   },
 
   div: (element: {
-    className?: string;
-    children?: Array<string>;
-    node?: object;
+    className: string;
+    children: Array<string>;
+    node: object;
   }) => {
     if (element.className === "math math-display") {
       return <BlockMath>{element.children[0]}</BlockMath>;
