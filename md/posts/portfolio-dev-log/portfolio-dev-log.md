@@ -30,7 +30,14 @@ The source code is available on my personal GitHub.
 - **Blog writing**: Using the built-in markdown editor admin can write and preview their blogs before publishing.
 - **Blog Publishing**: Publish blogs with additional metadata.
 
-[![Editor Demo {700x400}](/posts/portfolio-dev-log/demo.png)](https://www.youtube.com/watch?v=88Jv7J4yjU4)
+<center>
+  <iframe width="560" height="315"
+      src="https://www.youtube.com/embed/88Jv7J4yjU4"
+      title="YouTube video player" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+  </iframe>
+</center>
 
 ## **🤔 What's next?**
 

@@ -2,17 +2,31 @@
 
 ## **Expanding Blogs Functionalities**
 
-### Support Katex for Math equation inputs (`react-katex` and the `remark-math` plugin)
+### 👉 Support Katex for Math equation inputs (`react-katex` and the `remark-math` plugin)
+
+Block Equations:
+
+```latex
+$$
+s = ut + \frac{1}{2}at^{2}
+$$
+```
 
 $$
 s = ut + \frac{1}{2}at^{2}
 $$
 
+Inline Equations:
+
+```latex
+Calculate the value of $s$ when $u = 10\frac{m}{s}$ and $a = 2\frac{m}{s^{2}}$ at $t = 1s$
+```
+
 Calculate the value of $s$ when $u = 10\frac{m}{s}$ and $a = 2\frac{m}{s^{2}}$ at $t = 1s$
 
 ---
 
-### Support Github-flavored-Markdown(`remarkGfm` plugin)
+### 👉 Support Github-flavored-Markdown(`remarkGfm` plugin)
 
 1. Render Markdown table as HTML Table
     ID | Blogs | # Views
@@ -37,7 +51,7 @@ Calculate the value of $s$ when $u = 10\frac{m}{s}$ and $a = 2\frac{m}{s^{2}}$ a
 
 ---
 
-### Support raw HTML rendering (`rehype-raw` plugin)
+### 👉 Support raw HTML rendering (`rehype-raw` plugin)
 
 ```html
 <center>

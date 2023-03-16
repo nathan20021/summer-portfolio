@@ -23,12 +23,12 @@ const login = () => {
               Dash Board
             </button>
             <button
-              className="bg-[#9c2c2c] hover:bg-[#9b4444] px-3 py-1 rounded-sm text-lg"
+              className="bg-[#2e7c9e] hover:bg-[#47849f] px-3 py-1 rounded-sm text-lg"
               onClick={() => {
-                signOut();
+                window.open("/admin/editor", "_blank");
               }}
             >
-              Log Out
+              Blog Editor
             </button>
             <button
               className="bg-[#9c2c2c] hover:bg-[#9b4444] px-3 py-1 rounded-sm text-lg"

@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
+// import { useEffect } from "react";
 import * as fs from "fs";
 import path from "path";
 import Head from "next/head";
@@ -14,7 +15,10 @@ import MarkdownComponents from "@/components/Markdown/MarkdownComponents";
 import { ParsedUrlQuery } from "querystring";
 import config from "../../config.json";
 import { GetStaticPropsContext } from "next";
-import { useTheme } from "next-themes";
+import RemarkMathPlugin from "remark-math";
+import "katex/dist/katex.min.css";
+import rehypeRaw from "rehype-raw";
+// import { useTheme } from "next-themes";
 
 type prop = {
   content: string;
@@ -23,11 +27,12 @@ type prop = {
 interface IParams extends ParsedUrlQuery {
   slug: string;
 }
+
 const Post = ({ content, metaData }: prop) => {
-  const { theme, setTheme } = useTheme();
-  useEffect(() => {
-    setTheme("dark");
-  }, []);
+  // const { theme, setTheme } = useTheme();
+  // useEffect(() => {
+  //   setTheme("dark");
+  // }, []);
   return (
     <div className="bg-light dark:bg-primary z-10 w-full flex justify-center items-center">
       <Head>
@@ -55,13 +60,14 @@ const Post = ({ content, metaData }: prop) => {
         </div>
 
         <ReactMarkdown
-          className={
-            theme === "dark"
-              ? `${styles.postDark} ${styles.post} w-full z-10 text-lighttext`
-              : `${styles.postLight} ${styles.post} w-full z-10 text-darktext`
-          }
-          remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeHighlight]}
+          // className={
+          //   theme === "dark"
+          //     ? `${styles.postDark} ${styles.post} w-full z-10 text-lighttext`
+          //     : `${styles.postLight} ${styles.post} w-full z-10 text-darktext`
+          // }
+          className={`${styles.postDark} ${styles.post} w-full z-10 text-lighttext`}
+          remarkPlugins={[remarkGfm, RemarkMathPlugin]}
+          rehypePlugins={[rehypeHighlight, rehypeRaw]}
           components={MarkdownComponents}
         >
           {content}

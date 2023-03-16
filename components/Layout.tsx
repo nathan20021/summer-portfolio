@@ -5,13 +5,13 @@ import Footer from "./Footer";
 import Nav from "./Nav";
 import { withRouter } from "next/router";
 import { TbArrowBarToUp } from "react-icons/tb";
-import { useTheme } from "next-themes";
-import { FaSun, FaMoon } from "react-icons/fa";
+// import { useTheme } from "next-themes";
+// import { FaSun, FaMoon } from "react-icons/fa";
 
 const Layout = ({ router, children }: any) => {
   const [showButton, setShowButton] = useState<boolean>(false);
   const [height, setHeight] = useState<number | undefined>(undefined);
-  const { theme, setTheme } = useTheme();
+  // const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     const buttonVisibleHandler = () => {
@@ -59,7 +59,7 @@ const Layout = ({ router, children }: any) => {
           className="absolute w-full h-full"
           style={{ height: height }}
         >
-          {router.asPath.split("/")[1] === "blogs" &&
+          {/* {router.asPath.split("/")[1] === "blogs" &&
           router.asPath.split("/").length > 2 ? (
             <button
               id="theme-toggle-button"
@@ -78,7 +78,7 @@ const Layout = ({ router, children }: any) => {
             </button>
           ) : (
             void 0
-          )}
+          )} */}
           <button
             onClick={() => {
               window.scrollTo({

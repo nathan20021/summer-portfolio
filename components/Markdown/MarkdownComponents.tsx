@@ -4,6 +4,7 @@ import { MdOutlineContentCopy } from "react-icons/md";
 import { useState } from "react";
 import { BsCheck } from "react-icons/bs";
 import { flattenDeep } from "lodash";
+import { BlockMath, InlineMath } from "react-katex";
 
 type DeepArray<T> = T | Array<DeepArray<T>>;
 
@@ -65,10 +66,60 @@ const MarkdownComponents: object = {
     return <p>{paragraph.children}</p>;
   },
 
+  span: (element: {
+    className?: string;
+    children?: Array<string>;
+    node?: object;
+  }) => {
+    if (element.className === "math math-inline") {
+      return <InlineMath>{element.children[0]}</InlineMath>;
+    }
+    return <span className={element.className}>{element.children}</span>;
+  },
+
+  a: (element: {
+    className?: string;
+    children?: Array<string>;
+    href?: string;
+    node?: object;
+  }) => {
+    return (
+      <a
+        className="cursor-pointer"
+        href={element.href}
+        target="_blank"
+        rel="noreferrer"
+      >
+        {element.children[0]}
+      </a>
+    );
+  },
+
+  input: (element: {
+    type?: string;
+    checked?: boolean;
+    disabled?: boolean;
+    node?: object;
+  }) => {
+    if (element.type === "checkbox") {
+      console.log(element);
+
+      return (
+        <input
+          readOnly
+          checked={element.checked ? true : false}
+          className="w-4 h-4 text-blue-600 bg-grey-100 border-grey-300 rounded dark:ring-offset-grey-800 dark:bg-grey-700 dark:border-grey-600"
+          type="checkbox"
+        />
+      );
+    }
+    return <input type={element.type} />;
+  },
+
   pre: (element: { children?: any; node?: any }) => {
     const [copied, setCopied] = useState(false);
     return (
-      <div className="relative my-3">
+      <div className="relative my-3 cursor-text">
         <div className="absolute right-5 top-5">
           <button
             onClick={() => {
@@ -84,12 +135,12 @@ const MarkdownComponents: object = {
             }}
             className="
               text-md bg-[#484e5b] hover:bg-[#5f6676] p-2
-              rounded-md flex justify-center items-center gap-1"
+              rounded-md flex justify-start items-center gap-1 text-2xl"
           >
             {copied ? (
               <>
                 <BsCheck />
-                <span className="text-sm">Copied</span>
+                <span className="text-sm padding-0">Copied</span>
               </>
             ) : (
               <>
@@ -102,6 +153,17 @@ const MarkdownComponents: object = {
         <pre className="rounded-md code-block">{element.children}</pre>
       </div>
     );
+  },
+
+  div: (element: {
+    className?: string;
+    children?: Array<string>;
+    node?: object;
+  }) => {
+    if (element.className === "math math-display") {
+      return <BlockMath>{element.children[0]}</BlockMath>;
+    }
+    return <div>{element.children}</div>;
   },
 };
 

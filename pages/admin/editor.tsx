@@ -14,12 +14,12 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import matter from "gray-matter";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { prisma } from "@/db";
-import { Tags } from "@prisma/client";
-import { AiFillTags } from "react-icons/ai";
+// import { prisma } from "@/db";
 import { TiTick } from "react-icons/ti";
 import path from "path";
-
+import RemarkMathPlugin from "remark-math";
+import "katex/dist/katex.min.css";
+import rehypeRaw from "rehype-raw";
 const CodeEditor = dynamic<any>(
   () => import("@uiw/react-textarea-code-editor").then((mod) => mod.default),
   { ssr: false }
@@ -27,7 +27,6 @@ const CodeEditor = dynamic<any>(
 
 type props = {
   mdTemplate: string;
-  tags: Tags[];
 };
 
 type formProps = {
@@ -58,7 +57,7 @@ function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-const AdminEditor = ({ mdTemplate, tags }: props) => {
+const AdminEditor = ({ mdTemplate }: props) => {
   const submitFunc = async () => {
     setSubmitting(true);
     for (let i = 0; i < 3; i++) {
@@ -73,7 +72,6 @@ const AdminEditor = ({ mdTemplate, tags }: props) => {
       description: "",
       initialViews: 0,
     });
-    setTagsState(Array(tags.length).fill(false));
   };
 
   const [code, setCode] = useLocalStorage("parsedMarkdown", mdTemplate);
@@ -88,9 +86,6 @@ const AdminEditor = ({ mdTemplate, tags }: props) => {
     initialViews: 0,
   });
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const [tagsState, setTagsState] = useState<boolean[]>(
-    Array(tags.length).fill(false)
-  );
 
   return (
     <>
@@ -169,8 +164,8 @@ const AdminEditor = ({ mdTemplate, tags }: props) => {
           >
             <ReactMarkdown
               className={`${styles.post} z-10 h-full`}
-              remarkPlugins={[remarkGfm]}
-              rehypePlugins={[rehypeHighlight]}
+              remarkPlugins={[remarkGfm, RemarkMathPlugin]}
+              rehypePlugins={[rehypeHighlight, rehypeRaw]}
               components={MarkdownComponents}
             >
               {code === undefined ? "" : code}
@@ -438,7 +433,7 @@ const AdminEditor = ({ mdTemplate, tags }: props) => {
                             id="tags-container"
                             className="flex-wrap md:col-span-5 flex justify-center gap-2"
                           >
-                            {tags.map((val, ind) => {
+                            {/* {tags.map((val, ind) => {
                               return (
                                 <div
                                   key={ind}
@@ -458,7 +453,7 @@ const AdminEditor = ({ mdTemplate, tags }: props) => {
                                   {val.name}
                                 </div>
                               );
-                            })}
+                            })} */}
                           </div>
 
                           <div className="md:col-span-5 text-center">
@@ -499,15 +494,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
-  const tags = await prisma.tags.findMany();
+  // const tags = await prisma.tags.findMany();
 
   const sth = path.resolve(process.cwd(), "md/templates");
   const parsedMDwithMetaData = fs
-    .readFileSync(path.join(sth, "portfolio-dev-log-1.md"))
+    .readFileSync(path.join(sth, "template.md"))
     .toString();
   return {
     props: {
-      tags: tags,
+      // tags: tags,
       mdTemplate: matter(parsedMDwithMetaData).content,
     },
   };
