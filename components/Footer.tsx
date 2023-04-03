@@ -67,7 +67,8 @@ const Footer = ({ currentPath }: prop) => {
         currentPath.split("/")[1] === "blogs" &&
         currentPath.split("/").length > 2
           ? "z-50 relative h-[400px] sm:h-[350px] w-full dark:bg-primary bg-light"
-          : currentPath.split("/").length === 2
+          : currentPath.split("/")[1] === "blogs" &&
+            currentPath.split("/").length === 1
           ? "z-50 relative h-[400px] sm:h-[350px] w-full bg-[#111111]"
           : "z-50 relative h-[400px] sm:h-[350px] w-full bg-primary"
       }
