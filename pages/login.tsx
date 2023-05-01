@@ -10,7 +10,7 @@ const login = () => {
     <div className="flex flex-col w-screen h-[80vh] justify-center items-center text-2xl z-20">
       {session ? (
         <div className="px-20 py-10 bg-[#333333] z-50">
-          <h1 className="text-black font-bold z-50 pb-6">
+          <h1 className="text-white font-bold z-50 pb-6">
             🗿🗿 Welcome back Master Nathan 🗿🗿
           </h1>
           <div className="flex gap-3">
