@@ -10,7 +10,6 @@ import {
   SiNextdotjs,
   SiGraphql,
   SiFirebase,
-  SiMysql,
   SiExpress,
   SiSqlite,
 } from "react-icons/si";
@@ -38,26 +37,6 @@ const Home: NextPage = () => {
   }, []);
   return (
     <div className="z-20 w-screen flex flex-col justify-start items-center">
-      <AnimatePresence>
-        {loading ? (
-          <motion.div
-            key="loading-screen"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.5 } }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="absolute h-screen w-screen bg-primary z-50 flex justify-center items-center top-0 left-0 "
-          >
-            <div className="dots">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </motion.div>
-        ) : (
-          void 0
-        )}
-      </AnimatePresence>
-
       <NonSSRWrapper>
         <section className="w-full h-max lg:h-screen flex flex-col justify-center items-center z-40 bg-primary ">
           <div className="min-h-max h-[90%] w-[95%] flex flex-col items-center lg:item-start lg:flex-row max-w-[1400px] gap-6 lg:gap-0">
@@ -144,8 +123,25 @@ const Home: NextPage = () => {
             <div
               ref={splineContainer}
               id="spline-container"
-              className="hidden sm:block h-[400px] lg:h-full w-[90%] lg:w-[70%] hover:cursor-grab"
+              className="hidden sm:block h-[400px] lg:h-full w-[90%] lg:w-[70%] hover:cursor-grab relative"
             >
+              {loading && (
+                <AnimatePresence>
+                  <motion.div
+                    key="loading-screen"
+                    initial={{ opacity: 1 }}
+                    exit={{ opacity: 0, transition: { duration: 0.5 } }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    className="absolute h-full w-full bg-primary z-50 flex justify-center items-center top-0 left-0 "
+                  >
+                    <div className="dots">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              )}
               <Spline
                 scene="https://prod.spline.design/RwmvyKIRcAII4-yT/scene.splinecode"
                 onLoad={(spline) => {
@@ -177,6 +173,7 @@ const Home: NextPage = () => {
         </div>
         <div className="mb-[10vh] max-w-[1400px] md:mb-0 w-[90%] xl:w-[80%] h-[80vh] flex justify-center items-center relative">
           <ProjectShowcase
+            color="#01529a"
             side="right"
             name="Viz"
             slogan="Diagramming Made Easy"
@@ -216,6 +213,7 @@ const Home: NextPage = () => {
         </div>
         <div className="mb-[10vh] max-w-[1400px] md:mb-0 w-[90%] xl:w-[80%] h-[80vh] flex justify-center items-center relative">
           <ProjectShowcase
+            color="#7a003c"
             side="left"
             name="McMaster Rocketry"
             slogan="Fueling Innovation."
@@ -254,9 +252,10 @@ const Home: NextPage = () => {
         </div>
         <div className="mb-[10vh] max-w-[1400px] md:mb-0 w-[90%] h-[65vh]  md:h-[90vh] flex justify-center items-center relative">
           <ProjectShowcase
+            color="#666666"
             side="right"
-            name="Oober"
-            slogan="Connecting Riders and Drivers"
+            name="Oober 🎉"
+            slogan="Connecting Riders and Drivers."
             paragraph="A mobile application that connects riders and drivers in a safe and efficient manner."
             githubLink={"https://github.com/nathan20021/3A04-Project"}
             demoLink={undefined}

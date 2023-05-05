@@ -2,6 +2,7 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import TechLink from "./TechLink";
 import ImageGalary from "./ImageGalary";
+import { hexToRgb, rgbToHex } from "../utils/functions";
 
 type displayIcons = {
   link: string | undefined;
@@ -10,6 +11,7 @@ type displayIcons = {
 };
 
 type props = {
+  color: string;
   name: string;
   slogan: string;
   paragraph: string;
@@ -31,7 +33,18 @@ const ProjectShowcase = ({
   links,
   imagePath,
   side,
+  color,
 }: props) => {
+  const lighterRgbColor = hexToRgb(color);
+  lighterRgbColor.r = Math.min(255, lighterRgbColor.r + 25);
+  lighterRgbColor.g = Math.min(255, lighterRgbColor.g + 25);
+  lighterRgbColor.b = Math.min(255, lighterRgbColor.b + 25);
+
+  const lighterHexColor = rgbToHex(
+    lighterRgbColor.r,
+    lighterRgbColor.g,
+    lighterRgbColor.b
+  );
   return (
     <div
       id="project-showcase-container"
@@ -121,11 +134,14 @@ const ProjectShowcase = ({
             >
               {githubLink !== undefined ? (
                 <motion.a
-                  whileHover={{ borderColor: "#01629a" }}
+                  whileHover={{ borderColor: lighterHexColor }}
                   href={githubLink}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-[70%] min-w-[6rem] xl:w-28 py-1.5 xl:py-2 rounded-xl text-sm xl:text-base border-[3px] bg-[#2a2a2a] border-[#01529a] flex justify-center items-center"
+                  style={{
+                    borderColor: color,
+                  }}
+                  className="w-[70%] min-w-[6rem] xl:w-28 py-1.5 xl:py-2 rounded-xl text-sm xl:text-base border-[3px] bg-[#2a2a2a] flex justify-center items-center"
                 >
                   Github
                 </motion.a>
@@ -137,17 +153,15 @@ const ProjectShowcase = ({
               ) : (
                 <motion.a
                   whileHover={{
-                    backgroundColor:
-                      name === "McMaster Rocketry" ? `#8A003C` : "#01629a",
+                    backgroundColor: lighterHexColor,
                   }}
                   href={demoLink}
                   target="_blank"
                   rel="noreferrer"
                   style={{
-                    backgroundColor:
-                      name === "McMaster Rocketry" ? `#7A003C` : `#01529a`,
+                    backgroundColor: color,
                   }}
-                  className="w-[70%] min-w-[6rem] xl:w-28 py-1.5 xl:py-2 rounded-xl text-sm xl:text-base flex justify-center items-center shadow-md"
+                  className={`w-[70%] min-w-[6rem] xl:w-28 py-1.5 xl:py-2 rounded-xl text-sm xl:text-base flex justify-center items-center shadow-md`}
                 >
                   Demo
                 </motion.a>
