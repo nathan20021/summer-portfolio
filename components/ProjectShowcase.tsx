@@ -2,7 +2,7 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import TechLink from "./TechLink";
 import ImageGalary from "./ImageGalary";
-import { hexToRgb, rgbToHex } from "../utils/functions";
+import { toLighterHex } from "../utils/functions";
 
 type displayIcons = {
   link: string | undefined;
@@ -35,16 +35,7 @@ const ProjectShowcase = ({
   side,
   color,
 }: props) => {
-  const lighterRgbColor = hexToRgb(color);
-  lighterRgbColor.r = Math.min(255, lighterRgbColor.r + 25);
-  lighterRgbColor.g = Math.min(255, lighterRgbColor.g + 25);
-  lighterRgbColor.b = Math.min(255, lighterRgbColor.b + 25);
-
-  const lighterHexColor = rgbToHex(
-    lighterRgbColor.r,
-    lighterRgbColor.g,
-    lighterRgbColor.b
-  );
+  const lighterHexColor = toLighterHex(color);
   return (
     <div
       id="project-showcase-container"

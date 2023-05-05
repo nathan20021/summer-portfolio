@@ -14,6 +14,8 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import matter from "gray-matter";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import remarkDirective from "remark-directive";
+import { myRemarkPlugin } from "@/components/Markdown/MarkdownComponents";
 // import { prisma } from "@/db";
 import { TiTick } from "react-icons/ti";
 import path from "path";
@@ -164,7 +166,12 @@ const AdminEditor = ({ mdTemplate }: props) => {
           >
             <ReactMarkdown
               className={`${styles.post} z-10 h-full`}
-              remarkPlugins={[remarkGfm, RemarkMathPlugin]}
+              remarkPlugins={[
+                remarkGfm,
+                RemarkMathPlugin,
+                remarkDirective,
+                myRemarkPlugin,
+              ]}
               rehypePlugins={[rehypeHighlight, rehypeRaw]}
               components={MarkdownComponents}
             >

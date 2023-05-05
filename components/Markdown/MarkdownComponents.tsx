@@ -1,10 +1,13 @@
-import Image from "next/image";
 import * as React from "react";
 import { MdOutlineContentCopy } from "react-icons/md";
 import { useState } from "react";
+import Image from "next/image";
 import { BsCheck } from "react-icons/bs";
 import { flattenDeep } from "lodash";
 import { BlockMath, InlineMath } from "react-katex";
+import { visit } from "unist-util-visit";
+import { h } from "hastscript";
+import { toLighterHex, toDarkerHex, hexToRgb } from "../../utils/functions";
 
 type DeepArray<T> = T | Array<DeepArray<T>>;
 
@@ -15,6 +18,32 @@ type dataProps = {
 };
 
 type preProcessProps = string | dataProps;
+
+type CallOutProps = {
+  icon?: string | null;
+  title?: string | null;
+  className: string;
+  children: Array<string>;
+  node: object;
+};
+
+// eslint-disable-next-line require-jsdoc
+export function myRemarkPlugin() {
+  return (tree) => {
+    visit(tree, (node) => {
+      if (
+        node.type === "textDirective" ||
+        node.type === "leafDirective" ||
+        node.type === "containerDirective"
+      ) {
+        const data = node.data || (node.data = {});
+        const hast = h(node.name, node.attributes);
+        data.hName = hast.tagName;
+        data.hProperties = hast.properties;
+      }
+    });
+  };
+}
 
 const preProcess = (data: preProcessProps[]) => {
   const result: DeepArray<String> = [];
@@ -102,8 +131,6 @@ const MarkdownComponents: object = {
     node: object;
   }) => {
     if (element.type === "checkbox") {
-      console.log(element);
-
       return (
         <input
           readOnly
@@ -165,6 +192,125 @@ const MarkdownComponents: object = {
     }
     return <div>{element.children}</div>;
   },
-};
 
+  call: ({
+    node,
+    className,
+    children,
+    title = "Callout",
+    icon = "📢",
+  }: CallOutProps) => {
+    return (
+      <div
+        className={`success border-l-[#d9d9d9] bg-[#d9d9d933] ${className} border-l-[5px]`}
+      >
+        <div className="flex w-full">
+          <h1 className="text-white text-xl">{icon}</h1>
+          <h1 className="text-xl text-[#ffffff]">{title}</h1>
+        </div>
+        <div className="indent-5">{children}</div>
+      </div>
+    );
+  },
+
+  success: ({
+    node,
+    className,
+    children,
+    title = "Success",
+    icon = "🎉",
+  }: CallOutProps) => {
+    return (
+      <div
+        className={`success border-l-[#90f693] bg-[#90f69333] ${className} border-l-[5px]`}
+      >
+        <div className="flex w-full">
+          <h1 className="text-white text-xl">{icon}</h1>
+          <h1 className="text-xl text-[#e5ffb9]">{title}</h1>
+        </div>
+        <div className="indent-5">{children}</div>
+      </div>
+    );
+  },
+
+  notes: ({
+    node,
+    className,
+    children,
+    title = "Notes",
+    icon = "📝",
+  }: CallOutProps) => {
+    return (
+      <div
+        className={`success border-l-[#8d81ff] bg-[#8d81ff33] ${className} border-l-[5px]`}
+      >
+        <div className="flex w-full">
+          <h1 className="text-white text-xl">{icon}</h1>
+          <h1 className="text-xl text-[#cdcfff]">{title}</h1>
+        </div>
+        <div className="indent-5">{children}</div>
+      </div>
+    );
+  },
+
+  warn: ({
+    node,
+    className,
+    children,
+    title = "Warning",
+    icon = "⚠️",
+  }: CallOutProps) => {
+    return (
+      <div
+        className={`success border-l-[#ffe45d] bg-[#ffe45d33] ${className} border-l-[5px]`}
+      >
+        <div className="flex w-full">
+          <h1 className="text-white text-xl">{icon}</h1>
+          <h1 className="text-xl text-[#f5cb90]">{title}</h1>
+        </div>
+        <div className="indent-5">{children}</div>
+      </div>
+    );
+  },
+
+  fail: ({
+    node,
+    className,
+    children,
+    title = "Failure",
+    icon = "❌",
+  }: CallOutProps) => {
+    return (
+      <div
+        className={`success border-l-[#ff7758] bg-[#ff775833] ${className} border-l-[5px]`}
+      >
+        <div className="flex w-full">
+          <h1 className="text-white text-xl">{icon}</h1>
+          <h1 className="text-xl text-[#ffacac]">{title}</h1>
+        </div>
+        <div className="indent-5">{children}</div>
+      </div>
+    );
+  },
+
+  info: ({
+    node,
+    className,
+    children,
+    title = "Info",
+    icon = "ℹ️",
+  }: CallOutProps) => {
+    return (
+      <div
+        className={`success border-l-[#5d74f9] bg-[#5d74f933] ${className} border-l-[5px]`}
+      >
+        <div className="flex w-full">
+          <h1 className="text-white text-xl">{icon}</h1>
+          <h1 className="text-xl text-[#addaff]">{title}</h1>
+        </div>
+        <div className="indent-5">{children}</div>
+      </div>
+    );
+  },
+};
 export default MarkdownComponents;
