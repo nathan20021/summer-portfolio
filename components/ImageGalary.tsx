@@ -42,7 +42,7 @@ const ImageGalary = ({ images }: props) => {
   };
   return (
     <AnimatePresence initial={false} custom={direction}>
-      <div id="image-galary" className="relative w-full h-max md:h-full">
+      <div id="image-galary" className="group relative w-full h-max md:h-full">
         <motion.div
           className="w-full h-full flex justify-center items-center"
           id="project-image"
@@ -79,7 +79,7 @@ const ImageGalary = ({ images }: props) => {
               src={images[imageIndex]}
               draggable={false}
               alt=""
-              className="w-full aspect-[16/10] md:aspect-auto opacity-80 hover:opacity-100 duration-150 ease-in-out"
+              className="w-full aspect-[16/10] md:aspect-auto opacity-80 group-hover:opacity-100 hover:opacity-100 duration-150 ease-in-out"
             />
           </div>
         </motion.div>

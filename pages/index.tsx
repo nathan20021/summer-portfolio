@@ -10,8 +10,10 @@ import {
   SiNextdotjs,
   SiGraphql,
   SiFirebase,
+  SiMysql,
+  SiExpress,
+  SiSqlite,
 } from "react-icons/si";
-import { BsThreeDots } from "react-icons/bs";
 import Spline from "@splinetool/react-spline";
 import NonSSRWrapper from "../components/no-ssr-wrapper";
 import ReactTextTransition, { presets } from "react-text-transition";
@@ -253,28 +255,28 @@ const Home: NextPage = () => {
         <div className="mb-[10vh] max-w-[1400px] md:mb-0 w-[90%] h-[65vh]  md:h-[90vh] flex justify-center items-center relative">
           <ProjectShowcase
             side="right"
-            name="Project BPSN"
-            slogan="Conencting professionals."
-            paragraph="Coming soon ... "
-            githubLink={undefined}
+            name="Oober"
+            slogan="Connecting Riders and Drivers"
+            paragraph="A mobile application that connects riders and drivers in a safe and efficient manner."
+            githubLink={"https://github.com/nathan20021/3A04-Project"}
             demoLink={undefined}
-            imagePath="/dotdotdot.webp"
-            images={["coming_soon.png"]}
+            imagePath="/Oober.png"
+            images={["Oober_Auth.png", "Oober_carpool.png", "Oober_end.png"]}
             links={[
               {
                 link: "https://reactjs.org/",
                 icon: <SiReact />,
-                name: "React",
+                name: "React Native",
               },
               {
-                link: "https://nextjs.org/",
-                icon: <SiNextdotjs />,
-                name: "Next.js",
+                link: "https://reactjs.org/",
+                icon: <SiSqlite />,
+                name: "SQLite",
               },
               {
-                link: undefined,
-                icon: <BsThreeDots />,
-                name: "_",
+                link: "https://reactjs.org/",
+                icon: <SiExpress />,
+                name: "Express.js",
               },
             ]}
           />

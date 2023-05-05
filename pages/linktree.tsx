@@ -4,7 +4,7 @@ import ParticleBg from "../components/particleBg";
 import LinkTree from "../components/LinkTree";
 import { LinkCardProps } from "../interfaces";
 import { FaGithub, FaLinkedin, FaLink } from "react-icons/fa";
-import { MdEmail, MdLocationOn } from "react-icons/md";
+import { MdEmail } from "react-icons/md";
 import { IoMdDocument } from "react-icons/io";
 import { MdArticle } from "react-icons/md";
 import { HiCode } from "react-icons/hi";
@@ -44,11 +44,6 @@ const contactInfo: Array<LinkCardProps> = [
       </p>
     ),
     link: "mailto:nathanluong02@gmail.com",
-  },
-  {
-    icon: <MdLocationOn />,
-    title: <p>Eglinton Ave, Mississauga, ON</p>,
-    link: "https://goo.gl/maps/JEg13NjyD57TKGXV6",
   },
 ];
 
