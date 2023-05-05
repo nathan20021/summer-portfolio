@@ -7,7 +7,6 @@ import { flattenDeep } from "lodash";
 import { BlockMath, InlineMath } from "react-katex";
 import { visit } from "unist-util-visit";
 import { h } from "hastscript";
-import { toLighterHex, toDarkerHex, hexToRgb } from "../../utils/functions";
 
 type DeepArray<T> = T | Array<DeepArray<T>>;
 
@@ -29,7 +28,7 @@ type CallOutProps = {
 
 // eslint-disable-next-line require-jsdoc
 export function myRemarkPlugin() {
-  return (tree) => {
+  return (tree: any) => {
     visit(tree, (node) => {
       if (
         node.type === "textDirective" ||
@@ -38,7 +37,9 @@ export function myRemarkPlugin() {
       ) {
         const data = node.data || (node.data = {});
         const hast = h(node.name, node.attributes);
+        // @ts-ignore
         data.hName = hast.tagName;
+        // @ts-ignore
         data.hProperties = hast.properties;
       }
     });
