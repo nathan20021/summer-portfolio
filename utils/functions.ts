@@ -7,9 +7,9 @@ type rgbColor = {
 /**
  * Convert hex to rgb.
  * @param {string} hex The first number.
- * @return {rgbColor | null} The sum of the two numbers.
+ * @return {rgbColor} The sum of the two numbers.
  */
-export function hexToRgb(hex: string): rgbColor | null {
+export function hexToRgb(hex: string): rgbColor {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   if (result) {
     return {
@@ -18,7 +18,11 @@ export function hexToRgb(hex: string): rgbColor | null {
       b: parseInt(result[3], 16),
     };
   }
-  return null;
+  return {
+    r: 255,
+    g: 255,
+    b: 255,
+  };
 }
 /**
  *
