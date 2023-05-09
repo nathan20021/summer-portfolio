@@ -58,6 +58,7 @@ const preProcess = (data: preProcessProps[]) => {
   return result;
 };
 
+const calloutCommonStyles = "mx-2 my-4";
 const MarkdownComponents: object = {
   p: (paragraph: { children?: any; node?: any }) => {
     const { node } = paragraph;
@@ -182,6 +183,13 @@ const MarkdownComponents: object = {
       </div>
     );
   },
+  code: (element: {
+    className: string;
+    children: Array<string>;
+    node: object;
+  }) => {
+    return <code className={`${element.className}`}>{element.children}</code>;
+  },
 
   div: (element: {
     className: string;
@@ -203,7 +211,7 @@ const MarkdownComponents: object = {
   }: CallOutProps) => {
     return (
       <div
-        className={`success border-l-[#d9d9d9] bg-[#d9d9d933] ${className} border-l-[5px]`}
+        className={`${calloutCommonStyles} call border-l-[#d9d9d9] bg-[#d9d9d933] ${className} border-l-[5px]`}
       >
         <div className="flex w-full">
           <h1 className="text-white text-xl">{icon}</h1>
@@ -223,7 +231,7 @@ const MarkdownComponents: object = {
   }: CallOutProps) => {
     return (
       <div
-        className={`success border-l-[#90f693] bg-[#90f69333] ${className} border-l-[5px]`}
+        className={`${calloutCommonStyles} success border-l-[#90f693] bg-[#90f69333] ${className} border-l-[5px]`}
       >
         <div className="flex w-full">
           <h1 className="text-white text-xl">{icon}</h1>
@@ -243,7 +251,7 @@ const MarkdownComponents: object = {
   }: CallOutProps) => {
     return (
       <div
-        className={`success border-l-[#8d81ff] bg-[#8d81ff33] ${className} border-l-[5px]`}
+        className={`${calloutCommonStyles} notes border-l-[#8d81ff] bg-[#8d81ff33] ${className} border-l-[5px]`}
       >
         <div className="flex w-full">
           <h1 className="text-white text-xl">{icon}</h1>
@@ -263,7 +271,7 @@ const MarkdownComponents: object = {
   }: CallOutProps) => {
     return (
       <div
-        className={`success border-l-[#ffe45d] bg-[#ffe45d33] ${className} border-l-[5px]`}
+        className={`${calloutCommonStyles} warn border-l-[#ffe45d] bg-[#ffe45d33] ${className} border-l-[5px]`}
       >
         <div className="flex w-full">
           <h1 className="text-white text-xl">{icon}</h1>
@@ -283,7 +291,7 @@ const MarkdownComponents: object = {
   }: CallOutProps) => {
     return (
       <div
-        className={`success border-l-[#ff7758] bg-[#ff775833] ${className} border-l-[5px]`}
+        className={`${calloutCommonStyles} fail border-l-[#ff7758] bg-[#ff775833] ${className} border-l-[5px]`}
       >
         <div className="flex w-full">
           <h1 className="text-white text-xl">{icon}</h1>
@@ -303,7 +311,7 @@ const MarkdownComponents: object = {
   }: CallOutProps) => {
     return (
       <div
-        className={`success border-l-[#5d74f9] bg-[#5d74f933] ${className} border-l-[5px]`}
+        className={`${calloutCommonStyles} info border-l-[#5d74f9] bg-[#5d74f933] ${className} border-l-[5px]`}
       >
         <div className="flex w-full">
           <h1 className="text-white text-xl">{icon}</h1>

@@ -24,7 +24,7 @@ const contactInfo: Array<LinkCardProps> = [
   {
     icon: <IoMdDocument />,
     title: <p>Resume</p>,
-    link: "/Resume.pdf",
+    link: "/Third_Year_Resume.pdf",
   },
   {
     icon: <MdArticle />,

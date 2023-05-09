@@ -11,13 +11,16 @@ import rehypeHighlight from "rehype-highlight";
 import { BsFillEyeFill } from "react-icons/bs";
 import { BlogPost } from "@prisma/client";
 import { prisma } from "@/db";
-import MarkdownComponents from "@/components/Markdown/MarkdownComponents";
+import MarkdownComponents, {
+  myRemarkPlugin,
+} from "@/components/Markdown/MarkdownComponents";
 import { ParsedUrlQuery } from "querystring";
 import config from "../../config.json";
 import { GetStaticPropsContext } from "next";
 import RemarkMathPlugin from "remark-math";
 import "katex/dist/katex.min.css";
 import rehypeRaw from "rehype-raw";
+import remarkDirective from "remark-directive";
 // import { useTheme } from "next-themes";
 
 type prop = {
@@ -66,7 +69,12 @@ const Post = ({ content, metaData }: prop) => {
           //     : `${styles.postLight} ${styles.post} w-full z-10 text-darktext`
           // }
           className={`${styles.postDark} ${styles.post} w-full z-10 text-lighttext`}
-          remarkPlugins={[remarkGfm, RemarkMathPlugin]}
+          remarkPlugins={[
+            remarkGfm,
+            RemarkMathPlugin,
+            remarkDirective,
+            myRemarkPlugin,
+          ]}
           rehypePlugins={[rehypeHighlight, rehypeRaw]}
           components={MarkdownComponents}
         >

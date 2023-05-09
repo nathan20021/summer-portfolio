@@ -10,17 +10,17 @@
   margin: 0.5rem 0rem;
 }
 
-.post > blockquote {
-  margin: 1rem 2.5rem;
+.post blockquote {
+  margin: 1rem 0.8rem;
   padding: 0.3rem 1rem 0.3rem 1.1rem;
   border-left: #6060ff solid 0.2rem;
 }
 
-.postLight > blockquote {
+.postLight blockquote {
   background: #d1d1d1;
 }
-.postDark > blockquote {
-  background: #313131;
+.postDark blockquote {
+  background: #acacac33;
 }
 
 .post table {
@@ -104,9 +104,11 @@
 
 .post pre > code {
   margin-left: 1.5rem;
+  padding: 1rem 0;
 }
 
 .post code:not(pre *) {
+  padding: 0.3rem 0.1rem;
   color: #d9959b;
   background: #282c34;
   padding: 0.1rem 0.2rem;

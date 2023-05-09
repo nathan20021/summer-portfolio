@@ -30,8 +30,8 @@ Calculate the value of $s$ when $u = 10\frac{m}{s}$ and $a = 2\frac{m}{s^{2}}$ a
 2. Render read-only input-field
 
   ```md
-  - [x] Implement `gfm`
-  - [ ] Post this blog post
+    - [x] Implement `gfm`
+    - [ ] Post this blog post
   ```
 
   👉 Rendered as:
@@ -44,14 +44,14 @@ Calculate the value of $s$ when $u = 10\frac{m}{s}$ and $a = 2\frac{m}{s^{2}}$ a
 ### 👉 Support raw HTML rendering (`rehype-raw` plugin)
 
 ```html
-<center>
-  <iframe width="560" height="315"
-      src="https://www.youtube.com/embed/88Jv7J4yjU4"
-      title="YouTube video player" frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen>
-  </iframe>
-</center>
+  <center>
+    <iframe width="560" height="315"
+        src="https://www.youtube.com/embed/88Jv7J4yjU4"
+        title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+    </iframe>
+  </center>
 ```
 
 👉 Rendered as:

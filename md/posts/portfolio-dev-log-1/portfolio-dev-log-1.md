@@ -25,9 +25,9 @@
         }
      ```
 
-     - In the `[slug].jsx` file where the blog gets rendered, I need to manually grab the theme from the `use-theme` hook and conditionally add the className into the components with some additional tailwind styling. This led to an ugly solution.
+     - In the `[slug].tsx` file where the blog gets rendered, I need to manually grab the theme from the `use-theme` hook and conditionally add the className into the components with some additional tailwind styling. This led to an ugly solution.
 
-     ```jsx
+     ```tsx
       <ReactMarkdown
         className={
           theme === "dark"
@@ -45,7 +45,7 @@
    2. Wrapper for code-blocks:
        - With each code block rendered by `react-markdown`, it got mapped into a custom React component wrapper that provide additional functionality (ie: copy-pasting) and states to handle UI interactions (ie: `setTimeout()`).
 
-       ```jsx
+       ```tsx
          pre: (element: { children?: any; node?: any }) => {
           const [copied, setCopied] = useState(false);
           return (
@@ -59,9 +59,9 @@
 
        - The copy-paste functionality requires recursively traversing through a React component tree where a node can contain a list of nodes. The `flattenDeep` function from `lodash` can help with this problem.
 
-       ```tsx
-       // Traverse through the tree recursively
-       // retrun a multi-dimentional array containing the code.
+       ```ts
+        // Traverse through the tree recursively
+        // retrun a multi-dimentional array containing the code.
         const preProcess = (data: preProcessProps[]) => {
           const result: DeepArray<String> = [];
           data.forEach((item) => {
@@ -89,16 +89,15 @@
        - To support such an operation, type `DeepArray` needs to be recursive:
 
        ```ts
-       type DeepArray<T> = T | Array<DeepArray<T>>;
+        type DeepArray<T> = T | Array<DeepArray<T>>;
 
-        type dataProps = {
-          props: {
-            children: dataProps[];
+          type dataProps = {
+            props: {
+              children: dataProps[];
+            };
           };
-        };
 
-        type preProcessProps = string | dataProps;
-
+          type preProcessProps = string | dataProps;
        ```
 
 ## **Plans for the future**
