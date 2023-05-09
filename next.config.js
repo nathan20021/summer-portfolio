@@ -38,6 +38,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 };
+
 module.exports = nextConfig;
 
 const removeImports = require("next-remove-imports")();

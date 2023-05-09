@@ -12,7 +12,7 @@ Like this one
 :::
 
 > Regular quotes are still supported with ">"
-> 
+>
 > Regular quotes will have a lower visual hierachy.
 > > Quotes can also be nested like Admonitions
 

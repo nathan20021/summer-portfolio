@@ -145,10 +145,23 @@ const MarkdownComponents: object = {
     return <input type={element.type} />;
   },
 
+  ul: (element: { className: string; children: any; node: any }) => {
+    if (element.className === "contains-task-list") {
+      return (
+        <ul className={`list-none placeholder:${element.className}`}>
+          {element.children}
+        </ul>
+      );
+    }
+    return (
+      <ul className={`list-disc ${element.className}`}>{element.children}</ul>
+    );
+  },
+
   pre: (element: { children: any; node: any }) => {
     const [copied, setCopied] = useState(false);
     return (
-      <div className="relative my-3 cursor-text">
+      <div className="group relative my-3 cursor-text">
         <div className="absolute right-5 top-5">
           <button
             onClick={() => {
@@ -163,7 +176,7 @@ const MarkdownComponents: object = {
               );
             }}
             className="
-              text-md bg-[#484e5b] hover:bg-[#5f6676] p-2
+              text-md bg-[#484e5b] hover:bg-[#5f6676] p-2 group-hover:visible invisible
               rounded-md flex justify-start items-center gap-1 text-2xl"
           >
             {copied ? (

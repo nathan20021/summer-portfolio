@@ -154,6 +154,9 @@ const blogs = ({ metaDataArray, tags, tagsMetaData }: prop) => {
 // eslint-disable-next-line require-jsdoc
 export async function getStaticProps() {
   const posts = await prisma.blogPost.findMany({
+    orderBy: {
+      publishedAt: "desc",
+    },
     include: {
       tags: true,
     },

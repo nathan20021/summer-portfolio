@@ -5,13 +5,13 @@ import ProjectCard from "../components/ProjectCard";
 import {
   SiReact,
   SiRedux,
-  SiFlask,
   SiPostgresql,
   SiNextdotjs,
   SiGraphql,
   SiFirebase,
   SiExpress,
   SiSqlite,
+  SiTailwindcss,
 } from "react-icons/si";
 import Spline from "@splinetool/react-spline";
 import NonSSRWrapper from "../components/no-ssr-wrapper";
@@ -199,11 +199,6 @@ const Home: NextPage = () => {
                 name: "Redux",
               },
               {
-                link: "https://flask.palletsprojects.com/en/2.2.x/",
-                icon: <SiFlask />,
-                name: "Flask",
-              },
-              {
                 link: "https://www.postgresql.org/",
                 icon: <SiPostgresql />,
                 name: "PostgreSQL",
@@ -268,12 +263,17 @@ const Home: NextPage = () => {
                 name: "React Native",
               },
               {
-                link: "https://reactjs.org/",
+                link: "https://tailwindcss.com/",
+                icon: <SiTailwindcss />,
+                name: "Tailwind CSS",
+              },
+              {
+                link: "https://sqlite.org/",
                 icon: <SiSqlite />,
                 name: "SQLite",
               },
               {
-                link: "https://reactjs.org/",
+                link: "https://expressjs.com/",
                 icon: <SiExpress />,
                 name: "Express.js",
               },

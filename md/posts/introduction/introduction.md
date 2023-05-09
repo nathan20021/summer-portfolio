@@ -1,13 +1,13 @@
 #
 
-## **👋 Hi there! Welcome to my tech repository**
+## 👋 Hi there! Welcome to my tech repository
 
 I'm a senior university student, back-end developer, tech enthusiast, and aspiring software architect.
 Throughout my co-op and leadership experiences, I realized the power of connections and mentorship within the tech space!
 
 ![Intro Cover Picture {700x300}](/posts/introduction/cover.webp)
 
-## **🤔 Why does this repository exist?**
+## 🤔 Why does this repository exist?
 
 Witnessing lots of students struggling with their starting point in tech, I noticed a big problem:
 
@@ -17,9 +17,9 @@ Some concepts are fundamental to the craft of software building (such as Data St
 
 > Therefore, I created this free platform, aiming to **speed up student's learning** journey in becoming a job-ready software engineer, at the same time, sharing about all things back-end.
 
-## **🤔 Which topics will be covered?**
+## 🤔 Which topics will be covered?
 
-### **👉 Technical Topics**
+### 👉 Technical Topics
 
 My site will cover a lot of back-end fundamentals and advanced concepts:
 
@@ -32,7 +32,7 @@ My site will cover a lot of back-end fundamentals and advanced concepts:
 - Containerization and Orchestration (Docker, K8S, Apache Mesos)
 - Microservices architectural patterns (Too many patterns to list here 🙁🙁)
 
-### **👉 Non-technical Topics**
+### 👉 Non-technical Topics
 
 Aiming to help students land their first tech job ASAP, some articles will be dedicated to:
 
@@ -41,10 +41,10 @@ Aiming to help students land their first tech job ASAP, some articles will be de
 - A different way of looking at university/college.
 - What to do when you have zero job experience.
 
-## **🤔 How to get involved?**
+## 🤔 How to get involved?
 
 If you are interested, you can subscribe to this repository to get notifications on the newest posts.
 
 > and don't be afraid to reach out to me via [luongn4@mcmaster.ca](mailto:luongn4@mcmaster.ca) 😄 .
 
-## **Thanks for your time! 🥐**
+## Thanks for your time! 🥐

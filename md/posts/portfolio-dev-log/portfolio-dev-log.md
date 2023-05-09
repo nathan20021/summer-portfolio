@@ -1,6 +1,6 @@
 #
 
-## **Introduction**
+## Introduction
 
 Starting the dev-log journey, let us start with the creation of this very website you are looking at.
 
@@ -8,7 +8,7 @@ This blog platform has been an ongoing personal project of mine starting in the 
 
 ![Viz screen-shot {700x400}](/viz-screenshot.png)
 
-## **🤔 How it's made**
+## 🤔 How it's made
 
 The tech stack of the site is composed with:
 
@@ -22,7 +22,7 @@ The tech stack of the site is composed with:
 
 The source code is available on my personal GitHub.
 
-## **🤔 What features does it have**
+## 🤔 What features does it have
 
 - **Fully Responsive**: The site looks good (hopefully) on any device (Lots of Math to figure out the 3D view scaling 🙃).
 - **Blog viewing**: Head out to `/blogs` to see all newly published blogs.
@@ -39,8 +39,8 @@ The source code is available on my personal GitHub.
   </iframe>
 </center>
 
-## **🤔 What's next?**
+## 🤔 What's next?
 
-There will be more devlogs to come! If you are interested, consider subscribing below!
+> There will be more devlogs to come! If you are interested, consider subscribing below!
 
 ### Thanks for your time 🥐
