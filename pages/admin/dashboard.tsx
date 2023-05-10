@@ -55,6 +55,9 @@ const DashBoard: NextPage = () => {
         <title>Dashboard</title>
       </Head>
       <section className="min-h-screen z-50 flex flex-col justify-start items-center">
+        <div className="z-50 w-full text-center text-3xl">
+          <h1 className="font-bold my-6 text-white">Admin Dashboard</h1>
+        </div>
         <div className="w-[80%] z-50 flex justify-center items-center">
           <div className="w-full flex justify-around flex-wrap my-11">
             <AnalyticCard stats={subs.length} title="Subcribers" />

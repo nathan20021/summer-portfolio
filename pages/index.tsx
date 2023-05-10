@@ -12,6 +12,8 @@ import {
   SiExpress,
   SiSqlite,
   SiTailwindcss,
+  SiMysql,
+  SiVercel,
 } from "react-icons/si";
 import Spline from "@splinetool/react-spline";
 import NonSSRWrapper from "../components/no-ssr-wrapper";
@@ -173,7 +175,7 @@ const Home: NextPage = () => {
         </div>
         <div className="mb-[10vh] max-w-[1400px] md:mb-0 w-[90%] xl:w-[80%] h-[80vh] flex justify-center items-center relative">
           <ProjectShowcase
-            color="#01529a"
+            color="#52409f"
             side="right"
             name="Viz"
             slogan="Diagramming Made Easy"
@@ -181,7 +183,7 @@ const Home: NextPage = () => {
                 visualize and maitain their cloud infastructure diagrams."
             githubLink="https://github.com/nathan20021/VIZ-PROD"
             demoLink="https://viz.nathanluong.me"
-            imagePath="/viz-logo-no-grad.png"
+            imagePath="/viz-logo.png"
             images={[
               "viz-screenshot.png",
               "IOT-Solution-Diagram.jpeg",
@@ -208,8 +210,49 @@ const Home: NextPage = () => {
         </div>
         <div className="mb-[10vh] max-w-[1400px] md:mb-0 w-[90%] xl:w-[80%] h-[80vh] flex justify-center items-center relative">
           <ProjectShowcase
-            color="#7a003c"
+            color="#01529a"
             side="left"
+            name="Personal Blogs"
+            slogan="A place to share my thoughts"
+            paragraph="A place where I can share my thoughts and technical experiences with the world. Aiming to improve my writting, and thought-orginization skills."
+            githubLink="https://github.com/nathan20021/summer-portfolio"
+            demoLink="https://nathanluong.me/blogs"
+            imagePath="/viz-logo-no-grad.png"
+            images={[
+              "blog-1.png",
+              "blog-3.png",
+              "blog-2.png",
+              "blog-5.png",
+              "blog-4.png",
+            ]}
+            links={[
+              {
+                link: "https://vercel.com/",
+                icon: <SiVercel />,
+                name: "Vercel",
+              },
+              {
+                link: "https://reactjs.org/",
+                icon: <SiReact />,
+                name: "React",
+              },
+              {
+                link: "https://nextjs.org/",
+                icon: <SiNextdotjs />,
+                name: "Next.js",
+              },
+              {
+                link: "https://www.mysql.com/",
+                icon: <SiMysql />,
+                name: "MySQL",
+              },
+            ]}
+          />
+        </div>
+        <div className="mb-[10vh] max-w-[1400px] md:mb-0 w-[90%] xl:w-[80%] h-[80vh] flex justify-center items-center relative">
+          <ProjectShowcase
+            color="#7a003c"
+            side="right"
             name="McMaster Rocketry"
             slogan="Fueling Innovation."
             paragraph="A platform for the McMaster Rocketry Team to showcase their advancements, recruiting members, publishing blogs, and seeking external sponsorships."
@@ -248,7 +291,7 @@ const Home: NextPage = () => {
         <div className="mb-[10vh] max-w-[1400px] md:mb-0 w-[90%] h-[65vh]  md:h-[90vh] flex justify-center items-center relative">
           <ProjectShowcase
             color="#666666"
-            side="right"
+            side="left"
             name="Oober 🎉"
             slogan="Connecting Riders and Drivers."
             paragraph="A mobile application that connects riders and drivers in a safe and efficient manner."

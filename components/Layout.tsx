@@ -45,7 +45,6 @@ const Layout = ({ router, children }: any) => {
   return (
     <div>
       <Head>
-        <title>Nathan Luong</title>
         <meta name="description" content="Welcome to my portfolio 👀" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
