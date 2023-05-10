@@ -351,8 +351,8 @@ const Home: NextPage = () => {
             />
             <ProjectCard
               imagePath="Computer.png"
-              title="Personal Blog"
-              des="A tech repository aiming to share my personal industry experience via technical blogs. Created with ReactJs and nextJS"
+              title="Personal Portfolio"
+              des="A tech repository aiming to share my personal industry experience. Created with ReactJs and nextJS"
               hasDemo={false}
               isPrivate={false}
               GhLink="https://github.com/nathan20021/summer-portfolio"
