@@ -1,6 +1,6 @@
 #
 
-## **Expanding Blogs Functionalities**
+## Expanding Blogs Functionalities
 
 ### 👉 Support Katex for Math equation inputs (`react-katex` and the `remark-math` plugin)
 

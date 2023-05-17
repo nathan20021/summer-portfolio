@@ -15,8 +15,9 @@ import remarkGfm from "remark-gfm";
 import matter from "gray-matter";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import remarkDirective from "remark-directive";
-import { myRemarkPlugin } from "@/components/Markdown/MarkdownComponents";
+import { remarkDirectivesHelper } from "@/plugins/remark";
 // import { prisma } from "@/db";
+import remarkToc from "remark-toc";
 import { TiTick } from "react-icons/ti";
 import path from "path";
 import RemarkMathPlugin from "remark-math";
@@ -170,7 +171,14 @@ const AdminEditor = ({ mdTemplate }: props) => {
                 remarkGfm,
                 RemarkMathPlugin,
                 remarkDirective,
-                myRemarkPlugin,
+                remarkDirectivesHelper,
+                () =>
+                  remarkToc({
+                    heading: "Table of Contents",
+                    ordered: false,
+                    tight: true,
+                    prefix: "toc-",
+                  }),
               ]}
               rehypePlugins={[rehypeHighlight, rehypeRaw]}
               components={MarkdownComponents}

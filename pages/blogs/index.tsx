@@ -38,12 +38,12 @@ const blogs = ({ metaDataArray, tags, tagsMetaData }: prop) => {
     );
   }, []);
   return (
-    <section className="min-h-screen z-10 flex flex-col lg:flex-row lg:items-start justify-center bg-[#111111]">
+    <section className="min-h-screen z-10 flex flex-col lg:flex-row lg:items-start justify-center bg-[#111111] relative">
       <div>
         <ParticleBg />
       </div>
-      <aside className="hidden w-full lg:w-[15%] z-10 my-[20vh] lg:flex flex-col justify-start items-end">
-        <ul className="w-[80%] flex flex-col gap-2">
+      <aside className="hidden w-full lg:w-[15%] z-10 my-[20vh] lg:flex flex-col justify-start items-end sticky top-0">
+        <ul className="w-[80%] flex flex-col gap-2 ">
           <li
             className="font-bold w-full ease-out duration-300 hover:bg-[#333333] cursor-pointer indent-2 py-1"
             style={{

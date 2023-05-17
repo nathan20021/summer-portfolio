@@ -51,7 +51,7 @@ def dogOrBagel():
 A custom remark plugin was implemented with contingent usage of `remarkDirective`.
 
 ```js
-  export function myRemarkPlugin() {
+  export function remarkDirectiveHelper() {
     return (tree) => {
       visit(tree, (node) => {
         if (

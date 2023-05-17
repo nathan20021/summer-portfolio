@@ -5,8 +5,6 @@ import Image from "next/image";
 import { BsCheck } from "react-icons/bs";
 import { flattenDeep } from "lodash";
 import { BlockMath, InlineMath } from "react-katex";
-import { visit } from "unist-util-visit";
-import { h } from "hastscript";
 
 type DeepArray<T> = T | Array<DeepArray<T>>;
 
@@ -26,25 +24,11 @@ type CallOutProps = {
   node: object;
 };
 
-// eslint-disable-next-line require-jsdoc
-export function myRemarkPlugin() {
-  return (tree: any) => {
-    visit(tree, (node) => {
-      if (
-        node.type === "textDirective" ||
-        node.type === "leafDirective" ||
-        node.type === "containerDirective"
-      ) {
-        const data = node.data || (node.data = {});
-        const hast = h(node.name, node.attributes);
-        // @ts-ignore
-        data.hName = hast.tagName;
-        // @ts-ignore
-        data.hProperties = hast.properties;
-      }
-    });
-  };
-}
+type headingProps = {
+  level: number;
+  children: Array<string>;
+  node: object;
+};
 
 const preProcess = (data: preProcessProps[]) => {
   const result: DeepArray<String> = [];
@@ -58,9 +42,65 @@ const preProcess = (data: preProcessProps[]) => {
   return result;
 };
 
+const headingToId = (heading: string) => {
+  return (
+    "toc-" +
+    heading
+      .toLowerCase()
+      .replace(/ /g, "-")
+      .replace(/[^a-zA-Z0-9-]/g, "")
+      .replace(/\%([A-Z]|\d){2}/g, "")
+  );
+};
+
 const calloutCommonStyles = "mx-2 my-4";
 const MarkdownComponents: object = {
-  p: (paragraph: { children?: any; node?: any }) => {
+  h2: (element: headingProps) => {
+    if (
+      Array.isArray(element.children) &&
+      typeof element.children[0] === "string" &&
+      element.children[0].toLowerCase() === "table of contents"
+    ) {
+      return (
+        <>
+          <h2 id={headingToId(element.children[0]) + " toc-heading"}>
+            {element.children}
+          </h2>
+          <aside></aside>
+        </>
+      );
+    }
+    return (
+      <h2
+        id={
+          Array.isArray(element.children) &&
+          typeof element.children[0] === "string"
+            ? headingToId(element.children[0])
+            : ""
+        }
+      >
+        {element.children}
+      </h2>
+    );
+  },
+
+  h3: (element: headingProps) => {
+    return <h3 id={headingToId(element.children[0])}>{element.children}</h3>;
+  },
+
+  h4: (element: headingProps) => {
+    return <h4 id={headingToId(element.children[0])}>{element.children}</h4>;
+  },
+
+  h5: (element: headingProps) => {
+    return <h5 id={headingToId(element.children[0])}>{element.children}</h5>;
+  },
+
+  h6: (element: headingProps) => {
+    return <h6 id={headingToId(element.children[0])}>{element.children}</h6>;
+  },
+
+  p: (paragraph: { children?: any; node?: any; className?: string }) => {
     const { node } = paragraph;
 
     if (node.children[0].tagName === "img") {
@@ -94,7 +134,7 @@ const MarkdownComponents: object = {
         </div>
       );
     }
-    return <p>{paragraph.children}</p>;
+    return <p className={paragraph.className}>{paragraph.children}</p>;
   },
 
   span: (element: {
@@ -114,6 +154,17 @@ const MarkdownComponents: object = {
     href: string;
     node: object;
   }) => {
+    if (element.href.startsWith("#toc-")) {
+      // generate a regex that removes all "%" and capital letters
+      return (
+        <a
+          className="cursor-pointer toc-link"
+          href={element.href.replace(/\%([A-Z]|\d){2}/g, "")}
+        >
+          {element.children}
+        </a>
+      );
+    }
     return (
       <a
         className="cursor-pointer"
@@ -121,7 +172,7 @@ const MarkdownComponents: object = {
         target="_blank"
         rel="noreferrer"
       >
-        {element.children[0]}
+        {element.children}
       </a>
     );
   },
@@ -133,10 +184,13 @@ const MarkdownComponents: object = {
     node: object;
   }) => {
     if (element.type === "checkbox") {
+      const [checked, setChecked] = useState(element.checked);
       return (
         <input
-          readOnly
-          checked={element.checked ? true : false}
+          onChange={() => {
+            setChecked(!checked);
+          }}
+          checked={checked}
           className="w-4 h-4 text-blue-600 bg-grey-100 border-grey-300 rounded dark:ring-offset-grey-800 dark:bg-grey-700 dark:border-grey-600"
           type="checkbox"
         />
@@ -147,15 +201,9 @@ const MarkdownComponents: object = {
 
   ul: (element: { className: string; children: any; node: any }) => {
     if (element.className === "contains-task-list") {
-      return (
-        <ul className={`list-none placeholder:${element.className}`}>
-          {element.children}
-        </ul>
-      );
+      return <ul className="list-none">{element.children}</ul>;
     }
-    return (
-      <ul className={`list-disc ${element.className}`}>{element.children}</ul>
-    );
+    return <ul className="list-disc">{element.children}</ul>;
   },
 
   pre: (element: { children: any; node: any }) => {
@@ -192,10 +240,11 @@ const MarkdownComponents: object = {
             )}
           </button>
         </div>
-        <pre className="rounded-md code-block">{element.children}</pre>
+        <pre className="code-block">{element.children}</pre>
       </div>
     );
   },
+
   code: (element: {
     className: string;
     children: Array<string>;
@@ -212,7 +261,7 @@ const MarkdownComponents: object = {
     if (element.className === "math math-display") {
       return <BlockMath>{element.children[0]}</BlockMath>;
     }
-    return <div>{element.children}</div>;
+    return <div className={element.className}>{element.children}</div>;
   },
 
   call: ({

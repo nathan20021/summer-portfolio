@@ -11,9 +11,9 @@ import rehypeHighlight from "rehype-highlight";
 import { BsFillEyeFill } from "react-icons/bs";
 import { BlogPost } from "@prisma/client";
 import { prisma } from "@/db";
-import MarkdownComponents, {
-  myRemarkPlugin,
-} from "@/components/Markdown/MarkdownComponents";
+import MarkdownComponents from "@/components/Markdown/MarkdownComponents";
+import { remarkDirectivesHelper } from "@/plugins/remark";
+
 import { ParsedUrlQuery } from "querystring";
 import config from "../../config.json";
 import { GetStaticPropsContext } from "next";
@@ -73,7 +73,7 @@ const Post = ({ content, metaData }: prop) => {
             remarkGfm,
             RemarkMathPlugin,
             remarkDirective,
-            myRemarkPlugin,
+            remarkDirectivesHelper,
           ]}
           rehypePlugins={[rehypeHighlight, rehypeRaw]}
           components={MarkdownComponents}

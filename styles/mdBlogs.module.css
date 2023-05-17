@@ -1,9 +1,12 @@
+.post * {
+  font-family: "Roboto", sans-serif;
+}
 .post *:not(code, span, pre, strong, ul, li, ol, h1, h2, h3, h4, h5, h6, a) {
   line-height: 4rem;
 }
 
-.post ul ol > li {
-  margin: 0.5rem 0 0.5rem 3rem;
+.post *:not(semantics *, li.toc-li, code, table *, p, span *, blockquote) {
+  padding: 0.2rem;
 }
 
 .post ul,
@@ -17,13 +20,14 @@
 
 .post blockquote {
   margin: 1rem 0.8rem;
-  padding: 0.3rem 1rem 0.3rem 1.1rem;
+  padding: 0.9rem 1.1rem;
   border-left: #6060ff solid 0.2rem;
 }
 
 .postLight blockquote {
   background: #d1d1d1;
 }
+
 .postDark blockquote {
   background: #acacac33;
 }
@@ -35,23 +39,19 @@
   cursor: text;
 }
 
-.post *:not(semantics *) {
-  padding: 0.2rem;
-}
-
 .post table tr {
   text-align: center;
 }
 
 .post table th {
-  padding: 0.2rem 1rem;
+  padding: 0.5rem 1.5rem;
   border: 2px solid #a9a9a9;
 }
 
 .post table td {
   padding: 0.3rem 0.4rem;
   border: 2px solid #a9a9a9;
-  text-align: left;
+  text-align: center;
 }
 
 .post table td:first-child {
@@ -61,12 +61,12 @@
 .post p {
   font-size: 1.1rem;
   padding-left: 1.5rem;
-  line-height: 1.5rem;
+  line-height: 1.2rem;
   color: #ffffffee;
 }
 
 .post > p {
-  margin: 0.3rem 0rem;
+  margin: 1.2rem 0rem;
 }
 
 .post li > p {
@@ -139,13 +139,14 @@
 }
 
 .post pre > code {
+  font-size: 1.1rem;
+  border-radius: 1rem;
   line-height: 1.3rem;
   margin-left: 1.5rem;
-  padding: 1rem 0;
+  padding: 1.4rem 1rem;
 }
 
 .post code:not(pre *) {
-  padding: 0.3rem 0.1rem;
   color: #d9959b;
   background: #282c34;
   padding: 0.1rem 0.2rem;
@@ -154,4 +155,38 @@
 
 .post > *:not(h1, h2, h3, h4, h5, h6, table, ul, ol) {
   margin-left: 0.1rem;
+}
+
+.post aside + ul {
+  background: #282c34;
+  padding: 0.5rem 0.5rem;
+  border-radius: 1.5rem;
+  margin-left: 1rem;
+}
+
+.post aside + ul li {
+  margin: 0.5rem;
+}
+
+.post aside + ul > li {
+  margin: 2rem;
+}
+
+.post aside + ul ul {
+  border-left: solid 0.05rem gray;
+  margin-left: 2rem;
+}
+
+.post aside + ul,
+.post aside + ul ul {
+  list-style-type: none;
+  font-size: 1rem;
+}
+
+.post aside + ul li a::after {
+  content: " >";
+}
+
+.post aside + ul li a {
+  color: white;
 }

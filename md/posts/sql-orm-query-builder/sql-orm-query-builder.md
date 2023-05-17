@@ -1,5 +1,7 @@
 #
 
+## Table of contents
+
 ## 🤔 Backend - Database Interaction
 
 Communicating with a relational database within a project is a common operation that all backend systems want to achieve. However, there are different methodologies to interact with a database via SQL.
