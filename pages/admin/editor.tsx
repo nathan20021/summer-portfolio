@@ -4,29 +4,21 @@ import * as fs from "fs";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import { GetServerSidePropsContext } from "next/types";
-import MarkdownComponents from "@/components/Markdown/MarkdownComponents";
 import rehypeHighlight from "rehype-highlight";
 import rehypePrismAll from "rehype-prism-plus";
 import dynamic from "next/dynamic";
 import "@uiw/react-textarea-code-editor/dist.css";
 import styles from "../../styles/mdBlogs.module.css";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import matter from "gray-matter";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import remarkDirective from "remark-directive";
-import { remarkDirectivesHelper } from "@/plugins/remark";
-// import { prisma } from "@/db";
-import remarkToc from "remark-toc";
 import { TiTick } from "react-icons/ti";
 import path from "path";
-import RemarkMathPlugin from "remark-math";
 import "katex/dist/katex.min.css";
-import rehypeRaw from "rehype-raw";
 const CodeEditor = dynamic<any>(
   () => import("@uiw/react-textarea-code-editor").then((mod) => mod.default),
   { ssr: false }
 );
+import ReactMarkdownWrapper from "@/components/Markdown/ReactMarkdownWrapper";
 
 type props = {
   mdTemplate: string;
@@ -165,26 +157,10 @@ const AdminEditor = ({ mdTemplate }: props) => {
                 : `z-50 w-1/2 pl-4 pb-10 bg-[#282c34]  border-l-2 border-[#ffffff]`
             }
           >
-            <ReactMarkdown
+            <ReactMarkdownWrapper
+              code={code}
               className={`${styles.post} z-10 h-full`}
-              remarkPlugins={[
-                remarkGfm,
-                RemarkMathPlugin,
-                remarkDirective,
-                remarkDirectivesHelper,
-                () =>
-                  remarkToc({
-                    heading: "Table of Contents",
-                    ordered: false,
-                    tight: true,
-                    prefix: "toc-",
-                  }),
-              ]}
-              rehypePlugins={[rehypeHighlight, rehypeRaw]}
-              components={MarkdownComponents}
-            >
-              {code === undefined ? "" : code}
-            </ReactMarkdown>
+            />
           </div>
         </div>
         <div className="w-full z-50 my-20 flex flex-col justify-center items-center">

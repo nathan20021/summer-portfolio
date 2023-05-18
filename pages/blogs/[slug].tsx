@@ -1,28 +1,18 @@
 import React from "react";
-// import { useEffect } from "react";
 import * as fs from "fs";
 import path from "path";
 import Head from "next/head";
 import matter from "gray-matter";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import styles from "../../styles/mdBlogs.module.css";
-import rehypeHighlight from "rehype-highlight";
 import { BsFillEyeFill } from "react-icons/bs";
 import { BlogPost } from "@prisma/client";
 import { prisma } from "@/db";
-import MarkdownComponents from "@/components/Markdown/MarkdownComponents";
-import { remarkDirectivesHelper } from "@/plugins/remark";
 
 import { ParsedUrlQuery } from "querystring";
 import config from "../../config.json";
 import { GetStaticPropsContext } from "next";
-import RemarkMathPlugin from "remark-math";
 import "katex/dist/katex.min.css";
-import rehypeRaw from "rehype-raw";
-import remarkDirective from "remark-directive";
-import remarkToc from "remark-toc";
-// import { useTheme } from "next-themes";
+import ReactMarkdownWrapper from "@/components/Markdown/ReactMarkdownWrapper";
 
 type prop = {
   content: string;
@@ -62,32 +52,10 @@ const Post = ({ content, metaData }: prop) => {
             </span>
           </p>
         </div>
-
-        <ReactMarkdown
-          // className={
-          //   theme === "dark"
-          //     ? `${styles.postDark} ${styles.post} w-full z-10 text-lighttext`
-          //     : `${styles.postLight} ${styles.post} w-full z-10 text-darktext`
-          // }
+        <ReactMarkdownWrapper
+          code={content}
           className={`${styles.postDark} ${styles.post} w-full z-10 text-lighttext`}
-          remarkPlugins={[
-            remarkGfm,
-            RemarkMathPlugin,
-            remarkDirective,
-            remarkDirectivesHelper,
-            () =>
-              remarkToc({
-                heading: "Table of Contents",
-                ordered: false,
-                tight: true,
-                prefix: "toc-",
-              }),
-          ]}
-          rehypePlugins={[rehypeHighlight, rehypeRaw]}
-          components={MarkdownComponents}
-        >
-          {content}
-        </ReactMarkdown>
+        />
       </div>
     </div>
   );
