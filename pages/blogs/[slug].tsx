@@ -21,6 +21,7 @@ import RemarkMathPlugin from "remark-math";
 import "katex/dist/katex.min.css";
 import rehypeRaw from "rehype-raw";
 import remarkDirective from "remark-directive";
+import remarkToc from "remark-toc";
 // import { useTheme } from "next-themes";
 
 type prop = {
@@ -74,6 +75,13 @@ const Post = ({ content, metaData }: prop) => {
             RemarkMathPlugin,
             remarkDirective,
             remarkDirectivesHelper,
+            () =>
+              remarkToc({
+                heading: "Table of Contents",
+                ordered: false,
+                tight: true,
+                prefix: "toc-",
+              }),
           ]}
           rehypePlugins={[rehypeHighlight, rehypeRaw]}
           components={MarkdownComponents}
