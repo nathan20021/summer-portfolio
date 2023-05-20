@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import * as fs from "fs";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import { GetServerSidePropsContext } from "next/types";
@@ -9,7 +8,6 @@ import rehypePrismAll from "rehype-prism-plus";
 import dynamic from "next/dynamic";
 import "@uiw/react-textarea-code-editor/dist.css";
 import styles from "../../styles/mdBlogs.module.css";
-import matter from "gray-matter";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TiTick } from "react-icons/ti";
 import "katex/dist/katex.min.css";
@@ -49,14 +47,6 @@ const readTimeRange: rangeType = {
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-
-const fetchMD = async () => {
-  await fetch("/posts/templates/template.md")
-    .then((res) => res.text())
-    .then((data) => {
-      return data;
-    });
-};
 
 const AdminEditor = ({}: props) => {
   const [code, setCode] = useLocalStorage("parsedMarkdown", "");
