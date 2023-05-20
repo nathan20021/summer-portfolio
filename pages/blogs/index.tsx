@@ -38,7 +38,7 @@ const blogs = ({ metaDataArray, tags, tagsMetaData }: prop) => {
     );
   }, []);
   return (
-    <section className="min-h-screen z-50 relative">
+    <section className="min-h-screen z-10 relative">
       <div className="w-full flex justify-center items-center bg-[#111111] pt-8">
         <div className="w-[70%] h-[10vh] flex justify-center items-center">
           <h1 className="z-50 text-4xl font-bold after:content-[''] after:block after:pt-2 after:border-b-[#3BB5DB] after:border-b-4">
