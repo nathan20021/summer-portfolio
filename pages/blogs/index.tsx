@@ -38,113 +38,122 @@ const blogs = ({ metaDataArray, tags, tagsMetaData }: prop) => {
     );
   }, []);
   return (
-    <section className="min-h-screen z-10 flex flex-col lg:flex-row lg:items-start justify-center bg-[#111111] relative">
-      <div>
-        <ParticleBg />
+    <section className="min-h-screen z-50 relative">
+      <div className="w-full flex justify-center items-center bg-[#111111] pt-8">
+        <div className="w-[70%] h-[10vh] flex justify-center items-center">
+          <h1 className="z-50 text-4xl font-bold after:content-[''] after:block after:pt-2 after:border-b-[#3BB5DB] after:border-b-4">
+            Blog Posts
+          </h1>
+        </div>
       </div>
-      <aside className="hidden w-full lg:w-[15%] z-10 my-[20vh] lg:flex flex-col justify-start items-end sticky top-0">
-        <ul className="w-[80%] flex flex-col gap-2 ">
-          <li
-            className="font-bold w-full ease-out duration-300 hover:bg-[#333333] cursor-pointer indent-2 py-1"
-            style={{
-              color: currentFilterId === -1 ? "#4bd8ed" : "white",
-            }}
-            onClick={() => {
-              setCurrentFilterId(-1);
-              setMetaData(metaDataArray);
-            }}
-          >
-            All Tags ({metaDataArray.length})
-          </li>
-          {tags.map((val) => {
-            return (
-              <li
-                key={val.id}
-                style={{
-                  color: currentFilterId === val.id ? "#4bd8ed" : "white",
-                }}
-                className="w-full py-1 indent-6 ease-out duration-300 hover:bg-[#333333] cursor-pointer flex items-center"
-                onClick={() => {
-                  setCurrentFilterId(val.id);
-                  filterMetaData(val.id);
-                }}
-              >
-                ({tagsMetaData[val.id - 1]}) {val.name}
-              </li>
-            );
-          })}
-        </ul>
-      </aside>
-      <div className="lg:w-[70%] w-full z-10 my-[10vh]">
-        {/* <div className="h-[10vh] min-h-[7rem] flex justify-center items-center"></div> */}
-        <div className="w-full h-full flex flex-wrap gap-3 justify-around">
-          {metaData.map((metaData, index) => {
-            return (
-              <div
-                id="blog-container-box"
-                key={index}
-                className="my-5 w-[28%] min-w-[300px] max-w-[351px] h-[40vh] min-h-[500px] rounded-md bg-[#222222] overflow-hidden
-                  flex flex-col justify-start items-center"
-              >
-                <Link href={`/blogs/${metaData.file_name}`} key={index}>
-                  <a className="w-full h-full flex justify-center items-start ease-out duration-1000 peer hover:bg-[#323232]">
-                    <div id="div-inside-link-tag" className="w-full">
-                      <div id="image-container" className="w-full relative">
-                        <Image
-                          alt={`Cover Image ${index} : ${metaData.title} `}
-                          src={metaData.cover}
-                          layout="responsive"
-                          width={740}
-                          height={493}
-                          objectFit="cover"
-                        />
-                      </div>
-                      <div
-                        id="text-container"
-                        className="h-[55%] w-full px-4 flex flex-col gap-2"
-                      >
-                        <p className="mb-[0.5rem] py-[0.5rem] border-b-[1px] border-[#696969] text-xs text-[#ffffff]">
-                          {metaData.published_at} | {metaData.read_time} mins
-                          read
-                        </p>
-                        <h1 className="font-bold text-lg mb-1 text-[#4bd8ed]">
-                          {metaData.title}
-                        </h1>
-                        <p className="text-base md:text-sm text-[#c9c9c9]">
-                          {metaData.description}
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </Link>
-                <div
-                  id="tags-container"
-                  className="w-full px-4 h-[18%] flex flex-start items-center
-                   ease-out duration-1000 gap-6 peer-hover:bg-[#323232]"
+      <div className="min-h-screen z-10 flex flex-col lg:flex-row lg:items-start justify-center bg-[#111111] relative">
+        <div>
+          <ParticleBg />
+        </div>
+        <aside className="hidden w-full lg:w-[15%] z-10 my-[20vh] lg:flex flex-col justify-start items-end sticky top-0">
+          <ul className="w-[80%] flex flex-col gap-2 ">
+            <li
+              className="font-bold w-full ease-out duration-300 hover:bg-[#333333] cursor-pointer indent-2 py-1"
+              style={{
+                color: currentFilterId === -1 ? "#4bd8ed" : "white",
+              }}
+              onClick={() => {
+                setCurrentFilterId(-1);
+                setMetaData(metaDataArray);
+              }}
+            >
+              All Tags ({metaDataArray.length})
+            </li>
+            {tags.map((val) => {
+              return (
+                <li
+                  key={val.id}
+                  style={{
+                    color: currentFilterId === val.id ? "#4bd8ed" : "white",
+                  }}
+                  className="w-full py-1 indent-6 ease-out duration-300 hover:bg-[#333333] cursor-pointer flex items-center"
+                  onClick={() => {
+                    setCurrentFilterId(val.id);
+                    filterMetaData(val.id);
+                  }}
                 >
-                  {metaData.tags.map((tag, index) => {
-                    return (
-                      <button
-                        onClick={() => {
-                          setCurrentFilterId(tag.id);
-                          filterMetaData(tag.id);
-                        }}
-                        className="z-[1000] select-none py-1 px-3 rounded-xl text-xs
+                  ({tagsMetaData[val.id - 1]}) {val.name}
+                </li>
+              );
+            })}
+          </ul>
+        </aside>
+        <div className="lg:w-[70%] w-full z-10 my-[10vh]">
+          {/* <div className="h-[10vh] min-h-[7rem] flex justify-center items-center"></div> */}
+          <div className="w-full h-full flex flex-wrap gap-3 justify-around">
+            {metaData.map((metaData, index) => {
+              return (
+                <div
+                  id="blog-container-box"
+                  key={index}
+                  className="my-5 w-[28%] min-w-[300px] max-w-[351px] h-[40vh] min-h-[500px] rounded-md bg-[#222222] overflow-hidden
+                  flex flex-col justify-start items-center"
+                >
+                  <Link href={`/blogs/${metaData.file_name}`} key={index}>
+                    <a className="w-full h-full flex justify-center items-start ease-out duration-1000 peer hover:bg-[#323232]">
+                      <div id="div-inside-link-tag" className="w-full">
+                        <div id="image-container" className="w-full relative">
+                          <Image
+                            alt={`Cover Image ${index} : ${metaData.title} `}
+                            src={metaData.cover}
+                            layout="responsive"
+                            width={740}
+                            height={493}
+                            objectFit="cover"
+                          />
+                        </div>
+                        <div
+                          id="text-container"
+                          className="h-[55%] w-full px-4 flex flex-col gap-2"
+                        >
+                          <p className="mb-[0.5rem] py-[0.5rem] border-b-[1px] border-[#696969] text-xs text-[#ffffff]">
+                            {metaData.published_at} | {metaData.read_time} mins
+                            read
+                          </p>
+                          <h1 className="font-bold text-lg mb-1 text-[#4bd8ed]">
+                            {metaData.title}
+                          </h1>
+                          <p className="text-base md:text-sm text-[#c9c9c9]">
+                            {metaData.description}
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </Link>
+                  <div
+                    id="tags-container"
+                    className="w-full px-4 h-[18%] flex flex-start items-center
+                   ease-out duration-1000 gap-6 peer-hover:bg-[#323232]"
+                  >
+                    {metaData.tags.map((tag, index) => {
+                      return (
+                        <button
+                          onClick={() => {
+                            setCurrentFilterId(tag.id);
+                            filterMetaData(tag.id);
+                          }}
+                          className="z-[1000] select-none py-1 px-3 rounded-xl text-xs
                          ease-out duration-300 bg-[#404040]"
-                        key={index}
-                        style={{
-                          color:
-                            tag.id === currentFilterId ? "#4bd8ed" : "white",
-                        }}
-                      >
-                        {tag.name}
-                      </button>
-                    );
-                  })}
+                          key={index}
+                          style={{
+                            color:
+                              tag.id === currentFilterId ? "#4bd8ed" : "white",
+                          }}
+                        >
+                          {tag.name}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

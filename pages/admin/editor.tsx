@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import * as fs from "fs";
 import { getSession } from "next-auth/react";
@@ -12,17 +12,15 @@ import styles from "../../styles/mdBlogs.module.css";
 import matter from "gray-matter";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TiTick } from "react-icons/ti";
-import path from "path";
 import "katex/dist/katex.min.css";
 const CodeEditor = dynamic<any>(
   () => import("@uiw/react-textarea-code-editor").then((mod) => mod.default),
   { ssr: false }
 );
 import ReactMarkdownWrapper from "@/components/Markdown/ReactMarkdownWrapper";
+import axios from "axios";
 
-type props = {
-  mdTemplate: string;
-};
+type props = {};
 
 type formProps = {
   title: string;
@@ -52,7 +50,37 @@ function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-const AdminEditor = ({ mdTemplate }: props) => {
+const fetchMD = async () => {
+  await fetch("/posts/templates/template.md")
+    .then((res) => res.text())
+    .then((data) => {
+      return data;
+    });
+};
+
+const AdminEditor = ({}: props) => {
+  const [code, setCode] = useLocalStorage("parsedMarkdown", "");
+  const [highLightMD, setHighLightMD] = useState<boolean>(false);
+  const [isPreview, setIsPreview] = useState<boolean>(true);
+  const [formState, setFormState] = useState<formProps>({
+    title: "Untitled",
+    url: "",
+    coverImageUrl: "",
+    readMins: 0,
+    description: "",
+    initialViews: 0,
+  });
+  const [submitting, setSubmitting] = useState<boolean>(false);
+
+  const fetchData = async () => {
+    const result = await axios("/posts/templates/template.md");
+    setCode(result.data);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const submitFunc = async () => {
     setSubmitting(true);
     for (let i = 0; i < 3; i++) {
@@ -68,19 +96,6 @@ const AdminEditor = ({ mdTemplate }: props) => {
       initialViews: 0,
     });
   };
-
-  const [code, setCode] = useLocalStorage("parsedMarkdown", mdTemplate);
-  const [highLightMD, setHighLightMD] = useState<boolean>(false);
-  const [isPreview, setIsPreview] = useState<boolean>(true);
-  const [formState, setFormState] = useState<formProps>({
-    title: "Untitled",
-    url: "",
-    coverImageUrl: "",
-    readMins: 0,
-    description: "",
-    initialViews: 0,
-  });
-  const [submitting, setSubmitting] = useState<boolean>(false);
 
   return (
     <>
@@ -108,10 +123,8 @@ const AdminEditor = ({ mdTemplate }: props) => {
           <button
             className="bg-[#2e7c9e] hover:bg-[#47849f] px-3 py-1 rounded-sm"
             onClick={() => {
-              if (code !== mdTemplate) {
-                localStorage.removeItem("parsedMarkdown");
-                setCode(mdTemplate);
-              }
+              localStorage.removeItem("parsedMarkdown");
+              fetchData();
             }}
           >
             Reset Template
@@ -485,16 +498,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
-  // const tags = await prisma.tags.findMany();
-
-  const sth = path.resolve(process.cwd(), "md/templates");
-  const parsedMDwithMetaData = fs
-    .readFileSync(path.join(sth, "template.md"))
-    .toString();
   return {
     props: {
       // tags: tags,
-      mdTemplate: matter(parsedMDwithMetaData).content,
     },
   };
 }
