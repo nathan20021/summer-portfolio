@@ -1,8 +1,35 @@
-.analytic-table,
-.analytic-table * {
-  border-sizing: border-box;
+.analytic-table td {
+  padding: 1em;
+  border: 1px solid #eaeaea;
 }
 
-.analytic-table tr > * + * {
-  padding-left: 4em;
+.analytic-table th {
+  padding: 0.3em;
+  border: 1px solid #eaeaea;
+}
+
+.analytic-table tbody tr {
+  border: 1px solid #eaeaea;
+}
+
+.analytic-table tbody tr:nth-child(even) {
+  background-color: #2f2f2f;
+}
+.analytic-table thead tr {
+  background-color: #212121;
+  text-align: center;
+}
+
+.analytic-table *,
+table.analytic-table {
+  position: relative;
+  z-index: 100;
+}
+
+table.analytic-table {
+  padding: 10rem;
+  width: 80%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #eaeaea;
 }

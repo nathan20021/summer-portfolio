@@ -49,6 +49,76 @@ const DashBoard: NextPage = () => {
     fectchUserData();
     fetchBlogsData();
   }, []);
+
+  const userTablePopUp = (
+    <div className="z-50 h-full w-full flex justify-center items-start relative">
+      <table className="analytic-table text-lg">
+        <thead>
+          <tr>
+            <th>UID</th>
+            <th>Email</th>
+            <th>Sub Date</th>
+          </tr>
+        </thead>
+        <tbody className="gap-3">
+          {subs.map((val, index) => (
+            <tr key={index}>
+              <td className="text-center">{val.id}</td>
+              <td>{val.email}</td>
+              <td>{_ISOToReadable(val.subbedAt)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+
+  const BlogTablePopUp = (
+    <div className="z-50 h-full w-full flex justify-center items-start">
+      <table className="analytic-table">
+        <thead>
+          <tr>
+            <th>Blog Name</th>
+            <th>Blog URL</th>
+            <th>Publish At</th>
+          </tr>
+        </thead>
+        <tbody className="gap-3">
+          {blogStats.map((val, index) => (
+            <tr key={index}>
+              <td className="text-center">{val.id}</td>
+              <td>/{val.url}</td>
+              <td>{_ISOToReadable(val.publishedAt)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+
+  const BlogViewsTable = (
+    <div className="z-50 h-full w-full flex justify-center items-start">
+      <table className="analytic-table">
+        <thead>
+          <tr>
+            <th>Blog Name</th>
+            <th>Blog URL</th>
+            <th>Views</th>
+          </tr>
+        </thead>
+        <tbody className="gap-3">
+          {blogStats.map((val, index) => (
+            <tr key={index}>
+              <td className="text-center">{val.id}</td>
+              <td>/{val.url}</td>
+              <td>{val.views}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+
   return (
     <>
       <Head>
@@ -60,31 +130,22 @@ const DashBoard: NextPage = () => {
         </div>
         <div className="w-[80%] z-50 flex justify-center items-center">
           <div className="w-full flex justify-around flex-wrap my-11">
-            <AnalyticCard stats={subs.length} title="Subcribers" />
-            <AnalyticCard stats={blogStats.length} title="Articles" />
-            <AnalyticCard stats={totalView} title="Blog Views" />
+            <AnalyticCard
+              title="Subcribers"
+              stats={subs.length}
+              popUpComponent={userTablePopUp}
+            />
+            <AnalyticCard
+              title="Articles"
+              stats={blogStats.length}
+              popUpComponent={BlogTablePopUp}
+            />
+            <AnalyticCard
+              title="Blog Views"
+              stats={totalView}
+              popUpComponent={BlogViewsTable}
+            />
           </div>
-        </div>
-        <div className="z-50">
-          <div></div>
-          <table className="analytic-table text-lg">
-            <thead>
-              <tr>
-                <th>UID</th>
-                <th>Email</th>
-                <th>Sub Date</th>
-              </tr>
-            </thead>
-            <tbody className="gap-3">
-              {subs.map((val, index) => (
-                <tr key={index}>
-                  <td className="text-center">{val.id}</td>
-                  <td>{val.email}</td>
-                  <td>{_ISOToReadable(val.subbedAt)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
       </section>
     </>
