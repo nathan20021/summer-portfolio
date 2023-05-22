@@ -82,7 +82,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     },
   });
 
-  const res = await axios.get(`https://nathanluong.me/api/blog/${slug}`, {
+  const res = await axios.get(`${process.env.URL}/api/blog/${slug}`, {
     headers: {
       Accept: "application/json",
     },
