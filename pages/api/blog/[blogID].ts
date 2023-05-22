@@ -13,7 +13,6 @@ export default async function handler(
   } = _req;
   switch (method) {
     case "GET":
-      console.log(`${blogID}.md`);
       const input = {
         Bucket: config.S3_BUCKET,
         Key: `${blogID}.md`,
