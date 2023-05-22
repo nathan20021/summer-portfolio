@@ -1,6 +1,4 @@
 import React from "react";
-import * as fs from "fs";
-import path from "path";
 import Head from "next/head";
 import matter from "gray-matter";
 import styles from "../../styles/mdBlogs.module.css";
@@ -13,6 +11,7 @@ import config from "../../config.json";
 import { GetStaticPropsContext } from "next";
 import "katex/dist/katex.min.css";
 import ReactMarkdownWrapper from "@/components/Markdown/ReactMarkdownWrapper";
+import axios from "axios";
 
 type prop = {
   content: string;
@@ -81,11 +80,13 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     },
   });
 
-  const parsedMDwithMetaData = fs
-    .readFileSync(path.join("md/posts", slug, `${slug}.md`))
-    .toString();
+  const res = await axios.get(`${process.env.URL}/api/blog/${slug}`, {
+    headers: {
+      Accept: "application/json",
+    },
+  });
+  const parsedMarkdown = matter(res.data.data);
 
-  const parsedMarkdown = matter(parsedMDwithMetaData);
   return {
     // Passed to the page component as props
     props: {
