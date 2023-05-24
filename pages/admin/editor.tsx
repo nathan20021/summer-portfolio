@@ -20,7 +20,6 @@ const CodeEditor = dynamic<any>(
 );
 import ReactMarkdownWrapper from "@/components/Markdown/ReactMarkdownWrapper";
 import axios from "axios";
-import { S3Client } from "@aws-sdk/client-s3";
 
 type props = {
   tags: Tags[];
