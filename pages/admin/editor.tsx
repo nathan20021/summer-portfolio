@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
+import { Tags } from "@prisma/client";
 import { useState } from "react";
+import { prisma } from "@/db";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import { GetServerSidePropsContext } from "next/types";
@@ -9,6 +11,7 @@ import dynamic from "next/dynamic";
 import "@uiw/react-textarea-code-editor/dist.css";
 import styles from "../../styles/mdBlogs.module.css";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { AiFillTags } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
 import "katex/dist/katex.min.css";
 const CodeEditor = dynamic<any>(
@@ -17,8 +20,11 @@ const CodeEditor = dynamic<any>(
 );
 import ReactMarkdownWrapper from "@/components/Markdown/ReactMarkdownWrapper";
 import axios from "axios";
+import { S3Client } from "@aws-sdk/client-s3";
 
-type props = {};
+type props = {
+  tags: Tags[];
+};
 
 type formProps = {
   title: string;
@@ -48,7 +54,10 @@ function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-const AdminEditor = ({}: props) => {
+const AdminEditor = ({ tags }: props) => {
+  const [tagsState, setTagsState] = useState<boolean[]>(
+    new Array(tags.length).fill(false)
+  );
   const [code, setCode] = useLocalStorage("parsedMarkdown", "");
   const [highLightMD, setHighLightMD] = useState<boolean>(false);
   const [isPreview, setIsPreview] = useState<boolean>(true);
@@ -76,7 +85,6 @@ const AdminEditor = ({}: props) => {
     for (let i = 0; i < 3; i++) {
       await sleep(i * 1000);
     }
-    setSubmitting(false);
     setFormState({
       title: "Untitled",
       url: "",
@@ -85,6 +93,7 @@ const AdminEditor = ({}: props) => {
       description: "",
       initialViews: 0,
     });
+    setSubmitting(false);
   };
 
   return (
@@ -427,7 +436,7 @@ const AdminEditor = ({}: props) => {
                             id="tags-container"
                             className="flex-wrap md:col-span-5 flex justify-center gap-2"
                           >
-                            {/* {tags.map((val, ind) => {
+                            {tags.map((val, ind) => {
                               return (
                                 <div
                                   key={ind}
@@ -447,7 +456,7 @@ const AdminEditor = ({}: props) => {
                                   {val.name}
                                 </div>
                               );
-                            })} */}
+                            })}
                           </div>
 
                           <div className="md:col-span-5 text-center">
@@ -478,6 +487,7 @@ const AdminEditor = ({}: props) => {
 
 // eslint-disable-next-line require-jsdoc
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const tags = await prisma.tags.findMany();
   const session = await getSession(context);
   if (!session) {
     return {
@@ -490,7 +500,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   return {
     props: {
-      // tags: tags,
+      tags: tags,
     },
   };
 }
