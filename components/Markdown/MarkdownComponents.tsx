@@ -191,7 +191,7 @@ const MarkdownComponents: object = {
             setChecked(!checked);
           }}
           checked={checked}
-          className="w-4 h-4 text-blue-600 bg-grey-100 border-grey-300 rounded dark:ring-offset-grey-800 dark:bg-grey-700 dark:border-grey-600"
+          className="w-4 h-4 text-blue-600 rounded ring-offset-grey-800 bg-grey-700 border-grey-600"
           type="checkbox"
         />
       );

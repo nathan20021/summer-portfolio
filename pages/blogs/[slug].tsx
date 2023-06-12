@@ -22,22 +22,18 @@ interface IParams extends ParsedUrlQuery {
 }
 
 const Post = ({ content, metaData }: prop) => {
-  // const { theme, setTheme } = useTheme();
-  // useEffect(() => {
-  //   setTheme("dark");
-  // }, []);
   return (
-    <div className="bg-light dark:bg-primary z-10 w-full flex justify-center items-center">
+    <div className="bg-primary z-10 w-full flex justify-center items-center">
       <Head>
         <title>{metaData.title}</title>
       </Head>
       <div
         id="Blog Container"
-        className="w-[90%] lg:w-[60%] flex flex-col items-center bg-light dark:bg-primary z-10"
+        className="w-[90%] lg:w-[60%] flex flex-col items-center bg-primary z-10"
       >
         <div
           id="metadata-container"
-          className="z-10 w-full text-center text-darktext dark:text-lighttext"
+          className="z-10 w-full text-center text-lighttext"
         >
           <h1 className="sm:font-medium text-center text-3xl sm:text-5xl mt-12 tracking-wide">
             {metaData.title}
@@ -81,6 +77,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   });
 
   const res = await axios.get(`${process.env.URL}/api/blog/${slug}`, {
+    timeout: 5000,
     headers: {
       Accept: "application/json",
     },
