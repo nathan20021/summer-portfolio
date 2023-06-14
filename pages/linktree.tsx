@@ -10,7 +10,7 @@ import { MdArticle } from "react-icons/md";
 import { HiCode } from "react-icons/hi";
 
 // import Image from "next/img"
-const contactInfo: Array<LinkCardProps> = [
+const ContactInfo: Array<LinkCardProps> = [
   {
     icon: <HiCode />,
     title: <p>Portfolio</p>,
@@ -20,16 +20,6 @@ const contactInfo: Array<LinkCardProps> = [
     icon: <FaLinkedin />,
     title: <p>LinkedIn Profile</p>,
     link: "https://www.linkedin.com/in/nathan-luongg/",
-  },
-  {
-    icon: <IoMdDocument />,
-    title: <p>DevOps Resume</p>,
-    link: "/Nathan_Luong_DevOps.pdf",
-  },
-  {
-    icon: <IoMdDocument />,
-    title: <p>Software Engineering Resume</p>,
-    link: "/Nathan_Luong_SWE.pdf",
   },
   {
     icon: <MdArticle />,
@@ -52,7 +42,20 @@ const contactInfo: Array<LinkCardProps> = [
   },
 ];
 
-const featuredPosts: Array<LinkCardProps> = [
+const ResumeLinks: Array<LinkCardProps> = [
+  {
+    icon: <IoMdDocument />,
+    title: <p>DevOps Resume</p>,
+    link: "/Nathan_Luong_DevOps.pdf",
+  },
+  {
+    icon: <IoMdDocument />,
+    title: <p>Software Engineering Resume</p>,
+    link: "/Nathan_Luong_SWE.pdf",
+  },
+];
+
+const FeaturedPosts: Array<LinkCardProps> = [
   {
     icon: <FaLink />,
     title: <p>The Hamilton Spectator</p>,
@@ -84,11 +87,12 @@ const Contact: NextPage = () => {
         >
           <LinkTree
             header={`Let's keep in touch 🌱`}
-            linkCardPropsArray={contactInfo}
+            linkCardPropsArray={ContactInfo}
           />
+          <LinkTree header={`Resume 📄`} linkCardPropsArray={ResumeLinks} />
           <LinkTree
             header={`Featured articles 🧑🏻‍💻`}
-            linkCardPropsArray={featuredPosts}
+            linkCardPropsArray={FeaturedPosts}
           />
         </div>
       </div>
