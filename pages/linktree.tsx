@@ -23,8 +23,13 @@ const contactInfo: Array<LinkCardProps> = [
   },
   {
     icon: <IoMdDocument />,
-    title: <p>Resume</p>,
-    link: "/Third_Year_Resume.pdf",
+    title: <p>DevOps Resume</p>,
+    link: "/Nathan_Luong_DevOps.pdf",
+  },
+  {
+    icon: <IoMdDocument />,
+    title: <p>Software Engineering Resume</p>,
+    link: "/Nathan_Luong_SWE.pdf",
   },
   {
     icon: <MdArticle />,
