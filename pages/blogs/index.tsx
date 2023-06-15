@@ -17,15 +17,22 @@ export type metaData = {
   views: number;
   file_name: string;
   tags: Array<Tags>;
+  featured: boolean;
 };
 
 type prop = {
+  featuredPostMetaData: metaData;
   metaDataArray: Array<metaData>;
   tags: Array<Tags>;
   tagsMetaData: Array<number>;
 };
 
-const blogs = ({ metaDataArray, tags, tagsMetaData }: prop) => {
+const blogs = ({
+  featuredPostMetaData,
+  metaDataArray,
+  tags,
+  tagsMetaData,
+}: prop) => {
   const [metaData, setMetaData] = useState<Array<metaData>>(metaDataArray);
   const [currentFilterId, setCurrentFilterId] = useState<number>(-1);
 
@@ -39,18 +46,76 @@ const blogs = ({ metaDataArray, tags, tagsMetaData }: prop) => {
   }, []);
   return (
     <section className="min-h-screen z-10 relative">
-      <div className="w-full flex justify-center items-center bg-[#111111] pt-8">
+      <div className="w-full flex flex-col justify-center items-center bg-[#111111] pt-8 z-50">
         <div className="w-[70%] h-[10vh] flex justify-center items-center">
           <h1 className="z-50 text-4xl font-bold after:content-[''] after:block after:pt-2 after:border-b-[#3BB5DB] after:border-b-4">
             Blog Posts
           </h1>
         </div>
+        <div
+          id="blog-container-box"
+          className="hidden lg:flex my-5 w-[80%] xl:w-[50%] min-w-[300px] rounded-md bg-[#222222] overflow-hidden
+                  flex-col justify-start items-center z-50"
+        >
+          <Link href={`/blogs/${featuredPostMetaData.file_name}`}>
+            <a className="w-full h-full flex justify-center items-start ease-out duration-500 peer hover:bg-[#262626]">
+              <div id="div-inside-link-tag" className="w-full flex">
+                <div id="image-container" className="w-full relative">
+                  <Image
+                    alt={`Cover Image ${0} : ${featuredPostMetaData.title} `}
+                    src={featuredPostMetaData.cover}
+                    layout="responsive"
+                    width={740}
+                    height={493}
+                    objectFit="cover"
+                  />
+                </div>
+                <div
+                  id="text-container"
+                  className="h-[55%] w-[70%] px-4 flex flex-col"
+                >
+                  <h1 className="font-bold text-lg mt-3 text-[#4bd8ed]">
+                    {featuredPostMetaData.title}
+                  </h1>
+                  <p className="mb-[0.5rem] py-[0.5rem] border-b-[1px] border-[#696969] text-xs text-[#ffffff]">
+                    {featuredPostMetaData.published_at} |{" "}
+                    {featuredPostMetaData.read_time} mins read
+                  </p>
+                  <p className="text-base md:text-sm text-[#c9c9c9]">
+                    {featuredPostMetaData.description}
+                  </p>
+                  <div
+                    id="tags-container"
+                    className="hidden xl:flex w-full px-2 h-[18%] flex-start items-center mt-4
+                   ease-out duration-500 gap-6 peer-hover:bg-[#323232]"
+                  >
+                    {featuredPostMetaData.tags.map((tag, index) => {
+                      return (
+                        <button
+                          className="z-[1000] select-none py-1 px-3 rounded-xl text-xs
+                         ease-out duration-300 bg-[#404040]"
+                          key={index}
+                          style={{
+                            color:
+                              tag.id === currentFilterId ? "#4bd8ed" : "white",
+                          }}
+                        >
+                          {tag.name}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </a>
+          </Link>
+        </div>
       </div>
-      <div className="min-h-screen z-10 flex flex-col lg:flex-row lg:items-start justify-center bg-[#111111]">
+      <div className="w-full min-h-screen z-10 flex flex-col lg:flex-row lg:items-start justify-center bg-[#111111]">
         <div>
           <ParticleBg />
         </div>
-        <aside className="hidden w-full lg:w-[15%] z-10 lg:flex flex-col justify-start items-start sticky top-0">
+        <aside className="hidden w-full lg:w-[15%] z-10 lg:flex flex-col justify-start items-start sticky top-0 py-[20vh]">
           <ul className="w-[80%] flex flex-col gap-2 ">
             <li
               className="font-bold w-full ease-out duration-300 hover:bg-[#333333] cursor-pointer indent-2 py-1"
@@ -95,7 +160,7 @@ const blogs = ({ metaDataArray, tags, tagsMetaData }: prop) => {
                   flex flex-col justify-start items-center"
                 >
                   <Link href={`/blogs/${metaData.file_name}`} key={index}>
-                    <a className="w-full h-full flex justify-center items-start ease-out duration-1000 peer hover:bg-[#323232]">
+                    <a className="w-full h-full flex justify-center items-start ease-out duration-500 peer hover:bg-[#262626]">
                       <div id="div-inside-link-tag" className="w-full">
                         <div id="image-container" className="w-full relative">
                           <Image
@@ -128,7 +193,7 @@ const blogs = ({ metaDataArray, tags, tagsMetaData }: prop) => {
                   <div
                     id="tags-container"
                     className="w-full px-4 h-[18%] flex flex-start items-center
-                   ease-out duration-1000 gap-6 peer-hover:bg-[#323232]"
+                   ease-out duration-500 gap-6 peer-hover:bg-[#262626]"
                   >
                     {metaData.tags.map((tag, index) => {
                       return (
@@ -182,25 +247,42 @@ export async function getStaticProps() {
   });
 
   const metaDataArray: Array<metaData> = [];
+  let featuredPostMetaData;
 
   posts.forEach((data, ind) => {
-    metaDataArray.push({
-      title: data.title,
-      cover: data.cover,
-      description: data.description,
-      published_at: data.publishedAt.toLocaleDateString("en-US"),
-      author: "Nathan Luong",
-      guest: "None",
-      read_time: data.readTime,
-      views: data.views,
-      file_name: data.url,
-      tags: data.tags,
-    });
+    data.featured
+      ? (featuredPostMetaData = {
+          title: data.title,
+          cover: data.cover,
+          description: data.description,
+          published_at: data.publishedAt.toLocaleDateString("en-US"),
+          author: "Nathan Luong",
+          guest: "None",
+          read_time: data.readTime,
+          views: data.views,
+          file_name: data.url,
+          tags: data.tags,
+          featured: data.featured,
+        })
+      : metaDataArray.push({
+          title: data.title,
+          cover: data.cover,
+          description: data.description,
+          published_at: data.publishedAt.toLocaleDateString("en-US"),
+          author: "Nathan Luong",
+          guest: "None",
+          read_time: data.readTime,
+          views: data.views,
+          file_name: data.url,
+          tags: data.tags,
+          featured: data.featured,
+        });
   });
 
   return {
     props: {
       metaDataArray: metaDataArray,
+      featuredPostMetaData: featuredPostMetaData,
       tags: tags.sort(
         (a, b) =>
           tagsMetaData[b.id - 1] - tagsMetaData[a.id - 1] ||

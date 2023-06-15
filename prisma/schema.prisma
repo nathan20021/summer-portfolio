@@ -17,6 +17,7 @@ model BlogPost {
   title       String   @db.VarChar(255)
   views       Int
   url         String   @default("/") @db.VarChar(255)
+  featured    Boolean  @default(false)
   tags        Tags[]
 }
 
