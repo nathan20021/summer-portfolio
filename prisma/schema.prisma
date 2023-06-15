@@ -1,32 +1,42 @@
 generator client {
   provider = "prisma-client-js"
 }
+
 datasource db {
-  provider = "mysql"
-  url = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
-} 
+}
 
 model BlogPost {
-  id              Int       @default(autoincrement()) @id
-  title           String    @db.VarChar(255)
-  url             String    @default("/") @db.VarChar(255)
-  cover           String    @db.VarChar(255)
-  description     String    @db.VarChar(255)
-  publishedAt     DateTime  @default(now())
-  readTime        Int       @db.UnsignedTinyInt
-  views           Int       @db.Int
-  tags            Tags[]
+  id          Int      @id @default(autoincrement())
+  readTime    Int      @db.UnsignedTinyInt
+  cover       String   @db.VarChar(255)
+  description String   @db.VarChar(255)
+  publishedAt DateTime @default(now())
+  title       String   @db.VarChar(255)
+  views       Int
+  url         String   @default("/") @db.VarChar(255)
+  tags        Tags[]
 }
 
 model Subcribers {
-  id              Int       @default(autoincrement()) @id
-  email           String    @db.VarChar(255)
-  subbedAt        DateTime  @default(now())
+  id       Int      @id @default(autoincrement())
+  email    String   @db.VarChar(255)
+  subbedAt DateTime @default(now())
 }
 
 model Tags {
-  id              Int       @default(autoincrement()) @id
-  name            String    @db.VarChar(255)
-  blogs           BlogPost[]
+  id    Int        @id @default(autoincrement())
+  name  String     @db.VarChar(255)
+  blogs BlogPost[]
+}
+
+model BlogPostToTags {
+  A Int
+  B Int
+
+  @@unique([A, B], map: "_BlogPostToTags_AB_unique")
+  @@index([B], map: "_BlogPostToTags_B_index")
+  @@map("_BlogPostToTags")
 }
