@@ -12,8 +12,8 @@ const TesPage: NextPage = () => {
         <title>Test</title>
       </Head>
       <section className="min-h-screen z-50 flex flex-col justify-start items-center">
-        <div className="z-50 h-full w-1/3">
-          <FileTreeWrapper url="s3://porfolio-blogs/CI-CD-Blog/" />
+        <div className="z-50 h-full w-1/2">
+          <FileTreeWrapper rootFolderName="CI-CD-Blog" />
         </div>
       </section>
     </>

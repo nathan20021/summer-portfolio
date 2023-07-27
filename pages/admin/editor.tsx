@@ -1,6 +1,5 @@
 import React, { ReactNode, useEffect } from "react";
 import { Tags } from "@prisma/client";
-import { FileUploader } from "react-drag-drop-files";
 import { useState } from "react";
 import { prisma } from "@/db";
 import { getSession } from "next-auth/react";
@@ -23,7 +22,6 @@ const CodeEditor = dynamic<any>(
 );
 import ReactMarkdownWrapper from "@/components/Markdown/ReactMarkdownWrapper";
 import axios from "axios";
-import { divide } from "lodash";
 
 type props = {
   tags: Tags[];
@@ -82,8 +80,6 @@ const InitialScreenButtons = ({
 };
 
 const AdminEditor = ({ tags }: props) => {
-  const fileTypes = ["JPG", "PNG", "GIF"];
-  const [file, setFile] = useState(null);
   const [tagsState, setTagsState] = useState<boolean[]>(
     new Array(tags.length).fill(false)
   );
@@ -204,7 +200,7 @@ const AdminEditor = ({ tags }: props) => {
                   : `flex justify-center w-[90%] min-h-screen`
               }
             >
-              {!isPreview ? (
+              {!isPreview && (
                 <div
                   id="code-editor"
                   className="z-50 w-1/2 wmde-markdown-var border-r-2 border-[#ffffff] select-none"
@@ -224,23 +220,6 @@ const AdminEditor = ({ tags }: props) => {
                       backgroundColor: "#272727",
                     }}
                   />
-                </div>
-              ) : (
-                <div id="file-upload-and-file-tree" className="z-50 w-[10%]">
-                  <FileUploader
-                    multiple={true}
-                    hoverTitle="Drop"
-                    handleChange={(file: any) => setFile(file)}
-                    name="file"
-                    types={fileTypes}
-                  >
-                    <div
-                      className="cursor-pointer aspect-square border-dashed
-                                border-white border-2"
-                    >
-                      <h1 className="text-center">+</h1>
-                    </div>
-                  </FileUploader>
                 </div>
               )}
               <div
