@@ -19,6 +19,7 @@ model BlogPost {
   url         String   @default("/") @db.VarChar(255)
   featured    Boolean  @default(false)
   tags        Tags[]
+  bucketURL   String   @db.VarChar(255)
 }
 
 model Subcribers {
