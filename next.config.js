@@ -32,7 +32,7 @@ const nextConfig = {
   },
   reactStrictMode: true,
   images: {
-    domains: ["github.com", "avatars.githubusercontent.com"],
+    domains: [],
   },
   typescript: {
     ignoreBuildErrors: true,
