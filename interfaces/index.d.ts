@@ -31,3 +31,17 @@ export type FileTree = {
   rootFolderName: string;
   FileTreeChildren: FileTreeElement[] | null;
 };
+
+export type BlogMetaData = {
+  title: string;
+  cover: string;
+  description: string;
+  published_at: string;
+  author: string;
+  guest: string;
+  read_time: number;
+  views: number;
+  file_name: string;
+  tags: Array<Tags>;
+  featured: boolean;
+};

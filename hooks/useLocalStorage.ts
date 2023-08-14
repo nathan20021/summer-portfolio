@@ -1,5 +1,4 @@
 /**
- * // useLocalStorage.ts
  * * This hook returns the viewport/window height and width
  */
 
