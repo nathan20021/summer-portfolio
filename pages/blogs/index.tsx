@@ -2,9 +2,10 @@ import * as React from "react";
 import ParticleBg from "../../components/particleBg";
 import BlogCard from "../../components/Blog/BlogCard";
 import TagFilterDropdown from "@/components/Blog/BlogTagFilterDropdown";
+import Dropdown from "@/components/Blog/DropDown";
 import { prisma } from "@/db";
 import { Tags } from "@prisma/client";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { BlogMetaData } from "@/interfaces";
 import config from "../../config.json";
 import useClickOutside from "@/hooks/useClickOutside";
@@ -16,30 +17,79 @@ type prop = {
   tagsMetaData: Array<number>;
 };
 
+type sortOrderType = "Descending" | "Ascending";
+type sortFieldType = "Views" | "Date Created" | "Read Time";
+
 const blogs = ({
   featuredPostMetaData,
   metaDataArray,
   tags,
   tagsMetaData,
 }: prop) => {
-  const [metaData, setMetaData] = useState<Array<BlogMetaData>>(metaDataArray);
+  const [metaData, setMetaData] = useState<BlogMetaData[]>(metaDataArray);
   const [currentFilterId, setCurrentFilterId] = useState<number>(-1);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const popUpRef = useClickOutside(() => {
-    setIsOpen(false);
+  const [isTagDropDownOpen, setIsTagDropDownOpen] = useState<boolean>(false);
+  const [isSortFieldDropDownOpen, setIsSortFieldDropDownOpen] =
+    useState<boolean>(false);
+  const [isSortOrderDropDownOpen, setIsSortOrderDropDownOpen] =
+    useState<boolean>(false);
+
+  const [sortOrder, setSortOrder] = useState<sortOrderType>("Descending");
+  const [sortField, setSortField] = useState<sortFieldType>("Date Created");
+
+  const tagDropDownPopupRef = useClickOutside(() => {
+    setIsTagDropDownOpen(false);
+  });
+  const sortFieldDropDownPopupRef = useClickOutside(() => {
+    setIsSortFieldDropDownOpen(false);
+  });
+  const sortOrderDropDownPopupRef = useClickOutside(() => {
+    setIsSortOrderDropDownOpen(false);
   });
 
   const filterMetaData = useCallback((id: number) => {
     setMetaData(
-      metaDataArray.filter((post) => {
+      [...metaData].filter((post) => {
         const temp = post.tags.map((_val) => _val.id);
         return temp.includes(id);
       })
     );
   }, []);
+
+  useEffect(() => {
+    console.log("-----------------");
+    console.log("useEffect called");
+    console.log("-----------------");
+    if (sortField === "Date Created") {
+      setMetaData(() =>
+        [...metaData].sort((a, b) =>
+          sortOrder === "Descending"
+            ? new Date(b.published_at).getTime() -
+              new Date(a.published_at).getTime()
+            : new Date(a.published_at).getTime() -
+              new Date(b.published_at).getTime()
+        )
+      );
+    } else if (sortField === "Views") {
+      setMetaData(() =>
+        [...metaData].sort((a, b) =>
+          sortOrder === "Descending" ? b.views - a.views : a.views - b.views
+        )
+      );
+    } else if (sortField === "Read Time") {
+      setMetaData(() =>
+        [...metaData].sort((a, b) =>
+          sortOrder === "Descending"
+            ? b.read_time - a.read_time
+            : a.read_time - b.read_time
+        )
+      );
+    }
+  }, [sortOrder, sortField]);
+
   return (
     <section className="min-h-screen z-10 relative">
-      <div className="w-full flex flex-col justify-center items-center bg-[#111111] pt-8 z-50">
+      <div className="w-full flex flex-col justify-center items-center bg-blogBg pt-8 z-50">
         <div>
           <ParticleBg />
         </div>
@@ -49,7 +99,7 @@ const blogs = ({
           </h1>
         </div>
       </div>
-      <div className="w-full min-h-screen z-10 flex flex-col lg:flex-row lg:items-start justify-center bg-[#111111]">
+      <div className="w-full min-h-screen z-10 flex flex-col lg:flex-row lg:items-start justify-center bg-blogBg">
         <div className="lg:w-[70%] w-full z-10 my-[5vh] flex flex-col flex-wrap gap-3 justify-around items-center">
           <BlogCard
             metaData={featuredPostMetaData}
@@ -60,13 +110,13 @@ const blogs = ({
           />
 
           <div className="w-full flex justify-end">
-            <div className="w-[70%] sm:w-[90%]">
+            <div className="w-[70%] sm:w-[90%] flex gap-3">
               <div className="flex gap-3 justify-center items-center w-1/3 sm:w-1/5">
                 <h1 className="font-bold ">Tags: </h1>
                 <TagFilterDropdown
-                  popUpRef={popUpRef}
-                  isOpen={isOpen}
-                  setIsOpen={setIsOpen}
+                  popUpRef={tagDropDownPopupRef}
+                  isOpen={isTagDropDownOpen}
+                  setIsOpen={setIsTagDropDownOpen}
                   defaultVal="All Tags"
                   currentFilterId={currentFilterId}
                   onChooseDefault={() => {
@@ -79,6 +129,40 @@ const blogs = ({
                   }}
                   tags={tags}
                 />
+              </div>
+              <div className="flex gap-3 justify-center items-center w-1/3 sm:w-1/5">
+                <h1 className="font-bold ">Sort: </h1>
+                <Dropdown
+                  popUpRef={sortFieldDropDownPopupRef}
+                  isOpen={isSortFieldDropDownOpen}
+                  setIsOpen={setIsSortFieldDropDownOpen}
+                  defaultVal={sortField}
+                  items={["Date Created", "Views", "Read Time"]}
+                  onChooseItem={(item) => setSortField(item as sortFieldType)}
+                />
+              </div>
+              <div className="flex gap-3 justify-center items-center w-1/3 sm:w-1/5">
+                <h1 className="font-bold ">Order: </h1>
+                <Dropdown
+                  popUpRef={sortOrderDropDownPopupRef}
+                  isOpen={isSortOrderDropDownOpen}
+                  setIsOpen={setIsSortOrderDropDownOpen}
+                  defaultVal={sortOrder}
+                  items={["Descending", "Ascending"]}
+                  onChooseItem={(item) => setSortOrder(item as sortOrderType)}
+                />
+              </div>
+              <div className="flex gap-3 justify-center items-center w-1/3 sm:w-1/5">
+                <button
+                  onClick={() => {
+                    setSortField("Date Created");
+                    setSortOrder("Descending");
+                    setCurrentFilterId(-1);
+                    setMetaData(metaDataArray);
+                  }}
+                >
+                  Reset Filters
+                </button>
               </div>
             </div>
           </div>

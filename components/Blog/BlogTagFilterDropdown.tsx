@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Tags } from "@prisma/client";
+import { useEffect, useState } from "react";
 
 type TagFilterDropdownProps = {
   defaultVal: string;
@@ -22,8 +23,12 @@ const TagFilterDropdown = ({
   popUpRef,
   currentFilterId,
 }: TagFilterDropdownProps) => {
-  const [currentElement, setCurrentElement] =
-    React.useState<string>(defaultVal);
+  const [currentElement, setCurrentElement] = useState<string>(defaultVal);
+  useEffect(() => {
+    if (currentFilterId === -1) {
+      setCurrentElement(defaultVal);
+    }
+  }, [currentFilterId]);
   return (
     <div ref={popUpRef} className="relative w-full rounded-md min-w-[100px]">
       <button
@@ -33,8 +38,8 @@ const TagFilterDropdown = ({
         {currentElement}
       </button>
       {isOpen && (
-        <div className="absolute z-[100] bg-[#333333] w-full">
-          <ul className="w-full flex flex-col gap-2 ">
+        <div className="absolute z-[100] bg-[#171717] w-full">
+          <ul className="w-full flex flex-col">
             {currentFilterId !== -1 && (
               <li
                 className="w-full py-1 hover:bg-[#5e5d5d] cursor-pointer flex items-center justify-center"
@@ -52,7 +57,7 @@ const TagFilterDropdown = ({
                 currentFilterId !== val.id && (
                   <li
                     key={val.id}
-                    className="w-full py-1 hover:bg-[#5e5d5d] cursor-pointer flex items-center justify-center"
+                    className="w-full py-2 hover:bg-[#5e5d5d] cursor-pointer flex items-center justify-center border-t-[0.5px] border-[#707070]"
                     onClick={() => {
                       setCurrentElement(val.name);
                       setIsOpen(false);

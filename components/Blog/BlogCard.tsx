@@ -21,7 +21,7 @@ const BlogCard = ({
     <div
       id="blog-container-box"
       key={index}
-      className="my-5 w-[28%] sm:w-[90%] min-w-[300px] max-w-[351px] sm:max-w-none h-[40vh] min-h-[500px] sm:min-h-max sm:h-auto rounded-md bg-[#222222] overflow-hidden
+      className="group my-5 w-[28%] sm:w-[90%] min-w-[300px] max-w-[351px] sm:max-w-none h-[40vh] min-h-[500px] sm:min-h-max sm:h-auto rounded-md bg-[#222222] overflow-hidden
                   flex flex-col sm:flex-row justify-start items-center ease-out duration-500 peer hover:bg-[#262626]"
     >
       <Link href={`/blogs/${metaData.file_name}`} key={index}>
@@ -44,7 +44,10 @@ const BlogCard = ({
           <p className="pb-2 sm:pb-0 border-b-[1px] border-[#696969] sm:border-none text-xs text-white sm:text-[#c9c9c9]">
             {metaData.published_at} | {metaData.read_time} mins read
           </p>
-          <h1 className="font-bold text-lg text-[#4bd8ed] hover:text-[#51e8ff] mb-0 sm:mb-2 hover:underline-offset-2 hover:underline">
+          <h1
+            className="font-bold text-lg text-[#4bd8ed] hover:text-[#51e8ff] mb-0 sm:mb-2 
+            hover:underline-offset-2 hover:underline group-hover:underline-offset-2 group-hover:underline"
+          >
             <Link href={`/blogs/${metaData.file_name}`}>
               <a>{metaData.title}</a>
             </Link>
