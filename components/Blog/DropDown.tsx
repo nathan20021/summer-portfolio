@@ -37,12 +37,12 @@ const Dropdown = ({
         {currentElement}
       </button>
       {isOpen && (
-        <div className="absolute z-[100] bg-[#171717] w-full">
+        <div className="absolute z-[100] bg-[#202020] w-full shadow-lg shadow-[#161616]">
           <ul className="w-full flex flex-col">
             {items.map((item, index) => (
               <li
                 key={index}
-                className="w-full py-2 hover:bg-[#5e5d5d] cursor-pointer flex items-center justify-center border-t-[0.5px] border-[#707070]"
+                className="w-full py-2 hover:bg-[#5e5d5d] cursor-pointer flex items-center justify-start pl-3 border-t-[0.5px] border-[#707070]"
                 onClick={() => {
                   setCurrentElement(item);
                   setIsOpen(false);

@@ -9,6 +9,7 @@ import { useState, useCallback, useEffect } from "react";
 import { BlogMetaData } from "@/interfaces";
 import config from "../../config.json";
 import useClickOutside from "@/hooks/useClickOutside";
+import Image from "next/image";
 
 type prop = {
   featuredPostMetaData: BlogMetaData;
@@ -57,9 +58,6 @@ const blogs = ({
   }, []);
 
   useEffect(() => {
-    console.log("-----------------");
-    console.log("useEffect called");
-    console.log("-----------------");
     if (sortField === "Date Created") {
       setMetaData(() =>
         [...metaData].sort((a, b) =>
@@ -109,8 +107,8 @@ const blogs = ({
             currentFilterId={currentFilterId}
           />
 
-          <div className="w-full flex justify-end">
-            <div className="w-[70%] sm:w-[90%] flex gap-3">
+          <div className="w-full flex justify-center items-center">
+            <div className="w-[70%] sm:w-[90%] flex justify-center gap-12 bg-[#191919] py-5">
               <div className="flex gap-3 justify-center items-center w-1/3 sm:w-1/5">
                 <h1 className="font-bold ">Tags: </h1>
                 <TagFilterDropdown
@@ -154,6 +152,7 @@ const blogs = ({
               </div>
               <div className="flex gap-3 justify-center items-center w-1/3 sm:w-1/5">
                 <button
+                  className=" bg-[#42465f] hover:bg-[#525675] px-4 h-full rounded-sm"
                   onClick={() => {
                     setSortField("Date Created");
                     setSortOrder("Descending");
@@ -166,6 +165,22 @@ const blogs = ({
               </div>
             </div>
           </div>
+          {metaData.length === 0 && (
+            <div className="w-full flex justify-center items-center">
+              <div className="w-[90%] min-h-[400px] flex flex-col justify-center items-center bg-[#191919] gap-4">
+                <Image
+                  src="/no_result.png"
+                  alt="No result Found"
+                  width={100}
+                  height={100}
+                />
+                <h1 className="text-2xl font-bold text-white">Coming Soon</h1>
+                <p className="text-lg text-[#eeeeee]">
+                  No posts found with the current tag filter
+                </p>
+              </div>
+            </div>
+          )}
           {metaData.map((metaData, index) => (
             <BlogCard
               key={index}

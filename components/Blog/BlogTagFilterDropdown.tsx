@@ -27,6 +27,9 @@ const TagFilterDropdown = ({
   useEffect(() => {
     if (currentFilterId === -1) {
       setCurrentElement(defaultVal);
+    } else {
+      const temp = tags.filter((val) => val.id === currentFilterId);
+      setCurrentElement(temp[0].name);
     }
   }, [currentFilterId]);
   return (
@@ -38,11 +41,11 @@ const TagFilterDropdown = ({
         {currentElement}
       </button>
       {isOpen && (
-        <div className="absolute z-[100] bg-[#171717] w-full">
+        <div className="absolute z-[100] w-full bg-[#202020] w-full shadow-lg shadow-[#161616]">
           <ul className="w-full flex flex-col">
             {currentFilterId !== -1 && (
               <li
-                className="w-full py-1 hover:bg-[#5e5d5d] cursor-pointer flex items-center justify-center"
+                className="w-full py-1 hover:bg-[#5e5d5d] cursor-pointer flex items-center justify-start pl-3"
                 onClick={() => {
                   setCurrentElement(defaultVal);
                   setIsOpen(false);
@@ -57,7 +60,7 @@ const TagFilterDropdown = ({
                 currentFilterId !== val.id && (
                   <li
                     key={val.id}
-                    className="w-full py-2 hover:bg-[#5e5d5d] cursor-pointer flex items-center justify-center border-t-[0.5px] border-[#707070]"
+                    className="w-full py-2 hover:bg-[#5e5d5d] cursor-pointer flex items-center justify-start pl-3 border-t-[0.5px] border-[#707070]"
                     onClick={() => {
                       setCurrentElement(val.name);
                       setIsOpen(false);
