@@ -200,6 +200,9 @@ const blogs = ({
 // eslint-disable-next-line require-jsdoc
 export async function getStaticProps() {
   const posts = await prisma.blogPost.findMany({
+    where: {
+      type: "PUBLISHED",
+    },
     orderBy: {
       publishedAt: "desc",
     },
