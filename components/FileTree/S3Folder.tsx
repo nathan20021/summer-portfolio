@@ -7,7 +7,8 @@ import { AiFillFileAdd, AiFillFolderAdd } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 
 const FolderCard = ({ name, FileTreeChildren, url }: FileTreeFolder) => {
-  const [isOpen, setIsOpen] = useState(true);
+  name = name.replace("/", "");
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="flex flex-col cursor-pointer select-none">
       <div
@@ -54,7 +55,7 @@ const FolderCard = ({ name, FileTreeChildren, url }: FileTreeFolder) => {
         </div>
       </div>
       {isOpen && FileTreeChildren && (
-        <div className="ml-4 border-l-[1px] pl-1">
+        <div className="ml-4 border-l-[1px] pl-1 border-[#747474]">
           <>
             {FileTreeChildren.map((fileEle, index) => {
               return fileEle.type === "folder" ? (

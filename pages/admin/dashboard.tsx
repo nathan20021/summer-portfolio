@@ -28,6 +28,7 @@ const DashBoard: NextPage = () => {
   const [subs, setSubs] = useState<Array<SubSerialized>>([]);
   const [blogStats, setBlogStats] = useState<Array<BlogStats>>([]);
   const [totalView, setTotalView] = useState<number>(0);
+  
   useEffect(() => {
     const fectchUserData = async () => {
       const { data } = await axios.get("/api/users", {

@@ -1,6 +1,7 @@
 /* eslint-disable require-jsdoc */
 import { NextApiRequest, NextApiResponse } from "next";
 import { getS3ObjectsAsJson } from "@/lib/aws-lib";
+import config from "../../../config.json";
 
 export default async function FetchFolderStructure(
   req: NextApiRequest,
@@ -16,7 +17,7 @@ export default async function FetchFolderStructure(
       res
         .status(200)
         .json(
-          await getS3ObjectsAsJson("porfolio-blogs", s3FolderName as string)
+          await getS3ObjectsAsJson(config.S3_BUCKET, s3FolderName as string)
         );
       break;
     default:

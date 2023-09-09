@@ -2,7 +2,6 @@
   "DEBUG": true,
   "AWS_REGION": "us-east-2",
   "S3_BUCKET": "porfolio-blogs",
-  "DEV_API_ENDPOINT": "localhost:3000/api",
-  "PROD_API_ENDPOINT": "nathanluong.me/api",
+  "S3_BUCKET_ENDPOINT": "porfolio-blogs.s3.us-east-2.amazonaws.com",
   "DATE_TIME_FORMAT": "en-US"
 }

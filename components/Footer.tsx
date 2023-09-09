@@ -47,7 +47,7 @@ const Footer = ({ currentPath }: prop) => {
         },
       });
       if (data.message.toLowerCase() === "user found") {
-        setMessage("You are on the subcribers list! 😄");
+        setMessage("You are on the subscribers list! 😄");
         setUserFound(true);
       }
       if (data.message.toLowerCase() === "user added") {
@@ -64,12 +64,8 @@ const Footer = ({ currentPath }: prop) => {
     <footer
       // refactor this className block
       className={
-        currentPath.split("/")[1] === "blogs" &&
-        currentPath.split("/").length > 2
-          ? "z-50 relative h-[400px] sm:h-[350px] w-full bg-primary"
-          : currentPath.split("/")[1] === "blogs" &&
-            currentPath.split("/").length === 2
-          ? "z-50 relative h-[400px] sm:h-[350px] w-full bg-[#111111]"
+        currentPath === "/blogs"
+          ? "z-50 relative h-[400px] sm:h-[350px] w-full bg-blogBg"
           : "z-50 relative h-[400px] sm:h-[350px] w-full bg-primary"
       }
       style={{

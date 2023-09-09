@@ -19,7 +19,7 @@ const PersonalCard = () => {
         <div>
           <Avatar
             alt="Nathan avatar"
-            src="https://github.com/nathan20021.png"
+            src="avatar.jpeg"
             sx={{ width: "12rem", height: "12rem" }}
           />
         </div>

@@ -25,6 +25,7 @@ module.exports = {
       white: "#ffffff",
       purple: "#3f3cbb",
       midnight: "#121063",
+      blogBg: "#070707",
       metal: "#565584",
       tahiti: "#3ab7bf",
       silver: "#ecebff",

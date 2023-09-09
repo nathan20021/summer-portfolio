@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import FileTree from "./S3FileTree";
 import axios from "axios";
 import { FileTreeElement } from "../../interfaces";
+import config from "../../config.json";
 
 type FileTreeWrapperProps = {
   rootFolderName: string;
@@ -18,7 +19,7 @@ const FileTreeWrapper = ({ rootFolderName }: FileTreeWrapperProps) => {
     Size: number;
   };
 
-  const parseData2 = (
+  const parseData = (
     data: s3Response[] | null,
     rootFolderName: string
   ): FileTreeElement[] => {
@@ -47,16 +48,13 @@ const FileTreeWrapper = ({ rootFolderName }: FileTreeWrapperProps) => {
           ? {
               type: "folder",
               name: item.Key,
-              url: "hahaa", // !TODO
-              FileTreeChildren: parseData2(
-                data,
-                `${rootFolderName}${item.Key}`
-              ),
+              url: `${rootFolderName}${item.Key}`,
+              FileTreeChildren: parseData(data, `${rootFolderName}${item.Key}`),
             }
           : {
               type: "file",
               name: item.Key,
-              url: "haha",
+              url: `https://${config.S3_BUCKET_ENDPOINT}/${rootFolderName}${item.Key}`,
             };
       });
     return parsedData;
@@ -75,7 +73,7 @@ const FileTreeWrapper = ({ rootFolderName }: FileTreeWrapperProps) => {
     const s3data = getData();
 
     s3data.then((data) => {
-      setData(parseData2(data, folderName));
+      setData(parseData(data, folderName));
     });
   }, []);
 
