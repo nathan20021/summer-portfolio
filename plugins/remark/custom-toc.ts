@@ -1,6 +1,5 @@
 import { visit } from "unist-util-visit";
 import { Node, Parent } from "unist";
-import { findAfter } from "unist-util-find-after";
 
 interface TOCItem {
   depth: number;
@@ -80,9 +79,6 @@ export function remarkCustomTOC(options: tocOptions) {
       const { depth } = node;
       // @ts-ignore
       const text = node.children[0] ? node.children[0].value : "";
-      if (text === "Table of contents") {
-        console.log(findAfter(tree, 5, node));
-      }
       const id = options.slugify(text);
       addToToc(depth, text, id);
     });

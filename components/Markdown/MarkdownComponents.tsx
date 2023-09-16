@@ -133,6 +133,7 @@ const MarkdownComponents: object = {
     href: string;
     node: object;
   }) => {
+    console.log(element);
     if (element.className === "toc-a") {
       // generate a regex that removes all "%" and capital letters
       return (
@@ -141,13 +142,32 @@ const MarkdownComponents: object = {
         </a>
       );
     }
+    const url = new URL(element.href);
+    const invertable: string[] = ["github.com", "okta.com"];
     return (
       <a
-        className="cursor-pointer"
+        className="cursor-pointer inline gap-4 max-h-[23px] break-words align-middle
+                 bg-[#272727] rounded-sm shadow-lg shadow-[#1b1b1b]"
         href={element.href}
         target="_blank"
         rel="noreferrer"
       >
+        <img
+          src={`${url.protocol}//${url.hostname}/favicon.ico`}
+          alt="favicon"
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null; // prevents looping
+            currentTarget.src = "/url.ico";
+            currentTarget.className =
+              "max-h-[23px] h-full aspect-square invert inline align-middle";
+          }}
+          className={
+            invertable.includes(url.hostname)
+              ? "max-h-[23px] h-full aspect-square inline invert align-middle"
+              : "max-h-[23px] h-full aspect-square inline align-middle"
+          }
+        />
+
         {element.children}
       </a>
     );
