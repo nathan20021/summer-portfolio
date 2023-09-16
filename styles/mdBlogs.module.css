@@ -1,11 +1,8 @@
 .post * {
   font-family: "Roboto", sans-serif;
 }
-.post *:not(code, span, pre, strong, ul, li, ol, h1, h2, h3, h4, h5, h6, a) {
-  line-height: 4rem;
-}
 
-.post *:not(semantics *, li.toc-li, code, table *, p, span *, blockquote) {
+.post *:not(semantics *, code, table *, p, span *, blockquote) {
   padding: 0.2rem;
 }
 
@@ -155,38 +152,4 @@
 
 .post > *:not(h1, h2, h3, h4, h5, h6, table, ul, ol) {
   margin-left: 0.1rem;
-}
-
-.post aside + ul {
-  background: #282c34;
-  padding: 0.5rem 0.5rem;
-  border-radius: 1.5rem;
-  margin-left: 1rem;
-}
-
-.post aside + ul li {
-  margin: 0.5rem;
-}
-
-.post aside + ul > li {
-  margin: 2rem;
-}
-
-.post aside + ul ul {
-  border-left: solid 0.05rem gray;
-  margin-left: 2rem;
-}
-
-.post aside + ul,
-.post aside + ul ul {
-  list-style-type: none;
-  font-size: 1rem;
-}
-
-.post aside + ul li a::after {
-  content: " >";
-}
-
-.post aside + ul li a {
-  color: white;
 }

@@ -7,6 +7,7 @@ import remarkDirective from "remark-directive";
 import rehypeHighlight from "rehype-highlight";
 import rehypeRaw from "rehype-raw";
 import MarkdownComponents from "./MarkdownComponents";
+import { slugifyHeading } from "../../utils/functions";
 
 type ReactMarkdownWrapperProps = {
   code: string | undefined;
@@ -27,10 +28,7 @@ const ReactMarkdownWrapper = ({
         remarkDirectivesHelper,
         () =>
           remarkCustomTOC({
-            slugify: (str: string) => {
-              return str;
-            },
-            headingTitle: "Table of Contents",
+            slugify: slugifyHeading,
           }),
       ]}
       rehypePlugins={[rehypeHighlight, rehypeRaw]}

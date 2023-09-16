@@ -71,3 +71,15 @@ export function toDarkerHex(hex: string): string {
   const b = Math.max(rgb.b - 25, 0);
   return rgbToHex(r, g, b);
 }
+
+/**
+ *
+ * @param {string} heading
+ * @return {string}
+ */
+export function slugifyHeading(heading: string): string {
+  return heading
+    .toLowerCase()
+    .replace(/ /g, "-")
+    .replace(/[^a-zA-Z0-9-]/g, "");
+}

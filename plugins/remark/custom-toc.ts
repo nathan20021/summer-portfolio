@@ -16,7 +16,6 @@ interface HeadingNode extends Node {
 
 export type tocOptions = {
   slugify: (text: string) => string;
-  headingTitle: string;
 };
 
 /**
@@ -51,7 +50,6 @@ export function remarkCustomTOC(options: tocOptions) {
 
     const addToToc = (depth: number, text: string, id: string) => {
       const item: TOCItem = createTocItem(depth, text, id);
-      if (text === options.headingTitle) return;
       if (depth === 1) return;
 
       if (depth === currentDepth) {
