@@ -20,6 +20,13 @@ model BlogPost {
   featured    Boolean  @default(false)
   bucketURL   String   @default("/") @db.VarChar(255)
   tags        Tags[]
+  type        BlogType   @default(DRAFT)
+}
+
+enum BlogType {
+  DRAFT
+  PUBLISHED
+  PRIVATE
 }
 
 model Subcribers {

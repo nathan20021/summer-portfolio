@@ -32,7 +32,12 @@ const nextConfig = {
   },
   reactStrictMode: true,
   images: {
-    domains: [],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
   },
   typescript: {
     ignoreBuildErrors: true,

@@ -8,7 +8,7 @@ import { GetServerSidePropsContext } from "next/types";
 import rehypePrismAll from "rehype-prism-plus";
 import dynamic from "next/dynamic";
 import "@uiw/react-textarea-code-editor/dist.css";
-import styles from "../../styles/mdBlogs.module.css";
+import styles from "../../../styles/mdBlogs.module.css";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { AiFillTags, AiOutlineArrowLeft } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
@@ -566,7 +566,6 @@ const AdminEditor = ({ tags }: props) => {
 
 // eslint-disable-next-line require-jsdoc
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const tags = await prisma.tags.findMany();
   const session = await getSession(context);
   if (!session) {
     return {
@@ -577,10 +576,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
+  const tags = await prisma.tags.findMany();
   return {
     props: {
       tags: tags,
     },
   };
 }
+
 export default AdminEditor;

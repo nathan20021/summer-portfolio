@@ -1,11 +1,15 @@
 import * as React from "react";
-import { MdOutlineContentCopy } from "react-icons/md";
 import { useState } from "react";
-import Image from "next/image";
-import { BsCheck } from "react-icons/bs";
-import { flattenDeep } from "lodash";
+
+import { MdOutlineContentCopy } from "react-icons/md";
+import { BsCaretDownFill, BsCheck } from "react-icons/bs";
+
 import { BlockMath, InlineMath } from "react-katex";
 
+import Image from "next/image";
+
+import { flattenDeep } from "lodash";
+import { slugifyHeading } from "../../utils/functions";
 type DeepArray<T> = T | Array<DeepArray<T>>;
 
 type dataProps = {
@@ -42,40 +46,15 @@ const preProcess = (data: preProcessProps[]) => {
   return result;
 };
 
-const headingToId = (heading: string) => {
-  return (
-    "toc-" +
-    heading
-      .toLowerCase()
-      .replace(/ /g, "-")
-      .replace(/[^a-zA-Z0-9-]/g, "")
-      .replace(/\%([A-Z]|\d){2}/g, "")
-  );
-};
-
 const calloutCommonStyles = "mx-2 my-4";
 const MarkdownComponents: object = {
   h2: (element: headingProps) => {
-    if (
-      Array.isArray(element.children) &&
-      typeof element.children[0] === "string" &&
-      element.children[0].toLowerCase() === "table of contents"
-    ) {
-      return (
-        <>
-          <h2 id={headingToId(element.children[0]) + " toc-heading"}>
-            {element.children}
-          </h2>
-          <aside></aside>
-        </>
-      );
-    }
     return (
       <h2
         id={
           Array.isArray(element.children) &&
           typeof element.children[0] === "string"
-            ? headingToId(element.children[0])
+            ? slugifyHeading(element.children[0])
             : ""
         }
       >
@@ -85,19 +64,19 @@ const MarkdownComponents: object = {
   },
 
   h3: (element: headingProps) => {
-    return <h3 id={headingToId(element.children[0])}>{element.children}</h3>;
+    return <h3 id={slugifyHeading(element.children[0])}>{element.children}</h3>;
   },
 
   h4: (element: headingProps) => {
-    return <h4 id={headingToId(element.children[0])}>{element.children}</h4>;
+    return <h4 id={slugifyHeading(element.children[0])}>{element.children}</h4>;
   },
 
   h5: (element: headingProps) => {
-    return <h5 id={headingToId(element.children[0])}>{element.children}</h5>;
+    return <h5 id={slugifyHeading(element.children[0])}>{element.children}</h5>;
   },
 
   h6: (element: headingProps) => {
-    return <h6 id={headingToId(element.children[0])}>{element.children}</h6>;
+    return <h6 id={slugifyHeading(element.children[0])}>{element.children}</h6>;
   },
 
   p: (paragraph: { children?: any; node?: any; className?: string }) => {
@@ -154,24 +133,43 @@ const MarkdownComponents: object = {
     href: string;
     node: object;
   }) => {
-    if (element.href.startsWith("#toc-")) {
+    console.log(element);
+    if (element.className === "toc-a") {
       // generate a regex that removes all "%" and capital letters
       return (
-        <a
-          className="cursor-pointer toc-link"
-          href={element.href.replace(/\%([A-Z]|\d){2}/g, "")}
-        >
+        <a className="cursor-pointer toc-a" href={element.href}>
           {element.children}
         </a>
       );
     }
+    const invertable: string[] = ["github.com", "okta.com"];
+    const url = element.href.startsWith("/")
+      ? new URL(`https://nathanluong.me/${element.href}`)
+      : new URL(element.href);
     return (
       <a
-        className="cursor-pointer"
+        className="cursor-pointer inline max-h-[23px] break-words align-middle
+                 bg-[#272727] rounded-sm shadow-lg shadow-[#1b1b1b]"
         href={element.href}
         target="_blank"
         rel="noreferrer"
       >
+        <img
+          src={`${url.protocol}//${url.hostname}/favicon.ico`}
+          alt="favicon"
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null;
+            currentTarget.src = "/url.ico";
+            currentTarget.className =
+              "max-h-[23px] h-full aspect-square invert inline align-middle mr-2";
+          }}
+          className={
+            invertable.includes(url.hostname)
+              ? "max-h-[23px] h-full aspect-square inline invert align-middle mr-2"
+              : "max-h-[23px] h-full aspect-square inline align-middle mr-2"
+          }
+        />
+
         {element.children}
       </a>
     );
@@ -203,7 +201,17 @@ const MarkdownComponents: object = {
     if (element.className === "contains-task-list") {
       return <ul className="list-none">{element.children}</ul>;
     }
+    if (element.className === "toc-ul") {
+      return <ul className="list-none">{element.children}</ul>;
+    }
     return <ul className="list-disc">{element.children}</ul>;
+  },
+
+  li: (element: { className: string; children: any; node: any }) => {
+    if (element.className === "toc-li") {
+      return <li>{element.children}</li>;
+    }
+    return <li className={element.className}>{element.children}</li>;
   },
 
   pre: (element: { children: any; node: any }) => {
@@ -260,6 +268,36 @@ const MarkdownComponents: object = {
   }) => {
     if (element.className === "math math-display") {
       return <BlockMath>{element.children[0]}</BlockMath>;
+    }
+    if (element.className === "toc-div") {
+      const [isOpen, setIsOpen] = useState(false);
+      return (
+        <div>
+          <button
+            onClick={() => {
+              setIsOpen(!isOpen);
+            }}
+            className={
+              isOpen
+                ? "rounded-t-md toc-button w-full bg-[#3f3f3f] max-h-min flex items-center hover:bg-[#464646]"
+                : "rounded-t-md toc-button w-full bg-[#303030] max-h-min flex items-center hover:bg-[#464646]"
+            }
+          >
+            <div>
+              <BsCaretDownFill
+                className={isOpen ? "text-2xl" : "text-2xl -rotate-90"}
+              />
+            </div>
+
+            <h1>Table of Contents</h1>
+          </button>
+          {isOpen && (
+            <div className="toc-div bg-[#2c2c2c] rounded-b-md">
+              {element.children}
+            </div>
+          )}
+        </div>
+      );
     }
     return <div className={element.className}>{element.children}</div>;
   },
