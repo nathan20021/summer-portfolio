@@ -4,6 +4,7 @@ import "../styles/analytic.css";
 import "../styles/mdBlogs.module.css";
 import type { AppProps } from "next/app";
 import Layout from "../components/Layout";
+import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
 
@@ -11,10 +12,15 @@ import { ThemeProvider } from "next-themes";
  * @return {JSX.Element}
  */
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+function MyApp({
+  Component,
+  pageProps,
+}: AppProps<{
+  session: Session;
+}>) {
   return (
     <ThemeProvider attribute="class">
-      <SessionProvider session={session} refetchOnWindowFocus={true}>
+      <SessionProvider session={pageProps.session} refetchOnWindowFocus={true}>
         <Layout>
           <Component {...pageProps} />
         </Layout>

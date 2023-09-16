@@ -43,6 +43,7 @@
     "next-remove-imports": "^1.0.10",
     "next-session": "^4.0.4",
     "next-themes": "^0.2.1",
+    "popmotion": "^11.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
