@@ -142,11 +142,13 @@ const MarkdownComponents: object = {
         </a>
       );
     }
-    const url = new URL(element.href);
     const invertable: string[] = ["github.com", "okta.com"];
+    const url = element.href.startsWith("/")
+      ? new URL(`https://nathanluong.me/${element.href}`)
+      : new URL(element.href);
     return (
       <a
-        className="cursor-pointer inline gap-4 max-h-[23px] break-words align-middle
+        className="cursor-pointer inline max-h-[23px] break-words align-middle
                  bg-[#272727] rounded-sm shadow-lg shadow-[#1b1b1b]"
         href={element.href}
         target="_blank"
@@ -156,15 +158,15 @@ const MarkdownComponents: object = {
           src={`${url.protocol}//${url.hostname}/favicon.ico`}
           alt="favicon"
           onError={({ currentTarget }) => {
-            currentTarget.onerror = null; // prevents looping
+            currentTarget.onerror = null;
             currentTarget.src = "/url.ico";
             currentTarget.className =
-              "max-h-[23px] h-full aspect-square invert inline align-middle";
+              "max-h-[23px] h-full aspect-square invert inline align-middle mr-2";
           }}
           className={
             invertable.includes(url.hostname)
-              ? "max-h-[23px] h-full aspect-square inline invert align-middle"
-              : "max-h-[23px] h-full aspect-square inline align-middle"
+              ? "max-h-[23px] h-full aspect-square inline invert align-middle mr-2"
+              : "max-h-[23px] h-full aspect-square inline align-middle mr-2"
           }
         />
 
