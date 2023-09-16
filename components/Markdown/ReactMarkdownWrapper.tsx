@@ -1,10 +1,9 @@
 import * as React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { remarkDirectivesHelper } from "../../plugins/remark";
+import { remarkDirectivesHelper, remarkCustomTOC } from "../../plugins/remark";
 import RemarkMathPlugin from "remark-math";
 import remarkDirective from "remark-directive";
-import remarkToc from "remark-toc";
 import rehypeHighlight from "rehype-highlight";
 import rehypeRaw from "rehype-raw";
 import MarkdownComponents from "./MarkdownComponents";
@@ -27,11 +26,11 @@ const ReactMarkdownWrapper = ({
         remarkDirective,
         remarkDirectivesHelper,
         () =>
-          remarkToc({
-            heading: "Table of Contents",
-            ordered: false,
-            tight: true,
-            prefix: "toc-",
+          remarkCustomTOC({
+            slugify: (str: string) => {
+              return str;
+            },
+            headingTitle: "Table of Contents",
           }),
       ]}
       rehypePlugins={[rehypeHighlight, rehypeRaw]}

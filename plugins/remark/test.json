@@ -1,0 +1,225 @@
+[
+  {
+    "depth": 1,
+    "text": "",
+    "id": "",
+    "children": [
+      {
+        "depth": 2,
+        "text": "Table of contents",
+        "id": "Table of contents",
+        "children": []
+      },
+      {
+        "depth": 2,
+        "text": "🤔 Backend - Database Interaction",
+        "id": "🤔 Backend - Database Interaction",
+        "children": [
+          {
+            "depth": 3,
+            "text": "👉 Native SQL",
+            "id": "👉 Native SQL",
+            "children": [
+              {
+                "depth": 4,
+                "text": "✅ Advantages of using Native SQL",
+                "id": "✅ Advantages of using Native SQL",
+                "children": [
+                  {
+                    "depth": 5,
+                    "text": "1. Flexibility",
+                    "id": "1. Flexibility",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "depth": 4,
+                "text": "⛔️ Disadvantages of using Native SQL",
+                "id": "⛔️ Disadvantages of using Native SQL",
+                "children": [
+                  {
+                    "depth": 5,
+                    "text": "1. Data Mapping",
+                    "id": "1. Data Mapping",
+                    "children": []
+                  },
+                  {
+                    "depth": 5,
+                    "text": "2. SQL File Management",
+                    "id": "2. SQL File Management",
+                    "children": []
+                  },
+                  {
+                    "depth": 5,
+                    "text": "3. SQL Injection",
+                    "id": "3. SQL Injection",
+                    "children": []
+                  },
+                  {
+                    "depth": 5,
+                    "text": "4. SQL Dialects",
+                    "id": "4. SQL Dialects",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "depth": 3,
+            "text": "👉 SQL Query Builder",
+            "id": "👉 SQL Query Builder",
+            "children": [
+              {
+                "depth": 4,
+                "text": "✅ Benefits of using a Query Builder",
+                "id": "✅ Benefits of using a Query Builder",
+                "children": [
+                  {
+                    "depth": 5,
+                    "text": "1. Ease of Migration",
+                    "id": "1. Ease of Migration",
+                    "children": []
+                  },
+                  {
+                    "depth": 5,
+                    "text": "2. Query Transparency",
+                    "id": "2. Query Transparency",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "depth": 4,
+                "text": "⛔️ Disadvantages of Query Builders",
+                "id": "⛔️ Disadvantages of Query Builders",
+                "children": [
+                  {
+                    "depth": 5,
+                    "text": "1. Understanding of the underlying table structure",
+                    "id": "1. Understanding of the underlying table structure",
+                    "children": []
+                  },
+                  {
+                    "depth": 5,
+                    "text": "2. Data-Retrieval Definition",
+                    "id": "2. Data-Retrieval Definition",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "depth": 3,
+            "text": "👉 Object Relational Mappers (ORM)",
+            "id": "👉 Object Relational Mappers (ORM)",
+            "children": [
+              {
+                "depth": 4,
+                "text": "Defining a schema",
+                "id": "Defining a schema",
+                "children": []
+              },
+              {
+                "depth": 4,
+                "text": "Using ORMs with pre-defined schemas",
+                "id": "Using ORMs with pre-defined schemas",
+                "children": []
+              },
+              {
+                "depth": 4,
+                "text": "✅ Benefits",
+                "id": "✅ Benefits",
+                "children": [
+                  {
+                    "depth": 5,
+                    "text": "1. Dialects",
+                    "id": "1. Dialects",
+                    "children": []
+                  },
+                  {
+                    "depth": 5,
+                    "text": "2. Code completion",
+                    "id": "2. Code completion",
+                    "children": []
+                  },
+                  {
+                    "depth": 5,
+                    "text": "3. Centralized database management",
+                    "id": "3. Centralized database management",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "depth": 4,
+                "text": "⛔️ Drawbacks",
+                "id": "⛔️ Drawbacks",
+                "children": []
+              },
+              {
+                "depth": 4,
+                "text": "1. Schema synchronization",
+                "id": "1. Schema synchronization",
+                "children": [
+                  {
+                    "depth": 5,
+                    "text": "💡 Solving the problem",
+                    "id": "💡 Solving the problem",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "depth": 4,
+                "text": "2. Object-Relational Impedance Mismatch",
+                "id": "2. Object-Relational Impedance Mismatch",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "text": "🤔 When to use what?",
+        "id": "🤔 When to use what?",
+        "children": [
+          {
+            "depth": 3,
+            "text": "👉 Choose Native SQL when",
+            "id": "👉 Choose Native SQL when",
+            "children": []
+          },
+          {
+            "depth": 3,
+            "text": "👉 Choose Query Builder when",
+            "id": "👉 Choose Query Builder when",
+            "children": []
+          },
+          {
+            "depth": 3,
+            "text": "👉 Choose ORM when",
+            "id": "👉 Choose ORM when",
+            "children": []
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "text": "How did I use an ORM to build this website?",
+        "id": "How did I use an ORM to build this website?",
+        "children": [
+          {
+            "depth": 3,
+            "text": "Credits",
+            "id": "Credits",
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+]

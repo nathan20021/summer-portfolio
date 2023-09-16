@@ -10,6 +10,8 @@ import config from "../../../config.json";
 import axios from "axios";
 import ReactMarkdownWrapper from "@/components/Markdown/ReactMarkdownWrapper";
 import rehypePrismAll from "rehype-prism-plus";
+import "katex/dist/katex.min.css";
+
 import matter from "gray-matter";
 import dynamic from "next/dynamic";
 const CodeEditor = dynamic<any>(
@@ -29,7 +31,7 @@ const Post = ({ blogData, content }: prop) => {
     console.log(blogData);
   }, []);
   return (
-    <div className="min-w-screen min-h-screen z-50">
+    <div className="min-w-screen min-h-screen z-50 flex flex-col justify-center items-center">
       <div id="top-button-container" className="z-50 my-10 flex gap-10 w-1/2">
         <button
           className="bg-[#9a3f3f] px-3 py-1 rounded-sm z-50"
@@ -42,11 +44,7 @@ const Post = ({ blogData, content }: prop) => {
       </div>
       <div
         id="preview-editor-container"
-        className={
-          isPreview
-            ? `flex justify-center w-full min-h-screen`
-            : `flex justify-center w-[90%] min-h-screen`
-        }
+        className="flex justify-center w-[98%] min-h-screen"
       >
         {!isPreview && (
           <div
@@ -65,7 +63,7 @@ const Post = ({ blogData, content }: prop) => {
               style={{
                 height: "100%",
                 fontSize: 16,
-                backgroundColor: "#272727",
+                backgroundColor: "#1f1f1f",
               }}
             />
           </div>
@@ -75,7 +73,7 @@ const Post = ({ blogData, content }: prop) => {
           className={
             isPreview
               ? `z-50 w-[90%] lg:w-[60%]`
-              : `z-50 w-1/2 px-4 pb-10 bg-[#272727]  border-l-2 border-[#ffffff]`
+              : `z-50 w-1/2 px-4 pb-10 bg-[#1f1f1f]  border-l-2 border-[#ffffff]`
           }
         >
           <ReactMarkdownWrapper

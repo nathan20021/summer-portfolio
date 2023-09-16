@@ -66,7 +66,7 @@ const MarkdownComponents: object = {
           <h2 id={headingToId(element.children[0]) + " toc-heading"}>
             {element.children}
           </h2>
-          <aside></aside>
+          <div id="table-of-contents"></div>
         </>
       );
     }
