@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { GetServerSidePropsContext } from "next/types";
 import { ParsedUrlQuery } from "querystring";
 import { getSession } from "next-auth/react";
@@ -27,9 +27,6 @@ type prop = {
 const Post = ({ blogData, content }: prop) => {
   const [code, setCode] = React.useState<string>(content);
   const [isPreview, setIsPreview] = React.useState<boolean>(true);
-  useEffect(() => {
-    console.log(blogData);
-  }, []);
   return (
     <div className="min-w-screen min-h-screen z-50 flex flex-col justify-center items-center">
       <div id="top-button-container" className="z-50 my-10 flex gap-10 w-1/2">
@@ -104,19 +101,19 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { blogId } = context.params as IParams;
   const blogData: BlogPost | null = await prisma.blogPost.findUnique({
     where: {
-      id: parseInt(blogId),
+      id: blogId,
     },
   });
 
   if (!blogData) {
     return {
       redirect: {
-        destination: "/404",
+        destination: "/admin/editor",
         permanent: false,
       },
     };
   }
-  const res = await axios.get(`${process.env.URL}/api/blog/${blogData.url}`, {
+  const res = await axios.get(`${process.env.URL}/api/blog/id/${blogId}`, {
     timeout: 5000,
     headers: {
       Accept: "application/json",

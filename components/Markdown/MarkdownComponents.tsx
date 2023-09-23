@@ -133,7 +133,6 @@ const MarkdownComponents: object = {
     href: string;
     node: object;
   }) => {
-    console.log(element);
     if (element.className === "toc-a") {
       // generate a regex that removes all "%" and capital letters
       return (

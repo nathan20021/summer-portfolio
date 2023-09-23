@@ -2,6 +2,7 @@ import {
   S3Client,
   // This command supersedes the ListObjectsCommand and is the recommended way to list objects.
   ListObjectsV2Command,
+  PutObjectCommand,
 } from "@aws-sdk/client-s3";
 
 const s3Client = new S3Client({
@@ -40,6 +41,25 @@ export const getS3ObjectsAsJson = async (
     return mappedObjects;
   } catch (error) {
     console.error("Error getting S3 objects as JSON:", error);
+    throw error;
+  }
+};
+
+export const uploadFileToS3 = async (
+  bucketName: string,
+  fileName: string,
+  file: string
+) => {
+  try {
+    const params = {
+      Bucket: bucketName,
+      Key: fileName,
+      Body: file,
+    };
+    const response = await s3Client.send(new PutObjectCommand(params));
+    return response;
+  } catch (error) {
+    console.error("Error uploading file:", error);
     throw error;
   }
 };

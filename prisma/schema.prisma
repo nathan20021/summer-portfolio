@@ -9,7 +9,7 @@ datasource db {
 }
 
 model BlogPost {
-  id          Int      @id @default(autoincrement())
+  id          String   @id @default(uuid())
   readTime    Int      @db.UnsignedTinyInt
   cover       String   @db.VarChar(255)
   description String   @db.VarChar(255)
@@ -19,8 +19,8 @@ model BlogPost {
   url         String   @default("/") @db.VarChar(255)
   featured    Boolean  @default(false)
   bucketURL   String   @default("/") @db.VarChar(255)
-  tags        Tags[]
-  type        BlogType   @default(DRAFT)
+  tags        Tags[]   
+  type        BlogType @default(DRAFT)
 }
 
 enum BlogType {

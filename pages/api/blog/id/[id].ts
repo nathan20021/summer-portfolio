@@ -8,14 +8,14 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const {
-    query: { blogID },
+    query: { id },
     method,
   } = _req;
   switch (method) {
     case "GET":
       const input = {
         Bucket: config.S3_BUCKET,
-        Key: `${blogID}.md`,
+        Key: `${id}.md`,
       };
       const client = new S3Client({ region: config.AWS_REGION });
       const command = new GetObjectCommand(input);
