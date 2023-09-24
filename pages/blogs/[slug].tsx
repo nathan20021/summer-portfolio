@@ -98,6 +98,11 @@ export async function getStaticProps(context: GetStaticPropsContext) {
             day: "numeric",
           }
         ),
+        updatedAt: metaData?.updatedAt.toLocaleString(config.DATE_TIME_FORMAT, {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }),
       },
     },
   };

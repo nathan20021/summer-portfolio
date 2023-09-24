@@ -14,7 +14,7 @@ type ReactMarkdownWrapperProps = {
   className: string;
 };
 
-const ReactMarkdownWrapper = ({
+const ReactMarkdownWrapper: React.FC<ReactMarkdownWrapperProps> = ({
   code,
   className,
 }: ReactMarkdownWrapperProps) => {
@@ -31,7 +31,10 @@ const ReactMarkdownWrapper = ({
             slugify: slugifyHeading,
           }),
       ]}
-      rehypePlugins={[rehypeHighlight, rehypeRaw]}
+      rehypePlugins={[
+        () => rehypeHighlight({ ignoreMissing: true }),
+        rehypeRaw,
+      ]}
       components={MarkdownComponents}
     >
       {code === undefined ? "" : code}

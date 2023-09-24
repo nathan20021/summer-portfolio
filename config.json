@@ -3,5 +3,6 @@
   "AWS_REGION": "us-east-2",
   "S3_BUCKET": "porfolio-blogs",
   "S3_BUCKET_ENDPOINT": "porfolio-blogs.s3.us-east-2.amazonaws.com",
+  "BLOG_THUMBNAIL_FOLDER": "thumbnails",
   "DATE_TIME_FORMAT": "en-US"
 }

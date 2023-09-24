@@ -64,19 +64,63 @@ const MarkdownComponents: object = {
   },
 
   h3: (element: headingProps) => {
-    return <h3 id={slugifyHeading(element.children[0])}>{element.children}</h3>;
+    return (
+      <h3
+        id={
+          Array.isArray(element.children) &&
+          typeof element.children[0] === "string"
+            ? slugifyHeading(element.children[0])
+            : ""
+        }
+      >
+        {element.children}
+      </h3>
+    );
   },
 
   h4: (element: headingProps) => {
-    return <h4 id={slugifyHeading(element.children[0])}>{element.children}</h4>;
+    return (
+      <h4
+        id={
+          Array.isArray(element.children) &&
+          typeof element.children[0] === "string"
+            ? slugifyHeading(element.children[0])
+            : ""
+        }
+      >
+        {element.children}
+      </h4>
+    );
   },
 
   h5: (element: headingProps) => {
-    return <h5 id={slugifyHeading(element.children[0])}>{element.children}</h5>;
+    return (
+      <h5
+        id={
+          Array.isArray(element.children) &&
+          typeof element.children[0] === "string"
+            ? slugifyHeading(element.children[0])
+            : ""
+        }
+      >
+        {element.children}
+      </h5>
+    );
   },
 
   h6: (element: headingProps) => {
-    return <h6 id={slugifyHeading(element.children[0])}>{element.children}</h6>;
+    return (
+      <h6
+        id={
+          Array.isArray(element.children) &&
+          typeof element.children[0] === "string"
+            ? slugifyHeading(element.children[0])
+            : ""
+        }
+      >
+        {element.children}
+      </h6>
+    );
   },
 
   p: (paragraph: { children?: any; node?: any; className?: string }) => {
@@ -141,7 +185,7 @@ const MarkdownComponents: object = {
         </a>
       );
     }
-    const invertable: string[] = ["github.com", "okta.com"];
+    const invertible: string[] = ["github.com", "okta.com"];
     const url = element.href.startsWith("/")
       ? new URL(`https://nathanluong.me/${element.href}`)
       : new URL(element.href);
@@ -163,9 +207,9 @@ const MarkdownComponents: object = {
               "max-h-[23px] h-full aspect-square invert inline align-middle mr-2";
           }}
           className={
-            invertable.includes(url.hostname)
-              ? "max-h-[23px] h-full aspect-square inline invert align-middle mr-2"
-              : "max-h-[23px] h-full aspect-square inline align-middle mr-2"
+            invertible.includes(url.hostname)
+              ? "link-img max-h-[23px] h-full aspect-square inline invert align-middle mr-2"
+              : "link-img max-h-[23px] h-full aspect-square inline align-middle mr-2"
           }
         />
 
@@ -271,7 +315,7 @@ const MarkdownComponents: object = {
     if (element.className === "toc-div") {
       const [isOpen, setIsOpen] = useState(false);
       return (
-        <div>
+        <div className="toc-div">
           <button
             onClick={() => {
               setIsOpen(!isOpen);

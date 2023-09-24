@@ -37,6 +37,7 @@
     "cryptojs": "^2.5.3",
     "framer-motion": "^7.2.1",
     "gray-matter": "^4.0.3",
+    "html-to-image": "^1.11.11",
     "lodash": "^4.17.21",
     "next": "^12.2.5",
     "next-auth": "^4.22.3",

@@ -3,6 +3,7 @@ import {
   // This command supersedes the ListObjectsCommand and is the recommended way to list objects.
   ListObjectsV2Command,
   PutObjectCommand,
+  PutObjectCommandInput,
 } from "@aws-sdk/client-s3";
 
 const s3Client = new S3Client({
@@ -48,13 +49,35 @@ export const getS3ObjectsAsJson = async (
 export const uploadFileToS3 = async (
   bucketName: string,
   fileName: string,
-  file: string
+  file: string,
+  params: PutObjectCommandInput = {
+    Bucket: bucketName,
+    Key: fileName,
+    Body: file,
+  }
 ) => {
   try {
-    const params = {
-      Bucket: bucketName,
+    const response = await s3Client.send(new PutObjectCommand(params));
+    return response;
+  } catch (error) {
+    console.error("Error uploading file:", error);
+    throw error;
+  }
+};
+
+export const uploadAttachmentToS3 = async (
+  bucketName: string,
+  fileName: string,
+  type: string,
+  buffer: Buffer
+) => {
+  try {
+    const params: PutObjectCommandInput = {
+      // file name you can get from URL or in any other way, you could then pass it as parameter to the function for example if necessary
       Key: fileName,
-      Body: file,
+      Body: buffer,
+      Bucket: bucketName,
+      ContentType: type,
     };
     const response = await s3Client.send(new PutObjectCommand(params));
     return response;

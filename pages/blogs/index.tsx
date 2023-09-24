@@ -15,18 +15,12 @@ type prop = {
   featuredPostMetaData: BlogMetaData;
   metaDataArray: Array<BlogMetaData>;
   tags: Array<Tags>;
-  tagsMetaData: Array<number>;
 };
 
 type sortOrderType = "Descending" | "Ascending";
 type sortFieldType = "Views" | "Date Created" | "Read Time";
 
-const blogs = ({
-  featuredPostMetaData,
-  metaDataArray,
-  tags,
-  tagsMetaData,
-}: prop) => {
+const blogs = ({ featuredPostMetaData, metaDataArray, tags }: prop) => {
   const [metaData, setMetaData] = useState<BlogMetaData[]>(metaDataArray);
   const [currentFilterId, setCurrentFilterId] = useState<number>(-1);
   const [isTagDropDownOpen, setIsTagDropDownOpen] = useState<boolean>(false);
@@ -277,7 +271,6 @@ export async function getStaticProps() {
           tagsMetaData[b.id - 1] - tagsMetaData[a.id - 1] ||
           a.name.localeCompare(b.name)
       ),
-      tagsMetaData: tagsMetaData,
     },
   };
 }

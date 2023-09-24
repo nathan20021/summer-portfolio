@@ -37,11 +37,12 @@ export type BlogMetaData = {
   cover: string;
   description: string;
   published_at: string;
+  updated_at: string;
   author: string;
   guest: string;
   read_time: number;
   views: number;
   file_name: string;
-  tags: Array<Tags>;
+  tags?: Array<Tags>;
   featured: boolean;
 };

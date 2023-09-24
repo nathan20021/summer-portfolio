@@ -1,20 +1,19 @@
 /* eslint-disable require-jsdoc */
-import { NextApiRequest, NextApiResponse } from "next";
-import { uploadFileToS3 } from "@/lib/aws-lib";
-import cofig from "@/config.json";
-import { randomUUID } from "crypto";
+import config from "@/config.json";
 import { prisma } from "@/db";
+import { randomUUID } from "crypto";
+import { uploadFileToS3 } from "@/lib/aws-lib";
+import { NextApiRequest, NextApiResponse } from "next";
 
-export default async function FetchFolderStructure(
+export default async function CreateNewBlog(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const { method } = req;
-  const body = req.body;
 
   switch (method) {
     case "POST":
-      const defaultPost = "#\n ## Untitled Post";
+      const defaultPost = "#\n\n## New Untitled Post";
       const id = randomUUID({
         disableEntropyCache: true,
       });
@@ -24,12 +23,13 @@ export default async function FetchFolderStructure(
           readTime: 1,
           cover: "",
           description: "",
-          title: "",
+          title: "Untitled",
           views: 1,
+          url: "",
           featured: false,
         },
       });
-      await uploadFileToS3(cofig.S3_BUCKET, `${id}.md`, defaultPost);
+      await uploadFileToS3(config.S3_BUCKET, `${id}.md`, defaultPost);
       res.status(200).json({ body: blog });
       break;
     default:
