@@ -45,6 +45,7 @@ const blogs = ({ featuredPostMetaData, metaDataArray, tags }: prop) => {
   const filterMetaData = useCallback((id: number) => {
     setMetaData(
       [...metaData].filter((post) => {
+        if (post.tags === undefined) return false;
         const temp = post.tags.map((_val) => _val.id);
         return temp.includes(id);
       })
@@ -216,7 +217,7 @@ export async function getStaticProps() {
   });
 
   const metaDataArray: Array<BlogMetaData> = [];
-  let featuredPostMetaData;
+  let featuredPostMetaData: any;
 
   posts.forEach((data) => {
     data.featured
@@ -232,19 +233,7 @@ export async function getStaticProps() {
               day: "numeric",
             }
           ),
-          author: "Nathan Luong",
-          guest: "None",
-          read_time: data.readTime,
-          views: data.views,
-          file_name: data.url,
-          tags: data.tags,
-          featured: data.featured,
-        })
-      : metaDataArray.push({
-          title: data.title,
-          cover: data.cover,
-          description: data.description,
-          published_at: data.publishedAt.toLocaleDateString(
+          updated_at: data.updatedAt.toLocaleDateString(
             config.DATE_TIME_FORMAT,
             {
               year: "numeric",
@@ -259,6 +248,36 @@ export async function getStaticProps() {
           file_name: data.url,
           tags: data.tags,
           featured: data.featured,
+          type: data.type,
+        })
+      : metaDataArray.push({
+          title: data.title,
+          cover: data.cover,
+          description: data.description,
+          published_at: data.publishedAt.toLocaleDateString(
+            config.DATE_TIME_FORMAT,
+            {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            }
+          ),
+          updated_at: data.updatedAt.toLocaleDateString(
+            config.DATE_TIME_FORMAT,
+            {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            }
+          ),
+          author: "Nathan Luong",
+          guest: "None",
+          read_time: data.readTime,
+          views: data.views,
+          file_name: data.url,
+          tags: data.tags,
+          featured: data.featured,
+          type: data.type,
         });
   });
 

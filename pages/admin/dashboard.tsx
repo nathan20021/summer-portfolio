@@ -28,7 +28,7 @@ const DashBoard: NextPage = () => {
   const [subs, setSubs] = useState<Array<SubSerialized>>([]);
   const [blogStats, setBlogStats] = useState<Array<BlogStats>>([]);
   const [totalView, setTotalView] = useState<number>(0);
-  
+
   useEffect(() => {
     const fectchUserData = async () => {
       const { data } = await axios.get("/api/users", {
@@ -132,7 +132,7 @@ const DashBoard: NextPage = () => {
         <div className="w-[80%] z-50 flex justify-center items-center">
           <div className="w-full flex justify-around flex-wrap my-11">
             <AnalyticCard
-              title="Subcribers"
+              title="Subscribers"
               stats={subs.length}
               popUpComponent={userTablePopUp}
             />

@@ -2,6 +2,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { uploadFileToS3 } from "@/lib/aws-lib";
 import config from "@/config.json";
+import { prisma } from "@/db";
 
 export default async function UpdateBlog(
   req: NextApiRequest,
@@ -17,6 +18,14 @@ export default async function UpdateBlog(
           `${body.id}.md`,
           body.content
         );
+        await prisma.blogPost.update({
+          where: {
+            id: body.id,
+          },
+          data: {
+            updatedAt: new Date(),
+          },
+        });
         res.status(200).json({ body: uploadResponse });
       } catch (err) {
         console.log(err);

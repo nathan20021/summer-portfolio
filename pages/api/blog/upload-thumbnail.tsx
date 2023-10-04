@@ -18,8 +18,8 @@ export default async function UpdateBlog(
         });
         const buffer = Buffer.from(response.data, "base64");
         const uploadResponse = await uploadAttachmentToS3(
-          config.S3_BUCKET,
-          `${config.BLOG_THUMBNAIL_FOLDER}/${body.id}.png`,
+          config.S3_THUMBNAIL_BUCKET,
+          `${body.id}.png`,
           "image/png",
           buffer
         );

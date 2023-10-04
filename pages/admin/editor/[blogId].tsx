@@ -12,12 +12,11 @@ import ReactMarkdownWrapper from "@/components/Markdown/ReactMarkdownWrapper";
 import rehypePrismAll from "rehype-prism-plus";
 import "katex/dist/katex.min.css";
 import { toPng } from "html-to-image";
-import Link from "next/link";
 
 import matter from "gray-matter";
 import dynamic from "next/dynamic";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import Head from "next/head";
+import Link from "next/link";
 const CodeEditor = dynamic<any>(
   () => import("@uiw/react-textarea-code-editor").then((mod) => mod.default),
   { ssr: false }
@@ -49,7 +48,7 @@ const Post = ({ blogData, content }: prop) => {
       cacheBust: false,
       quality: 0,
       width: 800,
-      height: 1200,
+      height: 1000,
       fetchRequestInit: {
         headers: {
           "Content-Type": "image/png",
@@ -62,96 +61,93 @@ const Post = ({ blogData, content }: prop) => {
   };
 
   return (
-    <>
-      <Head>
-        <title>Admin Editor</title>
-      </Head>
-      <div className="min-w-screen min-h-screen z-10 flex flex-col justify-center items-center">
-        <div id="top-button-container" className="w-1/2 z-20 sticky top-20">
-          <div className="z-10 my-5 flex gap-10 w-full">
-            <button className="font-semibold px-6 py-3" onClick={() => {}}>
-              <Link href="/admin/editor">
-                <span className="flex gap-2 items-center">
-                  <AiOutlineArrowLeft /> Back{" "}
-                </span>
-              </Link>
-            </button>
-            <button
-              onClick={() => setIsPreview(!isPreview)}
-              className="bg-[#9a3f3f] px-3 py-1 rounded-sm z-10"
-            >
-              {isPreview ? "Show Code" : "Hide Code"}
-            </button>
-            <button
-              className="bg-[#5798da] px-3 py-1 rounded-sm z-10"
-              onClick={async () => {
-                setIsSaving(true);
-                const res = await axios.post("/api/blog/update", {
-                  id: blogData?.id,
-                  content: code,
-                });
-                if (res.status === 200) {
-                  setIsSaving(false);
-                }
-                const thumbnailURL = await htmlToImageConvert();
-                await axios.post("/api/blog/upload-thumbnail", {
-                  id: blogData?.id,
-                  dataURL: thumbnailURL,
-                });
-              }}
-            >
-              {isSaving ? "Saving" : "Save Changes"}
-            </button>
-          </div>
-        </div>
-        <div
-          id="preview-editor-container"
-          className="flex justify-center w-[98%] min-h-screen"
-        >
-          {!isPreview && (
-            <div
-              id="code-editor"
-              className="z-10 w-1/2 wmde-markdown-var border-r-2 border-[#ffffff] select-none"
-              aria-readonly="true"
-            >
-              <CodeEditor
-                value={code}
-                rehypePlugins={[
-                  [
-                    rehypePrismAll,
-                    { ignoreMissing: true, showLineNumbers: true },
-                  ],
-                ]}
-                language="markdown"
-                minHeight={400}
-                placeholder="Paste Markdown here"
-                onChange={(evn: any) => setCode(evn.target.value)}
-                padding={15}
-                style={{
-                  height: "100%",
-                  fontSize: 16,
-                  backgroundColor: "#1f1f1f",
-                }}
-              />
-            </div>
-          )}
-          <div
-            ref={elementRef}
-            id="markdown-preview"
-            className={
-              isPreview
-                ? `z-10 w-[90%] lg:w-[60%]`
-                : `z-10 w-1/2 px-4 pb-10 bg-[#1f1f1f]`
-            }
+    <div className="min-w-screen min-h-screen z-10 flex flex-col justify-center items-center">
+      <div id="top-button-container" className="w-1/2 z-20 sticky top-20">
+        <div className="z-10 my-5 flex gap-10 w-full">
+          <Link href="/admin/editor">
+            <a className="font-semibold px-6 py-3 hover:cursor-pointer">
+              <span className="flex gap-2 items-center">
+                <AiOutlineArrowLeft /> Back
+              </span>
+            </a>
+          </Link>
+          <button
+            className="bg-[#9a3f3f] px-3 py-1 rounded-sm z-10"
+            onClick={() => {
+              setIsPreview(!isPreview);
+            }}
           >
-            <ReactMarkdownWrapper
-              code={code}
-              className={`${styles.post} z-10 h-full`}
-            />
-          </div>
+            {isPreview ? "Show Code" : "Hide Code"}
+          </button>
+          <button
+            className="bg-[#5798da] px-3 py-1 rounded-sm z-10"
+            onClick={async () => {
+              setIsSaving(true);
+              const res = await axios.post("/api/blog/update", {
+                id: blogData?.id,
+                content: code,
+              });
+              if (res.status === 200) {
+                setIsSaving(false);
+              }
+              const thumbnailURL = await htmlToImageConvert();
+              await axios.post("/api/blog/upload-thumbnail", {
+                id: blogData?.id,
+                dataURL: thumbnailURL,
+              });
+            }}
+          >
+            {isSaving ? "Saving" : "Save Changes"}
+          </button>
         </div>
       </div>
-    </>
+      <div
+        id="preview-editor-container"
+        className="flex justify-center w-[98%] min-h-screen"
+      >
+        {!isPreview && (
+          <div
+            id="code-editor"
+            className="z-10 w-1/2 wmde-markdown-var border-r-2 border-[#ffffff] select-none"
+            aria-readonly="true"
+          >
+            <CodeEditor
+              value={code}
+              rehypePlugins={[
+                [
+                  rehypePrismAll,
+                  { ignoreMissing: true, showLineNumbers: true },
+                ],
+              ]}
+              language="markdown"
+              minHeight={400}
+              placeholder="Paste Markdown here"
+              onChange={(evn: any) => setCode(evn.target.value)}
+              padding={15}
+              style={{
+                height: "100%",
+                fontSize: 16,
+                backgroundColor: "#1f1f1f",
+              }}
+            />
+          </div>
+        )}
+        <div
+          ref={elementRef}
+          id="markdown-preview"
+          className={
+            isPreview
+              ? `z-10 w-[90%] lg:w-[60%]`
+              : `z-10 w-1/2 px-4 pb-10 bg-[#1f1f1f]`
+          }
+        >
+          <ReactMarkdownWrapper
+            code={code}
+            className={`${styles.post} z-10 h-full`}
+          />
+        </div>
+      </div>
+    </div>
   );
 };
 

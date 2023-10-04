@@ -33,16 +33,18 @@ export type FileTree = {
 };
 
 export type BlogMetaData = {
+  id?: string;
   title: string;
   cover: string;
   description: string;
-  published_at: string;
-  updated_at: string;
-  author: string;
-  guest: string;
-  read_time: number;
-  views: number;
+  published_at?: string | number;
+  updated_at?: string | number;
+  author?: string;
+  guest?: string;
+  read_time?: number;
+  views?: number;
   file_name: string;
   tags?: Array<Tags>;
   featured: boolean;
+  type: "PUBLISHED" | "DRAFT" | "PRIVATE";
 };
