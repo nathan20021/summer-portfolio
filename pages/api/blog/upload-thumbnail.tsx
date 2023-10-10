@@ -1,6 +1,6 @@
 /* eslint-disable require-jsdoc */
 import { NextApiRequest, NextApiResponse } from "next";
-import config from "@/config.json";
+import appConfig from "@/config.json";
 import axios from "axios";
 import { uploadAttachmentToS3 } from "@/lib/aws-lib";
 
@@ -18,9 +18,9 @@ export default async function UpdateBlog(
         });
         const buffer = Buffer.from(response.data, "base64");
         const uploadResponse = await uploadAttachmentToS3(
-          config.S3_THUMBNAIL_BUCKET,
-          `${body.id}.png`,
-          "image/png",
+          appConfig.S3_THUMBNAIL_BUCKET,
+          `${body.id}.jpeg`,
+          "image/jpeg",
           buffer
         );
         console.log(uploadResponse);
@@ -35,3 +35,11 @@ export default async function UpdateBlog(
       res.status(403).end("Method not allowed");
   }
 }
+
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "4mb", // Set desired value here
+    },
+  },
+};

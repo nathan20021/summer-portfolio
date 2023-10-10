@@ -29,10 +29,10 @@ const AdminBlogCard = ({ blogMetaData, currentTime }: AdminBlogCardProps) => {
       <a className="flex flex-col rounded-md border-2 border-[#909090] ease-in-out duration-300 overflow-hidden group">
         <div
           id="thumbnail-container"
-          className="z-50 w-[12rem] h-[14rem] justify-center items-center overflow-hidden p-3 hover:p-[0.7rem] bg-[#1f1f1f] ease-in-out duration-300"
+          className="z-50 w-[12rem] h-[14rem] justify-center items-center overflow-hidden p-3 hover:p-[0.7rem] bg-primary ease-in-out duration-300"
         >
           <img
-            src={`https://${config.S3_THUMBNAIL_BUCKET_ENDPOINT}/${blogMetaData.id}.png`}
+            src={`https://${config.S3_THUMBNAIL_BUCKET_ENDPOINT}/${blogMetaData.id}.jpeg`}
             alt={`Thumbnail of ${blogMetaData.title}`}
             className="object-cover w-full grayscale-[0.7] group-hover:grayscale-0 opacity-40 group-hover:opacity-100 ease-in-out duration-300"
           />

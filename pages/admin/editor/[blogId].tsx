@@ -11,7 +11,7 @@ import axios from "axios";
 import ReactMarkdownWrapper from "@/components/Markdown/ReactMarkdownWrapper";
 import rehypePrismAll from "rehype-prism-plus";
 import "katex/dist/katex.min.css";
-import { toPng } from "html-to-image";
+import { toJpeg } from "html-to-image";
 
 import matter from "gray-matter";
 import dynamic from "next/dynamic";
@@ -41,14 +41,14 @@ const Post = ({ blogData, content }: prop) => {
 
   const htmlToImageConvert = async () => {
     if (!elementRef.current) return;
-    const dataURL = await toPng(elementRef.current, {
+    const dataURL = await toJpeg(elementRef.current, {
       backgroundColor: "#1f1f1f",
       skipFonts: true,
       filter: filter,
       cacheBust: false,
-      quality: 0,
-      width: 800,
-      height: 1000,
+      quality: 0.1,
+      width: 900,
+      height: 1300,
       fetchRequestInit: {
         headers: {
           "Content-Type": "image/png",
