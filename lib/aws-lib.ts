@@ -86,3 +86,20 @@ export const uploadAttachmentToS3 = async (
     throw error;
   }
 };
+
+export const createEmptyFolder = async (
+  bucketName: string,
+  folderName: string
+) => {
+  try {
+    const params: PutObjectCommandInput = {
+      Bucket: bucketName,
+      Key: `${folderName}/`,
+    };
+    const response = await s3Client.send(new PutObjectCommand(params));
+    return response;
+  } catch (error) {
+    console.error("Error creating empty folder:", error);
+    throw error;
+  }
+};

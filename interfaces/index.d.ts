@@ -11,7 +11,11 @@ export type LinkCardProps = {
   link: string;
 };
 
-export type FileTreeElement = FileTreeFolder | FileTreeFile;
+export type FileTreeElement =
+  | FileTreeFolder
+  | FileTreeFile
+  | FileTreeNewFile
+  | FileTreeNewFolder;
 
 export type FileTreeFile = {
   type?: "file";
@@ -30,6 +34,13 @@ export type FileTree = {
   url: string;
   rootFolderName: string;
   FileTreeChildren: FileTreeElement[] | null;
+};
+
+export type FileTreeNewFile = {
+  type?: "new-file";
+};
+export type FileTreeNewFolder = {
+  type?: "new-folder";
 };
 
 export type BlogMetaData = {

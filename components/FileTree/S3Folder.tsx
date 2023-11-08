@@ -1,14 +1,26 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FcFolder, FcOpenedFolder } from "react-icons/fc";
-import { FileTreeFolder } from "../../interfaces";
+import { FileTreeElement, FileTreeFolder } from "../../interfaces";
 import FileCard from "./S3File";
+import EmptyFolderCard from "./EmptyFolder";
 import { AiFillFileAdd, AiFillFolderAdd } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
+import EmptyFileCard from "./EmptyFile";
 
 const FolderCard = ({ name, FileTreeChildren, url }: FileTreeFolder) => {
   name = name.replace("/", "");
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
+
+  const [fileTreeChildren, setFileTreeChildren] =
+    useState<FileTreeElement[]>(FileTreeChildren);
+
+  const [isNewEmptyFolderActive, setIsNewEmptyFolderActive] = useState(false);
+
+  useEffect(() => {
+    setFileTreeChildren(FileTreeChildren);
+  }, [FileTreeChildren]);
+
   return (
     <div className="flex flex-col cursor-pointer select-none">
       <div
@@ -27,7 +39,6 @@ const FolderCard = ({ name, FileTreeChildren, url }: FileTreeFolder) => {
                         hover:bg-[#62a1ff] border-[#62a1ff]"
             onClick={(e) => {
               e.stopPropagation();
-              console.log("Add File");
             }}
           >
             <AiFillFileAdd />
@@ -37,7 +48,15 @@ const FolderCard = ({ name, FileTreeChildren, url }: FileTreeFolder) => {
                         hover:bg-[#ffd062] border-[#ffd062]"
             onClick={(e) => {
               e.stopPropagation();
-              console.log("Add Folder");
+              if (!isNewEmptyFolderActive) {
+                setIsNewEmptyFolderActive(true);
+                setFileTreeChildren([
+                  {
+                    type: "new-folder",
+                  },
+                  ...fileTreeChildren,
+                ]);
+              }
             }}
           >
             <AiFillFolderAdd />
@@ -54,20 +73,29 @@ const FolderCard = ({ name, FileTreeChildren, url }: FileTreeFolder) => {
           </button>
         </div>
       </div>
-      {isOpen && FileTreeChildren && (
+      {isOpen && fileTreeChildren && (
         <div className="ml-4 border-l-[1px] pl-1 border-[#747474]">
           <>
-            {FileTreeChildren.map((fileEle, index) => {
-              return fileEle.type === "folder" ? (
-                <FolderCard
-                  key={index}
-                  url={fileEle.url}
-                  name={fileEle.name}
-                  FileTreeChildren={fileEle.FileTreeChildren}
-                />
-              ) : (
-                <FileCard key={index} name={fileEle.name} url={fileEle.url} />
-              );
+            {fileTreeChildren.map((fileEle, index) => {
+              switch (fileEle.type) {
+                case "file":
+                  return <FileCard key={index} name={fileEle.name} url={url} />;
+                case "folder":
+                  return (
+                    <FolderCard
+                      key={index}
+                      name={fileEle.name}
+                      FileTreeChildren={fileEle.FileTreeChildren}
+                      url={url}
+                    />
+                  );
+                case "new-file":
+                  return <EmptyFileCard />;
+                case "new-folder":
+                  return <EmptyFolderCard />;
+                default:
+                  return <EmptyFileCard />;
+              }
             })}
           </>
         </div>

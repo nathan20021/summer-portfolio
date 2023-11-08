@@ -4,7 +4,7 @@ import { FileTreeFile } from "../../interfaces";
 import { MdDelete, MdFileCopy } from "react-icons/md";
 import { FiFileText } from "react-icons/fi";
 
-const validateImageFileName = (name: string) => {
+export const validateImageFileName = (name: string) => {
   return (
     name.endsWith(".jpg") ||
     name.endsWith(".png") ||
