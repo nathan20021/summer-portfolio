@@ -72,3 +72,11 @@ a {
   position: absolute;
   max-width: 100%;
 }
+
+.tooltip {
+  @apply invisible absolute;
+}
+
+.has-tooltip:hover .tooltip {
+  @apply visible z-[100] delay-[0s];
+}

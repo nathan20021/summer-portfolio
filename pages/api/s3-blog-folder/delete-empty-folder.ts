@@ -1,5 +1,5 @@
 /* eslint-disable require-jsdoc */
-import { createEmptyFolder } from "@/lib/aws-lib";
+import { deleteFolder, getS3ObjectsAsJson } from "@/lib/aws-lib";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function CreateNewBlog(
@@ -12,16 +12,14 @@ export default async function CreateNewBlog(
   } = req;
 
   switch (method) {
-    case "POST":
-      if (
-        folderName === "" ||
-        folderName.includes("//") ||
-        folderName.includes("..")
-      ) {
-        res.status(403).end("Invalid folder name");
+    case "DELETE":
+      const objects = await getS3ObjectsAsJson(bucketName, folderName);
+      if (objects && objects.length > 1) {
+        console.log(objects);
+        res.status(403).end("Folder not empty");
         return;
       }
-      const s3Response = await createEmptyFolder(bucketName, folderName);
+      const s3Response = await deleteFolder(bucketName, folderName);
       res.status(200).json({ s3Response });
       break;
     default:

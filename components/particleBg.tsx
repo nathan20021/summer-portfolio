@@ -57,7 +57,7 @@ const ParticleBg = () => {
             },
             move: {
               enable: true,
-              speed: 3,
+              speed: 1.5,
               direction: "none",
               random: false,
               straight: false,

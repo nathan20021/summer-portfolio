@@ -56,7 +56,9 @@ const blogs = ({ featuredPostMetaData, metaDataArray, tags }: prop) => {
     if (sortField === "Date Created") {
       setMetaData(() =>
         [...metaData].sort((a, b) =>
-          sortOrder === "Descending"
+          a.published_at === undefined || b.published_at === undefined
+            ? 0
+            : sortOrder === "Descending"
             ? new Date(b.published_at).getTime() -
               new Date(a.published_at).getTime()
             : new Date(a.published_at).getTime() -
@@ -66,13 +68,19 @@ const blogs = ({ featuredPostMetaData, metaDataArray, tags }: prop) => {
     } else if (sortField === "Views") {
       setMetaData(() =>
         [...metaData].sort((a, b) =>
-          sortOrder === "Descending" ? b.views - a.views : a.views - b.views
+          a.views === undefined || b.views === undefined
+            ? 0
+            : sortOrder === "Descending"
+            ? b.views - a.views
+            : a.views - b.views
         )
       );
     } else if (sortField === "Read Time") {
       setMetaData(() =>
         [...metaData].sort((a, b) =>
-          sortOrder === "Descending"
+          a.read_time === undefined || b.read_time === undefined
+            ? 0
+            : sortOrder === "Descending"
             ? b.read_time - a.read_time
             : a.read_time - b.read_time
         )
@@ -102,7 +110,7 @@ const blogs = ({ featuredPostMetaData, metaDataArray, tags }: prop) => {
             currentFilterId={currentFilterId}
           />
 
-          <div className="w-full flex justify-center items-center">
+          <div className="w-full hidden md:flex justify-center items-center">
             <div className="w-[70%] sm:w-[90%] flex justify-center gap-12 bg-[#191919] py-5">
               <div className="flex gap-3 justify-center items-center w-1/3 sm:w-1/5">
                 <h1 className="font-bold ">Tags: </h1>

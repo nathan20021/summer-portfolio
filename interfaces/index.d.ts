@@ -21,6 +21,7 @@ export type FileTreeFile = {
   type?: "file";
   name: string;
   url: string;
+  reloadTreeData: () => void;
 };
 
 export type FileTreeFolder = {
@@ -28,12 +29,12 @@ export type FileTreeFolder = {
   name: string;
   url: string;
   FileTreeChildren: FileTreeElement[] | null;
+  isParentOpen?: boolean;
+  reloadTreeData: () => void;
 };
 
 export type FileTree = {
-  url: string;
   rootFolderName: string;
-  FileTreeChildren: FileTreeElement[] | null;
 };
 
 export type FileTreeNewFile = {
