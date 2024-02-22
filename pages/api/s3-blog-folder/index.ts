@@ -45,20 +45,25 @@ export default async function FetchFolderStructure(
   res: NextApiResponse
 ) {
   const {
-    query: { folderName },
+    query: { folderName, publicPrefix },
     method,
   } = req;
 
+  const publicFolderName = publicPrefix + "/" + folderName;
   switch (method) {
     case "GET":
-      const s3Response = await getS3ObjectsAsJson(
+      let s3Response = await getS3ObjectsAsJson(
         config.S3_BUCKET,
-        folderName as string
+        publicFolderName
       );
-      console.log(s3Response);
+      s3Response = s3Response
+        ? s3Response.filter((item) => item.Key !== `${folderName}.md`)
+        : null;
       res
         .status(200)
-        .json(s3Response ? convertToRecursiveArray(s3Response) : null);
+        .json(
+          s3Response ? convertToRecursiveArray(s3Response)[0].children : null
+        );
       break;
     default:
       res.status(403).end("Method not allowed");

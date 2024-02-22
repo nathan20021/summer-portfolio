@@ -34,10 +34,13 @@ const nextConfig = {
   },
   reactStrictMode: true,
   images: {
+    domains: ["porfolio-blogs.s3.us-east-2.amazonaws.com"],
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "**",
+        hostname: "porfolio-blogs.s3.us-east-2.amazonaws.com",
+        port: "",
+        pathname: "**",
       },
     ],
   },

@@ -3,10 +3,7 @@ import { useState } from "react";
 
 import { MdOutlineContentCopy } from "react-icons/md";
 import { BsCaretDownFill, BsCheck } from "react-icons/bs";
-
 import { BlockMath, InlineMath } from "react-katex";
-
-import Image from "next/image";
 
 import { flattenDeep } from "lodash";
 import { slugifyHeading } from "../../utils/functions";
@@ -134,26 +131,16 @@ const MarkdownComponents: object = {
       const metaHeight = metastring.match(/x([^}]+)}/);
       const width = metaWidth ? metaWidth[1] : "700";
       const height = metaHeight ? metaHeight[1] : "432";
-      const isPriority = metastring?.toLowerCase().match("{priority}");
-      const hasCaption = metastring?.toLowerCase().includes("{caption:");
-      const caption = metastring?.match(/{caption: (.*?)}/)?.pop();
 
       return (
         <div className="mt-4 flex justify-center">
-          <Image
+          <img
             src={image.properties.src}
             width={width}
             height={height}
             className="postImg"
             alt={alt}
-            priority={isPriority}
-            layout="intrinsic"
           />
-          {hasCaption ? (
-            <div className="caption" aria-label={caption}>
-              {caption}
-            </div>
-          ) : null}
         </div>
       );
     }

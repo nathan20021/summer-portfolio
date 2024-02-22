@@ -34,7 +34,9 @@ export type FileTreeFolder = {
 };
 
 export type FileTree = {
+  displayName: string;
   rootFolderName: string;
+  publicPrefix: string;
 };
 
 export type FileTreeNewFile = {

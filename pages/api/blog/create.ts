@@ -2,7 +2,7 @@
 import config from "@/config.json";
 import { prisma } from "@/db";
 import { randomUUID } from "crypto";
-import { uploadFileToS3 } from "@/lib/aws-lib";
+import { uploadFileToS3, createEmptyFolder } from "@/lib/aws-lib";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function CreateNewBlog(
@@ -13,7 +13,7 @@ export default async function CreateNewBlog(
 
   switch (method) {
     case "POST":
-      const defaultPost = "#\n\n## New Untitled Post";
+      const defaultPost = "## New Untitled Post";
       const id = randomUUID({
         disableEntropyCache: true,
       });
@@ -29,7 +29,11 @@ export default async function CreateNewBlog(
           featured: false,
         },
       });
-      await uploadFileToS3(config.S3_BUCKET, `${id}.md`, defaultPost);
+      await Promise.all([
+        createEmptyFolder(config.S3_BUCKET, config.S3_PUBLIC_PREFIX + id),
+        uploadFileToS3(config.S3_BUCKET, `${id}.md`, defaultPost),
+      ]);
+
       res.status(200).json({ body: blog });
       break;
     default:

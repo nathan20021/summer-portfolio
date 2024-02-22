@@ -9,7 +9,6 @@ import { IoMdDocument } from "react-icons/io";
 import { MdArticle } from "react-icons/md";
 import { HiCode } from "react-icons/hi";
 
-// import Image from "next/img"
 const ContactInfo: Array<LinkCardProps> = [
   {
     icon: <HiCode />,

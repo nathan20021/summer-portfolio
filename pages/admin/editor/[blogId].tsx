@@ -12,11 +12,14 @@ import ReactMarkdownWrapper from "@/components/Markdown/ReactMarkdownWrapper";
 import rehypePrismAll from "rehype-prism-plus";
 import "katex/dist/katex.min.css";
 import { toJpeg } from "html-to-image";
-
 import matter from "gray-matter";
 import dynamic from "next/dynamic";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import { MdArrowBackIosNew } from "react-icons/md";
 import Link from "next/link";
+import FileTree from "../../../components/FileTree/S3FileTree";
+import { PrimaryButton } from "@/components/Editor/Button";
+
 const CodeEditor = dynamic<any>(
   () => import("@uiw/react-textarea-code-editor").then((mod) => mod.default),
   { ssr: false }
@@ -25,26 +28,50 @@ const CodeEditor = dynamic<any>(
 type prop = {
   blogData: BlogPost | null;
   content: string;
-};
-const filter = (node: HTMLElement) => {
-  const exclusionClasses = ["toc-div", "link-img"];
-  return !exclusionClasses.some((htmlClassName) =>
-    node.classList?.contains(htmlClassName)
-  );
+  blogId: string;
 };
 
-const Post = ({ blogData, content }: prop) => {
+const BlogEditorPage = ({ blogData, content, blogId }: prop) => {
   const [code, setCode] = React.useState<string>(content);
   const [isSaving, setIsSaving] = React.useState<boolean>(false);
-  const [isPreview, setIsPreview] = React.useState<boolean>(false);
+  const [isPreview, setIsPreview] = React.useState<boolean>(true);
+  const [isFileTreeVisible, setIsFileTreeVisible] =
+    React.useState<boolean>(true);
+
   const elementRef = useRef(null);
+
+  const handleKeyDown = (event: KeyboardEvent): void => {
+    if (event.code === "KeyE" && event.metaKey) {
+      console.log("LOLOLOL");
+      setIsPreview((prev) => !prev);
+    }
+  };
+
+  React.useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  React.useEffect(() => {
+    const handleWindowClose = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+    window.addEventListener("beforeunload", handleWindowClose);
+    return () => window.removeEventListener("beforeunload", handleWindowClose);
+  }, []);
 
   const htmlToImageConvert = async () => {
     if (!elementRef.current) return;
     const dataURL = await toJpeg(elementRef.current, {
       backgroundColor: "#1f1f1f",
       skipFonts: true,
-      filter: filter,
+      filter: (node: HTMLElement) => {
+        const exclusionClasses = ["toc-div", "link-img"];
+        return !exclusionClasses.some((htmlClassName) =>
+          node.classList?.contains(htmlClassName)
+        );
+      },
       cacheBust: false,
       quality: 0.1,
       width: 900,
@@ -61,9 +88,9 @@ const Post = ({ blogData, content }: prop) => {
   };
 
   return (
-    <div className="min-w-screen min-h-screen z-10 flex flex-col justify-center items-center">
-      <div id="top-button-container" className="w-1/2 z-20 sticky top-20">
-        <div className="z-10 my-5 flex gap-10 w-full">
+    <div className="min-w-screen min-h-screen flex flex-col justify-center items-center">
+      <div id="top-button-container" className="w-full">
+        <div className="my-5 flex gap-10 w-full">
           <Link href="/admin/editor">
             <a className="font-semibold px-6 py-3 hover:cursor-pointer">
               <span className="flex gap-2 items-center">
@@ -72,15 +99,16 @@ const Post = ({ blogData, content }: prop) => {
             </a>
           </Link>
           <button
-            className="bg-[#9a3f3f] px-3 py-1 rounded-sm z-10"
+            className="bg-[#9a3f3f] px-3 py-1 rounded-sm "
             onClick={() => {
               setIsPreview(!isPreview);
             }}
           >
             {isPreview ? "Show Code" : "Hide Code"}
           </button>
-          <button
-            className="bg-[#5798da] px-3 py-1 rounded-sm z-10"
+          <PrimaryButton
+            text={isSaving ? "Saving" : "Save Changes"}
+            bgColor="#5798da"
             onClick={async () => {
               setIsSaving(true);
               const res = await axios.post("/api/blog/update", {
@@ -96,55 +124,86 @@ const Post = ({ blogData, content }: prop) => {
                 dataURL: thumbnailURL,
               });
             }}
-          >
-            {isSaving ? "Saving" : "Save Changes"}
-          </button>
+          />
         </div>
       </div>
-      <div
-        id="preview-editor-container"
-        className="flex justify-center w-[98%] min-h-screen"
-      >
-        {!isPreview && (
-          <div
-            id="code-editor"
-            className="z-10 w-1/2 wmde-markdown-var border-r-2 border-[#ffffff] select-none"
-            aria-readonly="true"
-          >
-            <CodeEditor
-              value={code}
-              rehypePlugins={[
-                [
-                  rehypePrismAll,
-                  { ignoreMissing: true, showLineNumbers: true },
-                ],
-              ]}
-              language="markdown"
-              minHeight={400}
-              placeholder="Paste Markdown here"
-              onChange={(evn: any) => setCode(evn.target.value)}
-              padding={15}
+      <div className="w-full flex">
+        <div
+          id="file-tree-container"
+          className="w-[15%] flex ease-in-out duration-150"
+          style={{
+            transform: isFileTreeVisible
+              ? "translateX(0)"
+              : "translateX(-100%)",
+          }}
+        >
+          <FileTree
+            rootFolderName={blogId}
+            displayName="Untitled"
+            publicPrefix="PUBLIC"
+          />
+          <div className="h-full flex justify-center items-center">
+            <button
+              className="bg-[#aaaaaa] hover:bg-[#ffffff] text-[#333333] 
+              p-1 rounded-full cursor-pointer flex justify-center items-center
+              ease-in-out duration-150
+              "
+              onClick={() => setIsFileTreeVisible((prev) => !prev)}
               style={{
-                height: "100%",
-                fontSize: 16,
-                backgroundColor: "#1f1f1f",
+                transform: isFileTreeVisible
+                  ? "rotate(0deg)"
+                  : "rotate(180deg)",
               }}
+            >
+              <MdArrowBackIosNew />
+            </button>
+          </div>
+        </div>
+        <div
+          id="preview-editor-container"
+          className="flex justify-center w-[85%] min-h-screen"
+        >
+          {!isPreview && (
+            <div
+              id="code-editor"
+              className=" w-1/2 wmde-markdown-var border-r-2 border-[#ffffff] select-none"
+              aria-readonly="true"
+            >
+              <CodeEditor
+                value={code}
+                rehypePlugins={[
+                  [
+                    rehypePrismAll,
+                    { ignoreMissing: true, showLineNumbers: true },
+                  ],
+                ]}
+                language="markdown"
+                minHeight={400}
+                placeholder="Paste Markdown here"
+                onChange={(evn: any) => setCode(evn.target.value)}
+                padding={15}
+                style={{
+                  height: "100%",
+                  fontSize: 16,
+                  backgroundColor: "#1f1f1f",
+                }}
+              />
+            </div>
+          )}
+          <div
+            ref={elementRef}
+            id="markdown-preview"
+            className={
+              isPreview
+                ? ` w-[90%] lg:w-[60%]`
+                : ` w-1/2 px-4 pb-10 bg-[#1f1f1f]`
+            }
+          >
+            <ReactMarkdownWrapper
+              code={code}
+              className={`${styles.post}  h-full`}
             />
           </div>
-        )}
-        <div
-          ref={elementRef}
-          id="markdown-preview"
-          className={
-            isPreview
-              ? `z-10 w-[90%] lg:w-[60%]`
-              : `z-10 w-1/2 px-4 pb-10 bg-[#1f1f1f]`
-          }
-        >
-          <ReactMarkdownWrapper
-            code={code}
-            className={`${styles.post} z-10 h-full`}
-          />
         </div>
       </div>
     </div>
@@ -191,6 +250,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   return {
     props: {
+      blogId: blogId,
       content: parsedMarkdown.content,
       blogData: {
         ...blogData,
@@ -212,4 +272,4 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   };
 }
 
-export default Post;
+export default BlogEditorPage;

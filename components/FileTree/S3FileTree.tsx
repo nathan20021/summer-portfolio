@@ -6,12 +6,16 @@ import { recursiveFile } from "../../interfaces/backend";
 import FolderCard from "./S3Folder";
 import { FileTree as FileTreeProps } from "../../interfaces";
 
-const FileTree = ({ rootFolderName }: FileTreeProps) => {
+const FileTree = ({
+  rootFolderName,
+  displayName,
+  publicPrefix,
+}: FileTreeProps) => {
   const [data, setData] = useState<FileTreeElement[]>([]);
 
   const getData = async () => {
     const { data }: { data: recursiveFile[] | null } = await axios.get(
-      `/api/s3-blog-folder?folderName=${rootFolderName}`,
+      `/api/s3-blog-folder?folderName=${rootFolderName}&publicPrefix=${publicPrefix}`,
       {
         headers: {
           Accept: "application/json",
@@ -23,7 +27,7 @@ const FileTree = ({ rootFolderName }: FileTreeProps) => {
 
   const parseData = (
     data: recursiveFile[] | null,
-    currentUrl: string = rootFolderName
+    currentUrl: string = `${publicPrefix}/${rootFolderName}`
   ): FileTreeElement[] | null => {
     if (data === null) return null;
 
@@ -63,24 +67,10 @@ const FileTree = ({ rootFolderName }: FileTreeProps) => {
 
   return (
     <div className="w-full">
-      <div id="file-tree-bar-container" className="w-full flex gap-3">
-        <div
-          className="w-1/2 border-[1px] py-2 flex justify-center mb-2 text-sm
-                        cursor-pointer rounded-lg select-none hover:bg-[#414148]"
-        >
-          <button onClick={() => loadTreeData()}>Reload</button>
-        </div>
-        <div
-          className="w-1/2 border-[1px] py-2 flex justify-center mb-2 text-sm
-                        cursor-pointer rounded-lg select-none hover:bg-[#414148]"
-        >
-          <button onClick={() => console.log(data)}>Collapse</button>
-        </div>
-      </div>
       <FolderCard
-        name={rootFolderName}
+        name={displayName}
         FileTreeChildren={data}
-        url={rootFolderName}
+        url={`${publicPrefix}/${rootFolderName}`}
         isParentOpen={true}
         reloadTreeData={loadTreeData}
       />

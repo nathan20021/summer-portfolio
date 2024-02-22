@@ -65,6 +65,7 @@ const FolderCard = ({
                         hover:bg-[#ffd062] border-[#ffd062]"
             onClick={(e) => {
               e.stopPropagation();
+              setIsOpen(true);
               if (!isNewEmptyFolderActive) {
                 setIsNewEmptyFolderActive(true);
                 setFileTreeChildren([
@@ -91,6 +92,7 @@ const FolderCard = ({
               id="file"
               ref={filePickerRef}
               style={{ display: "none" }}
+              accept=".jpg, .png, .jpeg, .webp, .gif"
               onChange={async (e) => {
                 const selectedFile = e.target.files[0];
                 if (!selectedFile) return;
@@ -99,19 +101,14 @@ const FolderCard = ({
                 const presignedURL = await axios.get(
                   `/api/s3-blog-file/presigned-url?bucketName=${config.S3_BUCKET}&fileName=${uri}`
                 );
-                console.log(presignedURL);
-                const s3Upload = await axios.put(
-                  presignedURL.data.s3Response,
-                  selectedFile,
-                  {
-                    headers: {
-                      "Content-Type": selectedFile.type,
-                      "Allow-Cross-Origin-Access": "*",
-                    },
-                  }
-                );
-                console.log(s3Upload);
+                await axios.put(presignedURL.data.s3Response, selectedFile, {
+                  headers: {
+                    "Content-Type": selectedFile.type,
+                    "Allow-Cross-Origin-Access": "*",
+                  },
+                });
                 reloadTreeData();
+                setIsOpen(true);
               }}
             />
             <AiFillFileAdd />

@@ -6,7 +6,6 @@ import axios from "axios";
 import AnalyticCard from "@/components/Analytics/AnalyticCard";
 import Head from "next/head";
 import { GetServerSidePropsContext } from "next/types";
-// import Image from "next/img"
 type SubSerialized = {
   id: number;
   email: string;

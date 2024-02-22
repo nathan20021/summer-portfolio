@@ -112,10 +112,10 @@ const AdminEditor = ({ metaDataArray, currentTime }: props) => {
           className="flex flex-col items-center justify-center
                     gap-10 z-50 h-full"
         >
-          <div className="flex flex-row flex-wrap gap-20 w-[65%] z-50">
+          <div className="flex flex-row flex-wrap gap-20 w-[70%] z-50">
             <CreateNewBlogCard />
           </div>
-          <div className="flex flex-row flex-wrap gap-20 w-[65%] z-50">
+          <div className="flex flex-row flex-wrap gap-20 w-[70%] z-50">
             {metaDataArray.map((data, index) => (
               <AdminBlogCard
                 blogMetaData={data}

@@ -37,7 +37,9 @@ const FileCard = ({ name, url, reloadTreeData }: FileTreeFile) => {
                         hover:bg-[#62a1ff] border-[#62a1ff]"
             onClick={() => {
               navigator.clipboard.writeText(
-                `https://${config.S3_BUCKET_ENDPOINT}/${url}`
+                `https://${config.S3_BUCKET_ENDPOINT}/${encodeURIComponent(
+                  url
+                )}`
               );
             }}
           >
