@@ -178,8 +178,7 @@ const MarkdownComponents: object = {
       : new URL(element.href);
     return (
       <a
-        className="cursor-pointer inline max-h-[23px] break-words align-middle
-                 bg-[#272727] rounded-sm shadow-lg shadow-[#1b1b1b]"
+        className="cursor-pointer inline max-h-[23px] break-words align-middle"
         href={element.href}
         target="_blank"
         rel="noreferrer"
@@ -191,12 +190,12 @@ const MarkdownComponents: object = {
             currentTarget.onerror = null;
             currentTarget.src = "/url.ico";
             currentTarget.className =
-              "max-h-[23px] h-full aspect-square invert inline align-middle mr-2";
+              "max-h-[23px] h-full aspect-square invert inline align-middle mr-1";
           }}
           className={
             invertible.includes(url.hostname)
-              ? "link-img max-h-[23px] h-full aspect-square inline invert align-middle mr-2"
-              : "link-img max-h-[23px] h-full aspect-square inline align-middle mr-2"
+              ? "link-img max-h-[23px] h-full aspect-square inline invert align-middle mr-1"
+              : "link-img max-h-[23px] h-full aspect-square inline align-middle mr-1"
           }
         />
 

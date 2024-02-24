@@ -5,7 +5,7 @@ import { getSession } from "next-auth/react";
 import styles from "../../../styles/mdBlogs.module.css";
 import { prisma } from "@/db";
 import "@uiw/react-textarea-code-editor/dist.css";
-import { BlogPost } from "@prisma/client";
+import { BlogPost, BlogType } from "@prisma/client";
 import config from "../../../config.json";
 import axios from "axios";
 import ReactMarkdownWrapper from "@/components/Markdown/ReactMarkdownWrapper";
@@ -14,19 +14,21 @@ import "katex/dist/katex.min.css";
 import { toJpeg } from "html-to-image";
 import matter from "gray-matter";
 import dynamic from "next/dynamic";
-import { AiOutlineArrowLeft } from "react-icons/ai";
 import { MdArrowBackIosNew } from "react-icons/md";
-import Link from "next/link";
 import FileTree from "../../../components/FileTree/S3FileTree";
-import { PrimaryButton } from "@/components/Editor/Button";
+import TopBar from "@/components/Editor/ControlTopBar";
+import MetaDataModal from "@/components/Editor/MetaDataModal";
 
 const CodeEditor = dynamic<any>(
   () => import("@uiw/react-textarea-code-editor").then((mod) => mod.default),
   { ssr: false }
 );
+interface FrontEndBlogPost extends Omit<BlogPost, "updatedAt"> {
+  updatedAt: string;
+}
 
 type prop = {
-  blogData: BlogPost | null;
+  blogData: FrontEndBlogPost;
   content: string;
   blogId: string;
 };
@@ -37,29 +39,26 @@ const BlogEditorPage = ({ blogData, content, blogId }: prop) => {
   const [isPreview, setIsPreview] = React.useState<boolean>(true);
   const [isFileTreeVisible, setIsFileTreeVisible] =
     React.useState<boolean>(true);
+  const [editedBlogType, setEditedBlogType] = React.useState<BlogType>(
+    blogData?.type || "DRAFT"
+  );
+  const [fileName, setFileName] = React.useState<string>(blogData?.title || "");
+  const [editedBlogData, setEditedBlogData] =
+    React.useState<FrontEndBlogPost>(blogData);
+  const [isModalOpen, setIsModalOpen] = React.useState<boolean>(true);
 
   const elementRef = useRef(null);
 
   const handleKeyDown = (event: KeyboardEvent): void => {
-    if (event.code === "KeyE" && event.metaKey) {
-      console.log("LOLOLOL");
+    if (event.code === "KeyE" && (event.metaKey || event.ctrlKey)) {
+      event.preventDefault();
       setIsPreview((prev) => !prev);
     }
-  };
-
-  React.useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
-
-  React.useEffect(() => {
-    const handleWindowClose = (event: BeforeUnloadEvent) => {
+    if (event.code === "KeyS" && (event.metaKey || event.ctrlKey)) {
       event.preventDefault();
-      event.returnValue = "";
-    };
-    window.addEventListener("beforeunload", handleWindowClose);
-    return () => window.removeEventListener("beforeunload", handleWindowClose);
-  }, []);
+      onSave();
+    }
+  };
 
   const htmlToImageConvert = async () => {
     if (!elementRef.current) return;
@@ -87,45 +86,54 @@ const BlogEditorPage = ({ blogData, content, blogId }: prop) => {
     return dataURL;
   };
 
+  React.useEffect(() => {
+    const handleWindowClose = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("beforeunload", handleWindowClose);
+    return () => {
+      window.removeEventListener("beforeunload", handleWindowClose);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  const onSave = async () => {
+    setIsSaving(true);
+    const res = await axios.post("/api/blog/update", {
+      id: blogData?.id,
+      content: code,
+    });
+
+    const metaDataRes = await axios.patch("/api/blog/update-metadata", {
+      id: blogData?.id,
+      title: fileName,
+      type: editedBlogType,
+    });
+
+    if (res.status === 200 && metaDataRes.status === 200) {
+      setIsSaving(false);
+    }
+    const thumbnailURL = await htmlToImageConvert();
+    await axios.post("/api/blog/upload-thumbnail", {
+      id: blogData?.id,
+      dataURL: thumbnailURL,
+    });
+  };
+
   return (
     <div className="min-w-screen min-h-screen flex flex-col justify-center items-center">
-      <div id="top-button-container" className="w-full">
-        <div className="my-5 flex gap-10 w-full">
-          <Link href="/admin/editor">
-            <a className="font-semibold px-6 py-3 hover:cursor-pointer">
-              <span className="flex gap-2 items-center">
-                <AiOutlineArrowLeft /> Back
-              </span>
-            </a>
-          </Link>
-          <button
-            className="bg-[#9a3f3f] px-3 py-1 rounded-sm "
-            onClick={() => {
-              setIsPreview(!isPreview);
-            }}
-          >
-            {isPreview ? "Show Code" : "Hide Code"}
-          </button>
-          <PrimaryButton
-            text={isSaving ? "Saving" : "Save Changes"}
-            bgColor="#5798da"
-            onClick={async () => {
-              setIsSaving(true);
-              const res = await axios.post("/api/blog/update", {
-                id: blogData?.id,
-                content: code,
-              });
-              if (res.status === 200) {
-                setIsSaving(false);
-              }
-              const thumbnailURL = await htmlToImageConvert();
-              await axios.post("/api/blog/upload-thumbnail", {
-                id: blogData?.id,
-                dataURL: thumbnailURL,
-              });
-            }}
-          />
-        </div>
+      <div className="w-full">
+        <TopBar
+          setBlogType={setEditedBlogType}
+          updatedAt={blogData?.updatedAt || ""}
+          blogType={editedBlogType}
+          isSaving={isSaving}
+          onSave={onSave}
+          fileName={fileName}
+          setFileName={setFileName}
+        />
       </div>
       <div className="w-full flex">
         <div
@@ -206,6 +214,10 @@ const BlogEditorPage = ({ blogData, content, blogId }: prop) => {
           </div>
         </div>
       </div>
+      <MetaDataModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 };
