@@ -4,6 +4,7 @@ import { FaCheck } from "react-icons/fa";
 import { Tags } from "@prisma/client";
 import DropDown from "./VisibilityDropdown";
 import { RxCross2 } from "react-icons/rx";
+import BlogCard from "./BlogCardPreview";
 
 type Props = {
   isOpen: boolean;
@@ -17,6 +18,7 @@ type Props = {
 };
 
 const titleToURL = (title: string) => title.toLowerCase().split(" ").join("-");
+
 const Modal = ({
   isOpen,
   onClose,
@@ -44,7 +46,9 @@ const Modal = ({
                 </h1>
                 <div className="w-full flex justify-between">
                   <div className="w-[65%] flex flex-col">
-                    <label className="text-base mt-5 mb-1">Title</label>
+                    <p className="text-base mt-5 mb-1  after:ml-[0.2rem] after:content-['*'] after:text-blue-100">
+                      Title
+                    </p>
                     <input
                       className="py-2 px-3 text-sm rounded-sm outline-none cursor-text"
                       type="text"
@@ -59,7 +63,9 @@ const Modal = ({
                     />
                   </div>
                   <div className="w-[30%] flex flex-col">
-                    <label className="text-base mt-5 mb-1">Visibility</label>
+                    <p className="text-base mt-5 mb-1  after:ml-[0.2rem] after:content-['*'] after:text-blue-100">
+                      Visibility
+                    </p>
                     <DropDown
                       showArrow={true}
                       options={
@@ -79,9 +85,9 @@ const Modal = ({
                 </div>
                 <div className="w-full h-full flex mt-5 gap-[5%]">
                   <div className="w-[50%] flex flex-col">
-                    <label className="text-base mb-1" htmlFor="slug-URL">
+                    <p className="text-base mb-1  after:ml-[0.2rem] after:content-['*'] after:text-blue-100">
                       Public URL
-                    </label>
+                    </p>
                     <div className="flex">
                       <input
                         className="py-1 px-3 text-sm rounded-sm outline-none cursor-text flex-1 placeholder:text-grey-700"
@@ -114,7 +120,9 @@ const Modal = ({
                     </div>
                   </div>
                   <div className="w-[45%] h-full flex flex-col">
-                    <label className="text-base mb-1">Cover Image</label>
+                    <p className="text-base mb-1 after:ml-[0.2rem] after:content-['*'] after:text-blue-100">
+                      Cover Image
+                    </p>
                     <div className="flex">
                       {!file ? (
                         <button
@@ -136,7 +144,10 @@ const Modal = ({
                           </p>
                           <button
                             className="pl-2 ml-2"
-                            onClick={() => setFile(null)}
+                            onClick={() => {
+                              fileInputRef.current.value = null;
+                              setFile(null);
+                            }}
                           >
                             <RxCross2 />
                           </button>
@@ -157,9 +168,9 @@ const Modal = ({
                     </div>
                   </div>
                 </div>
-                <label className="text-base mt-5 mb-1" htmlFor="description">
+                <p className="text-base mt-5 mb-1 after:ml-[0.2rem] after:content-['*'] after:text-blue-100">
                   Description
-                </label>
+                </p>
                 <textarea
                   className="py-3 px-3 text-sm rounded-sm outline-none cursor-text h-24 min-h-[3rem] max-h-40"
                   id="description"
@@ -172,6 +183,56 @@ const Modal = ({
                     })
                   }
                 />
+                <div className="flex mt-5 justify-start gap-[10%]">
+                  <div
+                    id="read-time-container"
+                    className="flex gap-1 items-center"
+                  >
+                    <p className="underline underline-offset-4">Read Time:</p>
+                    <input
+                      className="rounded-sm h-7 px-3 py-1 w-14 bg-grey-800 outline-none bg-opacity-40 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                      type="number"
+                      value={editedBlogData.readTime}
+                      onChange={(e) => {
+                        setEditedBlogData({
+                          ...editedBlogData,
+                          readTime: parseInt(e.target.value),
+                        });
+                      }}
+                    />
+                  </div>
+                  <div id="views container" className="flex gap-1 items-center">
+                    <p className="underline underline-offset-4">Views:</p>
+                    <input
+                      className="rounded-sm h-7 px-3 py-1 w-14 bg-grey-800 outline-none bg-opacity-40 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                      type="number"
+                      value={editedBlogData.views}
+                      onChange={(e) => {
+                        setEditedBlogData({
+                          ...editedBlogData,
+                          views: parseInt(e.target.value),
+                        });
+                      }}
+                    />
+                  </div>
+                  <div
+                    id="is-featured-container"
+                    className="flex gap-2 items-center"
+                  >
+                    <p className="underline underline-offset-4">Featured</p>
+                    <input
+                      checked={editedBlogData.featured}
+                      type="checkbox"
+                      className="w-5 h-5 cursor-pointer"
+                      onChange={() => {
+                        setEditedBlogData({
+                          ...editedBlogData,
+                          featured: !editedBlogData.featured,
+                        });
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
               <div className="relative w-full">
                 <div className="absolute top-[50%] h-[0.5px] w-full bg-white"></div>
@@ -204,6 +265,26 @@ const Modal = ({
                 <div className="select-none bg-grey-800 px-5 py-1 text-xs rounded-full cursor-pointer hover:bg-grey-600">
                   ...
                 </div>
+              </div>
+              <div className="relative w-full">
+                <div className="absolute top-[50%] h-[0.5px] w-full bg-white"></div>
+                <div className="my-5 flex justify-center">
+                  <h1 className=" text-center bg-primary z-10 px-5">Preview</h1>
+                </div>
+              </div>
+              <div className="flex">
+                <BlogCard
+                  metaData={{
+                    ...editedBlogData,
+                    tags: allTags.filter((tag) =>
+                      selectedTags.includes(tag.id)
+                    ) as Tags[],
+                    read_time: editedBlogData.readTime,
+                    published_at: editedBlogData.updatedAt,
+                    file_name: editedBlogData.title,
+                    cover: editedBlogData.cover,
+                  }}
+                />
               </div>
               <div
                 id="button-group"
