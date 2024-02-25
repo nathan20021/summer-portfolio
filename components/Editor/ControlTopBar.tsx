@@ -2,12 +2,10 @@ import React from "react";
 import Image from "next/image";
 import { BlogType } from "@prisma/client";
 import { useRouter } from "next/router";
-import DropDown from "./VisibilityDropdown";
 
 type Props = {
   updatedAt: string;
   blogType: BlogType;
-  setBlogType: (type: BlogType) => void;
   onSave?: () => Promise<void>;
   isSaving?: boolean;
   onPublish?: () => Promise<void>;
@@ -16,6 +14,7 @@ type Props = {
   isUnPublishing?: boolean;
   fileName?: string;
   setFileName?: (name: string) => void;
+  openModal: () => void;
 };
 
 const Loader = () => (
@@ -39,7 +38,6 @@ const Loader = () => (
 const ControlTopBar = ({
   updatedAt,
   blogType,
-  setBlogType,
   onSave,
   onPublish,
   onUnPublish,
@@ -48,11 +46,12 @@ const ControlTopBar = ({
   isUnPublishing = false,
   fileName,
   setFileName,
+  openModal,
 }: Props) => {
   const router = useRouter();
   return (
-    <div className="flex w-full justify-between items-center py-4 px-10 bg-grey-900">
-      <div className="flex gap-2">
+    <div className="flex w-full justify-between items-center py-4 px-10 bg-grey-900 gap-12">
+      <div className="flex gap-2 w-[50%]">
         <div
           className="hover:cursor-pointer"
           id="logo"
@@ -72,13 +71,12 @@ const ControlTopBar = ({
         </div>
         <div
           id="title-and-last-edited-status-container"
-          className="flex flex-col"
+          className="flex flex-col w-full"
         >
-          <div id="title">
+          <div id="title" className="w-full">
             <input
               className="text-xl font-semibold bg-grey-900 caret-white indent-2 
-                outline-0 border-opacity-0 hover:border-opacity-100 border-[0.5px] 
-                border-grey-500 focus:border-opacity-100 focus:border-grey-100"
+                outline-0 w-full"
               type="text"
               placeholder="Untitled"
               value={fileName === "Untitled" ? "" : fileName}
@@ -109,12 +107,14 @@ const ControlTopBar = ({
             </div>
           )}
         </button>
-        <DropDown
-          showArrow={true}
-          options={blogType === "DRAFT" ? ["DRAFT"] : ["PUBLISHED", "PRIVATE"]}
-          selected={blogType}
-          setSelected={setBlogType}
-        />
+        <button
+          className="border-2 border-[#3B3B3B] px-5 py-1 rounded-sm text-[white] 
+                    hover:cursor-pointer bg-[#3B3B3B] hover:bg-grey-700"
+          onClick={() => openModal()}
+        >
+          Metadata
+        </button>
+
         {blogType === "DRAFT" ? (
           <button
             className="border-2 border-[#007bff] bg-[#007bff] px-5 py-1 rounded-sm text-white 

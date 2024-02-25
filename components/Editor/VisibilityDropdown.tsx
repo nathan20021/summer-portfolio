@@ -11,7 +11,7 @@ const formatString = (str: string) => {
 
 const BlogTypIcon = ({ type }: { type: BlogType }) => {
   return (
-    <p className="text-lg flex justify-center items-center text-[#cfcfcf]">
+    <p className="text-base flex justify-center items-center text-[#cfcfcf]">
       {type === "PUBLISHED" && <MdPublishedWithChanges />}
       {type === "PRIVATE" && <RiGitRepositoryPrivateFill />}
       {type === "DRAFT" && <RiDraftFill />}
@@ -22,7 +22,7 @@ const BlogTypIcon = ({ type }: { type: BlogType }) => {
 type Props = {
   options: BlogType[];
   selected: BlogType;
-  setSelected: (value: string) => void;
+  setSelected: (value: BlogType) => void;
   showArrow: boolean;
 };
 const DropDown = ({ options, selected, setSelected }: Props) => {
@@ -31,19 +31,23 @@ const DropDown = ({ options, selected, setSelected }: Props) => {
   return (
     <div className="flex flex-col h-full relative">
       <button
-        className=" text-white border-2 border-[#3B3B3B] bg-[#3B3B3B]
-            hover:border-grey-600 py-1 px-5 outline-none cursor-pointer flex 
-            justify-center items-center gap-2"
+        className="h-full text-white border-2 border-[#3B3B3B] bg-[#3B3B3B]
+            hover:border-grey-600 pl-4 outline-none cursor-pointer flex rounded-sm
+            justify-between items-center"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <BlogTypIcon type={selected} />
-        {selected === "PUBLISHED" ? "PUBLIC" : selected}
-        <MdKeyboardArrowDown className={isOpen && "rotate-180"} />
+        <div className="flex gap-2 text-sm">
+          <BlogTypIcon type={selected} />
+          {selected === "PUBLISHED" ? "Public" : formatString(selected)}
+        </div>
+        <div className="px-2 border-l-2 text-lg border-[#828282]">
+          <MdKeyboardArrowDown className={isOpen && "rotate-180"} />
+        </div>
       </button>
       {isOpen && (
         <div
           ref={popUpRef}
-          className="absolute top-10 w-40 rounded-lg divide-y-2 divide-[#606060]"
+          className="absolute top-10 w-full rounded-lg divide-y-2 divide-[#606060] shadow-lg"
         >
           {options.map((option, index) => (
             <button
@@ -51,12 +55,14 @@ const DropDown = ({ options, selected, setSelected }: Props) => {
                 setSelected(option);
                 setIsOpen(false);
               }}
-              className="pl-4 py-3 bg-[#3c3c3c] flex justify-start
+              className="pl-4 py-1 bg-[#3c3c3c] flex justify-start text-sm
                 items-center w-full gap-2 cursor-pointer hover:bg-grey-800"
               key={index}
             >
               <BlogTypIcon type={option} />
-              <p>{option === "PUBLISHED" ? "Public" : formatString(option)}</p>
+              <p className="text-sm">
+                {option === "PUBLISHED" ? "Public" : formatString(option)}
+              </p>
             </button>
           ))}
         </div>

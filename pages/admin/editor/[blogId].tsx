@@ -5,7 +5,7 @@ import { getSession } from "next-auth/react";
 import styles from "../../../styles/mdBlogs.module.css";
 import { prisma } from "@/db";
 import "@uiw/react-textarea-code-editor/dist.css";
-import { BlogPost, BlogType } from "@prisma/client";
+import { BlogPost, Tags } from "@prisma/client";
 import config from "../../../config.json";
 import axios from "axios";
 import ReactMarkdownWrapper from "@/components/Markdown/ReactMarkdownWrapper";
@@ -23,7 +23,7 @@ const CodeEditor = dynamic<any>(
   () => import("@uiw/react-textarea-code-editor").then((mod) => mod.default),
   { ssr: false }
 );
-interface FrontEndBlogPost extends Omit<BlogPost, "updatedAt"> {
+export interface FrontEndBlogPost extends Omit<BlogPost, "updatedAt"> {
   updatedAt: string;
 }
 
@@ -31,21 +31,25 @@ type prop = {
   blogData: FrontEndBlogPost;
   content: string;
   blogId: string;
+  currentBlogTags: Tags[];
+  tags: Tags[];
 };
 
-const BlogEditorPage = ({ blogData, content, blogId }: prop) => {
+const BlogEditorPage = ({
+  blogData,
+  content,
+  blogId,
+  tags,
+  currentBlogTags,
+}: prop) => {
   const [code, setCode] = React.useState<string>(content);
   const [isSaving, setIsSaving] = React.useState<boolean>(false);
   const [isPreview, setIsPreview] = React.useState<boolean>(true);
   const [isFileTreeVisible, setIsFileTreeVisible] =
     React.useState<boolean>(true);
-  const [editedBlogType, setEditedBlogType] = React.useState<BlogType>(
-    blogData?.type || "DRAFT"
-  );
-  const [fileName, setFileName] = React.useState<string>(blogData?.title || "");
   const [editedBlogData, setEditedBlogData] =
     React.useState<FrontEndBlogPost>(blogData);
-  const [isModalOpen, setIsModalOpen] = React.useState<boolean>(true);
+  const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
 
   const elementRef = useRef(null);
 
@@ -108,8 +112,8 @@ const BlogEditorPage = ({ blogData, content, blogId }: prop) => {
 
     const metaDataRes = await axios.patch("/api/blog/update-metadata", {
       id: blogData?.id,
-      title: fileName,
-      type: editedBlogType,
+      title: editedBlogData.title,
+      type: editedBlogData.type,
     });
 
     if (res.status === 200 && metaDataRes.status === 200) {
@@ -126,13 +130,18 @@ const BlogEditorPage = ({ blogData, content, blogId }: prop) => {
     <div className="min-w-screen min-h-screen flex flex-col justify-center items-center">
       <div className="w-full">
         <TopBar
-          setBlogType={setEditedBlogType}
+          openModal={() => setIsModalOpen(true)}
           updatedAt={blogData?.updatedAt || ""}
-          blogType={editedBlogType}
+          blogType={editedBlogData.type}
           isSaving={isSaving}
           onSave={onSave}
-          fileName={fileName}
-          setFileName={setFileName}
+          fileName={editedBlogData.title}
+          setFileName={(val) => {
+            setEditedBlogData({
+              ...editedBlogData,
+              title: val,
+            });
+          }}
         />
       </div>
       <div className="w-full flex">
@@ -202,9 +211,7 @@ const BlogEditorPage = ({ blogData, content, blogId }: prop) => {
             ref={elementRef}
             id="markdown-preview"
             className={
-              isPreview
-                ? ` w-[90%] lg:w-[60%]`
-                : ` w-1/2 px-4 pb-10 bg-[#1f1f1f]`
+              isPreview ? "w-[90%] lg:w-[60%]" : "w-1/2 px-4 pb-10 bg-[#1f1f1f]"
             }
           >
             <ReactMarkdownWrapper
@@ -215,6 +222,12 @@ const BlogEditorPage = ({ blogData, content, blogId }: prop) => {
         </div>
       </div>
       <MetaDataModal
+        currentTags={currentBlogTags}
+        allTags={tags}
+        editedBlogData={editedBlogData}
+        currentBlogData={blogData}
+        setEditedBlogData={setEditedBlogData}
+        onSaveMetaData={() => {}}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />
@@ -236,11 +249,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     };
   }
-
   const { blogId } = context.params as IParams;
-  const blogData: BlogPost | null = await prisma.blogPost.findUnique({
+
+  const blogData = await prisma.blogPost.findUnique({
     where: {
       id: blogId,
+    },
+    include: {
+      tags: true,
     },
   });
 
@@ -252,18 +268,25 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     };
   }
-  const res = await axios.get(`${process.env.URL}/api/blog/id/${blogId}`, {
-    timeout: 5000,
-    headers: {
-      Accept: "application/json",
-    },
-  });
-  const parsedMarkdown = matter(res.data.data);
+
+  const [rawMarkdownRes, tags] = await Promise.all([
+    axios.get(`${process.env.URL}/api/blog/id/${blogId}`, {
+      timeout: 5000,
+      headers: {
+        Accept: "application/json",
+      },
+    }),
+    prisma.tags.findMany({}),
+  ]);
+
+  const parsedMarkdown = matter(rawMarkdownRes.data.data);
 
   return {
     props: {
       blogId: blogId,
       content: parsedMarkdown.content,
+      tags: tags,
+      currentBlogTags: blogData.tags,
       blogData: {
         ...blogData,
         publishedAt: blogData?.publishedAt.toLocaleString(

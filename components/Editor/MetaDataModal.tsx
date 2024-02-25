@@ -1,18 +1,235 @@
 import React from "react";
+import { FrontEndBlogPost } from "../../pages/admin/editor/[blogId]";
+import { FaCheck } from "react-icons/fa";
+import { Tags } from "@prisma/client";
+import DropDown from "./VisibilityDropdown";
+import { RxCross2 } from "react-icons/rx";
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
+  onSaveMetaData: () => void;
+  setEditedBlogData: (data: FrontEndBlogPost) => void;
+  editedBlogData: FrontEndBlogPost;
+  currentBlogData: FrontEndBlogPost;
+  currentTags: Tags[];
+  allTags: Tags[];
 };
 
-const Modal = ({ isOpen, onClose }: Props) => {
+const titleToURL = (title: string) => title.toLowerCase().split(" ").join("-");
+const Modal = ({
+  isOpen,
+  onClose,
+  editedBlogData,
+  currentBlogData,
+  onSaveMetaData,
+  setEditedBlogData,
+  currentTags,
+  allTags,
+}: Props) => {
+  const [selectedTags, setSelectedTags] = React.useState<number[]>(
+    currentTags.map((tag) => tag.id)
+  );
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+  const [file, setFile] = React.useState<File | null>(null);
   return (
     <>
       {isOpen && (
         <div className="absolute top-0 w-[100vw] h-[100vh] flex justify-center items-center bg-black bg-opacity-70">
-          <div className="w-[80%] h-[90%] bg-primary">
-            <div>Content here This is a modal</div>
-            <button onClick={onClose}>YOO</button>
+          <div className="overflow-auto overscroll-none h-[90%] w-[580px] bg-primary flex justify-center items-center">
+            <div className="w-[90%] h-[90%]">
+              <div id="form-container" className="flex flex-col">
+                <h1 className="text-center text-xl font-semibold underline underline-offset-2">
+                  Blog Metadata
+                </h1>
+                <div className="w-full flex justify-between">
+                  <div className="w-[65%] flex flex-col">
+                    <label className="text-base mt-5 mb-1">Title</label>
+                    <input
+                      className="py-2 px-3 text-sm rounded-sm outline-none cursor-text"
+                      type="text"
+                      id="title"
+                      value={editedBlogData.title}
+                      onChange={(e) =>
+                        setEditedBlogData({
+                          ...editedBlogData,
+                          title: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="w-[30%] flex flex-col">
+                    <label className="text-base mt-5 mb-1">Visibility</label>
+                    <DropDown
+                      showArrow={true}
+                      options={
+                        editedBlogData.type === "DRAFT"
+                          ? ["DRAFT"]
+                          : ["PUBLISHED", "PRIVATE"]
+                      }
+                      selected={editedBlogData.type}
+                      setSelected={(type) => {
+                        setEditedBlogData({
+                          ...editedBlogData,
+                          type,
+                        });
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className="w-full h-full flex mt-5 gap-[5%]">
+                  <div className="w-[50%] flex flex-col">
+                    <label className="text-base mb-1" htmlFor="slug-URL">
+                      Public URL
+                    </label>
+                    <div className="flex">
+                      <input
+                        className="py-1 px-3 text-sm rounded-sm outline-none cursor-text flex-1 placeholder:text-grey-700"
+                        type="text"
+                        id="slug-URL"
+                        placeholder={titleToURL(editedBlogData.title)}
+                        value={editedBlogData.url}
+                        onChange={(e) =>
+                          setEditedBlogData({
+                            ...editedBlogData,
+                            url: e.target.value,
+                          })
+                        }
+                      />
+                      <div className="w-9 h-9 flex ml-2 justify-center items-center">
+                        <button
+                          disabled={editedBlogData.url !== ""}
+                          onClick={() => {
+                            setEditedBlogData({
+                              ...editedBlogData,
+                              url: titleToURL(editedBlogData.title),
+                            });
+                          }}
+                          className="bg-[#007bff] disabled:bg-[#2d2d2d] disabled:text-[#6d6c6c] disabled:cursor-not-allowed 
+                        rounded-sm text-xs aspect-square h-[90%] flex justify-center items-center"
+                        >
+                          <FaCheck />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="w-[45%] h-full flex flex-col">
+                    <label className="text-base mb-1">Cover Image</label>
+                    <div className="flex">
+                      {!file ? (
+                        <button
+                          onClick={() => {
+                            fileInputRef.current?.click();
+                          }}
+                          className="w-full text-sm px-4 py-1 h-9 border-[0.5px] rounded-sm
+                          border-grey-600 hover:border-grey-500 hover:bg-grey-900"
+                        >
+                          +
+                        </button>
+                      ) : (
+                        <div
+                          className="w-full text-sm pl-4 pr-3 py-1 h-9 border-[0.5px] rounded-sm divide-x-2 divide-[#828282]
+                           bg-[#3b3b3b] border-[#3b3b3b] flex justify-center items-center"
+                        >
+                          <p className="text-ellipsis flex-1 line-clamp-1 overflow-hidden">
+                            {file?.name || ""}
+                          </p>
+                          <button
+                            className="pl-2 ml-2"
+                            onClick={() => setFile(null)}
+                          >
+                            <RxCross2 />
+                          </button>
+                        </div>
+                      )}
+                      <input
+                        ref={fileInputRef}
+                        id="cover-picker"
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          if (e.target.files) {
+                            setFile(e.target.files[0]);
+                          }
+                        }}
+                        className="w-full hidden"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <label className="text-base mt-5 mb-1" htmlFor="description">
+                  Description
+                </label>
+                <textarea
+                  className="py-3 px-3 text-sm rounded-sm outline-none cursor-text h-24 min-h-[3rem] max-h-40"
+                  id="description"
+                  placeholder="Short description of the blog"
+                  value={editedBlogData.description}
+                  onChange={(e) =>
+                    setEditedBlogData({
+                      ...editedBlogData,
+                      description: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="relative w-full">
+                <div className="absolute top-[50%] h-[0.5px] w-full bg-white"></div>
+                <div className="my-5 flex justify-center">
+                  <h1 className=" text-center bg-primary z-10 px-5">Tags</h1>
+                </div>
+              </div>
+              <div id="tag-container" className="flex flex-wrap gap-3">
+                {allTags.map((tag, index) => (
+                  <div
+                    key={index}
+                    className={
+                      selectedTags.includes(tag.id)
+                        ? "select-none bg-[#007bff] hover:bg-[#3793f0] px-5 py-1 text-xs rounded-full cursor-pointer"
+                        : "select-none bg-grey-800 px-5 py-1 text-xs rounded-full cursor-pointer hover:bg-grey-600"
+                    }
+                    onClick={() => {
+                      if (selectedTags.includes(tag.id)) {
+                        setSelectedTags((prev) =>
+                          prev.filter((tid) => tid !== tag.id)
+                        );
+                      } else {
+                        setSelectedTags((prev) => [...prev, tag.id]);
+                      }
+                    }}
+                  >
+                    # {tag.name}
+                  </div>
+                ))}
+                <div className="select-none bg-grey-800 px-5 py-1 text-xs rounded-full cursor-pointer hover:bg-grey-600">
+                  ...
+                </div>
+              </div>
+              <div
+                id="button-group"
+                className="flex gap-2 w-full justify-end mt-5"
+              >
+                <button
+                  className="text-sm px-4 py-1 border-[0.5px] rounded-sm border-grey-600 hover:border-grey-500 hover:bg-grey-900"
+                  onClick={onClose}
+                >
+                  Close
+                </button>
+                <button
+                  className="text-sm px-4 py-1 border-[0.5px] rounded-sm border-grey-600 bg-grey-800 hover:bg-grey-600 hover:border-grey-700"
+                  onClick={onSaveMetaData}
+                >
+                  Save
+                </button>
+                <button
+                  className="text-sm px-4 py-1 border-[0.5px] rounded-sm border-[#007bff] bg-[#007bff] 
+                    hover:bg-[#3793f0] hover:border-[#3793f0]"
+                  onClick={onClose}
+                >
+                  Publish
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
