@@ -5,6 +5,7 @@ import { Tags } from "@prisma/client";
 import DropDown from "./VisibilityDropdown";
 import { RxCross2 } from "react-icons/rx";
 import BlogCard from "./BlogCardPreview";
+import { BsThreeDots } from "react-icons/bs";
 
 type Props = {
   isOpen: boolean;
@@ -147,6 +148,10 @@ const Modal = ({
                             onClick={() => {
                               fileInputRef.current.value = null;
                               setFile(null);
+                              setEditedBlogData({
+                                ...editedBlogData,
+                                cover: "",
+                              });
                             }}
                           >
                             <RxCross2 />
@@ -161,6 +166,10 @@ const Modal = ({
                         onChange={(e) => {
                           if (e.target.files) {
                             setFile(e.target.files[0]);
+                            setEditedBlogData({
+                              ...editedBlogData,
+                              cover: URL.createObjectURL(e.target.files[0]),
+                            });
                           }
                         }}
                         className="w-full hidden"
@@ -255,15 +264,17 @@ const Modal = ({
                           prev.filter((tid) => tid !== tag.id)
                         );
                       } else {
-                        setSelectedTags((prev) => [...prev, tag.id]);
+                        if (selectedTags.length <= 2) {
+                          setSelectedTags((prev) => [...prev, tag.id]);
+                        }
                       }
                     }}
                   >
                     # {tag.name}
                   </div>
                 ))}
-                <div className="select-none bg-grey-800 px-5 py-1 text-xs rounded-full cursor-pointer hover:bg-grey-600">
-                  ...
+                <div className="select-none bg-grey-800 px-5 flex items-center text-xs rounded-full cursor-pointer hover:bg-grey-600">
+                  <BsThreeDots />
                 </div>
               </div>
               <div className="relative w-full">
@@ -297,7 +308,7 @@ const Modal = ({
                   Close
                 </button>
                 <button
-                  className="text-sm px-4 py-1 border-[0.5px] rounded-sm border-grey-600 bg-grey-800 hover:bg-grey-600 hover:border-grey-700"
+                  className="text-sm px-4 py-1 border-[0.5px] rounded-sm border-grey-600 hover:border-grey-500 hover:bg-grey-900"
                   onClick={onSaveMetaData}
                 >
                   Save
