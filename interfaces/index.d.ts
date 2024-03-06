@@ -31,6 +31,7 @@ export type FileTreeFolder = {
   FileTreeChildren: FileTreeElement[] | null;
   isParentOpen?: boolean;
   reloadTreeData: () => void;
+  isRoot?: boolean;
 };
 
 export type FileTree = {

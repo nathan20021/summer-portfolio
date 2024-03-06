@@ -26,7 +26,7 @@ const AdminBlogCard = ({ blogMetaData, currentTime }: AdminBlogCardProps) => {
 
   return (
     <Link href={`/admin/editor/${blogMetaData.id}`}>
-      <a className="flex flex-col rounded-md border-2 border-[#909090] ease-in-out duration-300 overflow-hidden group">
+      <a className="w-[12rem] flex flex-col rounded-md border-2 border-[#909090] ease-in-out duration-300 overflow-hidden group">
         <div
           id="thumbnail-container"
           className="z-50 w-[12rem] h-[14rem] justify-center items-center overflow-hidden p-3 hover:p-[0.7rem] bg-primary ease-in-out duration-300"
@@ -38,10 +38,8 @@ const AdminBlogCard = ({ blogMetaData, currentTime }: AdminBlogCardProps) => {
           />
         </div>
         <div className="w-full h-[5rem] bg-[#2b2b2b] group-hover:bg-[#2d2d2d] pt-2 border-t-[1px] border-[#ffffff]">
-          <h1 className="text-md font-medium text-[#93a6d5] pl-3 ease-in-out duration-300">
-            {blogMetaData.title.length >= 19
-              ? blogMetaData.title.slice(0, 19) + "..."
-              : blogMetaData.title}
+          <h1 className="text-md font-medium text-[#93a6d5] px-3 ease-in-out duration-300 line-clamp-1 overflow-ellipsis">
+            {blogMetaData.title}
           </h1>
           <div id="icon-day-counts-container" className="flex gap-1 pl-3">
             {blogMetaData.type === "PUBLISHED" && (
@@ -84,7 +82,6 @@ const CreateNewBlogCard = () => {
                 justify-center items-center group"
         onClick={async () => {
           const newBlog = await axios.post("/api/blog/create");
-          console.log(newBlog);
           window.location.href = `/admin/editor/${newBlog.data.body.id}`;
         }}
       >

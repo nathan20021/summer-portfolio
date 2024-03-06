@@ -13,7 +13,6 @@ type Props = {
   onUnPublish?: () => Promise<void>;
   isUnPublishing?: boolean;
   fileName?: string;
-  setFileName?: (name: string) => void;
   openModal: () => void;
 };
 
@@ -45,7 +44,6 @@ const ControlTopBar = ({
   isPublishing = false,
   isUnPublishing = false,
   fileName,
-  setFileName,
   openModal,
 }: Props) => {
   const router = useRouter();
@@ -74,16 +72,12 @@ const ControlTopBar = ({
           className="flex flex-col w-full"
         >
           <div id="title" className="w-full">
-            <input
+            <h1
               className="text-xl font-semibold bg-grey-900 caret-white indent-2 
                 outline-0 w-full"
-              type="text"
-              placeholder="Untitled"
-              value={fileName === "Untitled" ? "" : fileName}
-              onChange={(e) => {
-                setFileName(e.target.value);
-              }}
-            />
+            >
+              {fileName === "Untitled" ? "" : fileName}
+            </h1>
           </div>
           <div id="last-edited-status">
             <p className="text-xs text-grey-400 indent-[9px]">
@@ -108,30 +102,12 @@ const ControlTopBar = ({
           )}
         </button>
         <button
-          className="border-2 border-[#3B3B3B] px-5 py-1 rounded-sm text-[white] 
-                    hover:cursor-pointer bg-[#3B3B3B] hover:bg-grey-700"
+          className="border-2 border-[#007bff] bg-[#007bff] px-5 py-1 rounded-sm text-white 
+            hover:bg-[#3793f0] hover:border-[#3793f0] hover:cursor-pointer outline-none"
           onClick={() => openModal()}
         >
-          Metadata
+          Preview
         </button>
-
-        {blogType === "DRAFT" ? (
-          <button
-            className="border-2 border-[#007bff] bg-[#007bff] px-5 py-1 rounded-sm text-white 
-            hover:bg-[#3793f0] hover:border-[#3793f0] hover:cursor-pointer font-semibold"
-            onClick={onPublish || void 0}
-          >
-            Publish
-          </button>
-        ) : (
-          <button
-            className="border-2 border-[#b04730] bg-[#b04730] px-5 py-1 rounded-sm text-white 
-            hover:bg-[#a95744] hover:border-[#a95744] hover:cursor-pointer"
-            onClick={onUnPublish || void 0}
-          >
-            Unpublish
-          </button>
-        )}
       </div>
     </div>
   );

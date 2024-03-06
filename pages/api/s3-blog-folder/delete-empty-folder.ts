@@ -15,7 +15,6 @@ export default async function CreateNewBlog(
     case "DELETE":
       const objects = await getS3ObjectsAsJson(bucketName, folderName);
       if (objects && objects.length > 1) {
-        console.log(objects);
         res.status(403).end("Folder not empty");
         return;
       }

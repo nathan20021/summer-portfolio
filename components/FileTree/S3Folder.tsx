@@ -6,6 +6,7 @@ import FileCard from "./S3File";
 import EmptyFolderCard from "./EmptyFolder";
 import { AiFillFileAdd, AiFillFolderAdd } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
+import { IoReload } from "react-icons/io5";
 import EmptyFileCard from "./EmptyFile";
 import axios from "axios";
 import config from "../../config.json";
@@ -16,6 +17,7 @@ const FolderCard = ({
   url,
   isParentOpen,
   reloadTreeData,
+  isRoot = false,
 }: FileTreeFolder) => {
   name = name.replace("/", "");
   const [isOpen, setIsOpen] = useState(true);
@@ -96,7 +98,6 @@ const FolderCard = ({
               onChange={async (e) => {
                 const selectedFile = e.target.files[0];
                 if (!selectedFile) return;
-                console.log(selectedFile);
                 const uri = `${url}/${encodeURI(selectedFile.name)}`;
                 const presignedURL = await axios.get(
                   `/api/s3-blog-file/presigned-url?bucketName=${config.S3_BUCKET}&fileName=${uri}`
@@ -113,26 +114,42 @@ const FolderCard = ({
             />
             <AiFillFileAdd />
           </button>
-          <button
-            className="border-[1px] rounded-md p-[.3rem] text-white
+          {!isRoot ? (
+            <button
+              className="border-[1px] rounded-md p-[.3rem] text-white
                         hover:bg-[#ff7d7d] border-[#ff7d7d]"
-            onClick={async (e) => {
-              e.stopPropagation();
-              try {
-                await axios.delete("/api/s3-blog-folder/delete-empty-folder", {
-                  data: {
-                    bucketName: config.S3_BUCKET,
-                    folderName: url,
-                  },
-                });
+              onClick={async (e) => {
+                e.stopPropagation();
+                try {
+                  await axios.delete(
+                    "/api/s3-blog-folder/delete-empty-folder",
+                    {
+                      data: {
+                        bucketName: config.S3_BUCKET,
+                        folderName: url,
+                      },
+                    }
+                  );
+                  reloadTreeData();
+                } catch (e) {
+                  console.log(e);
+                }
+              }}
+            >
+              <MdDelete />
+            </button>
+          ) : (
+            <button
+              className="border-[1px] rounded-md p-[.3rem] text-white
+                        hover:bg-[#b0b0b0] border-[#b0b0b0]"
+              onClick={(e) => {
+                e.stopPropagation();
                 reloadTreeData();
-              } catch (e) {
-                console.log(e);
-              }
-            }}
-          >
-            <MdDelete />
-          </button>
+              }}
+            >
+              <IoReload />
+            </button>
+          )}
         </div>
       </div>
       {fileTreeChildren && (

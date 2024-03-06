@@ -11,7 +11,7 @@ const formatString = (str: string) => {
 
 const BlogTypIcon = ({ type }: { type: BlogType }) => {
   return (
-    <p className="text-base flex justify-center items-center text-[#cfcfcf]">
+    <p className="text-base flex justify-center items-center">
       {type === "PUBLISHED" && <MdPublishedWithChanges />}
       {type === "PRIVATE" && <RiGitRepositoryPrivateFill />}
       {type === "DRAFT" && <RiDraftFill />}
@@ -52,11 +52,16 @@ const DropDown = ({ options, selected, setSelected }: Props) => {
           {options.map((option, index) => (
             <button
               onClick={() => {
-                setSelected(option);
-                setIsOpen(false);
+                if (option !== selected) {
+                  setSelected(option);
+                  setIsOpen(false);
+                }
               }}
-              className="pl-4 py-1 bg-[#3c3c3c] flex justify-start text-sm
-                items-center w-full gap-2 cursor-pointer hover:bg-grey-800"
+              className={
+                option === selected
+                  ? "pl-4 py-1 bg-[#2e2e2e] flex justify-start text-sm items-center w-full gap-2 cursor-default text-grey-500"
+                  : "pl-4 py-1 bg-[#3B3B3B] flex justify-start text-sm items-center w-full gap-2 hover:bg-[#4f4f4f] cursor-pointer"
+              }
               key={index}
             >
               <BlogTypIcon type={option} />

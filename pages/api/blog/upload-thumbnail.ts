@@ -23,8 +23,6 @@ export default async function UpdateBlog(
           "image/jpeg",
           buffer
         );
-        console.log(uploadResponse);
-
         res.status(200).json({ body: uploadResponse });
       } catch (err) {
         console.log(err);

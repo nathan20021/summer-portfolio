@@ -13,18 +13,6 @@ const FileTree = ({
 }: FileTreeProps) => {
   const [data, setData] = useState<FileTreeElement[]>([]);
 
-  const getData = async () => {
-    const { data }: { data: recursiveFile[] | null } = await axios.get(
-      `/api/s3-blog-folder?folderName=${rootFolderName}&publicPrefix=${publicPrefix}`,
-      {
-        headers: {
-          Accept: "application/json",
-        },
-      }
-    );
-    return data;
-  };
-
   const parseData = (
     data: recursiveFile[] | null,
     currentUrl: string = `${publicPrefix}/${rootFolderName}`
@@ -54,20 +42,32 @@ const FileTree = ({
   };
 
   const loadTreeData = () => {
+    const getData = async () => {
+      const { data }: { data: recursiveFile[] | null } = await axios.get(
+        `/api/s3-blog-folder?folderName=${rootFolderName}&publicPrefix=${publicPrefix}`,
+        {
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+      return data;
+    };
     const s3data = getData();
 
     s3data.then((data) => {
-      console.log(data);
       setData(data[0] ? parseData(data[0].children) : []);
     });
   };
+
   useEffect(() => {
     loadTreeData();
   }, []);
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-[#131313]">
       <FolderCard
+        isRoot={true}
         name={displayName}
         FileTreeChildren={data}
         url={`${publicPrefix}/${rootFolderName}`}

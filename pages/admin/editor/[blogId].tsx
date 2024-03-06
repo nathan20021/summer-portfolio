@@ -14,10 +14,10 @@ import "katex/dist/katex.min.css";
 import { toJpeg } from "html-to-image";
 import matter from "gray-matter";
 import dynamic from "next/dynamic";
-import { MdArrowBackIosNew } from "react-icons/md";
 import FileTree from "../../../components/FileTree/S3FileTree";
 import TopBar from "@/components/Editor/ControlTopBar";
 import MetaDataModal from "@/components/Editor/MetaDataModal";
+import Head from "next/head";
 
 const CodeEditor = dynamic<any>(
   () => import("@uiw/react-textarea-code-editor").then((mod) => mod.default),
@@ -49,6 +49,8 @@ const BlogEditorPage = ({
     React.useState<boolean>(true);
   const [editedBlogData, setEditedBlogData] =
     React.useState<FrontEndBlogPost>(blogData);
+  const [currentBlogData, setCurrentBlogData] =
+    React.useState<FrontEndBlogPost>(blogData);
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
 
   const elementRef = useRef(null);
@@ -61,6 +63,10 @@ const BlogEditorPage = ({
     if (event.code === "KeyS" && (event.metaKey || event.ctrlKey)) {
       event.preventDefault();
       onSave();
+    }
+    if (event.code === "KeyB" && (event.metaKey || event.ctrlKey)) {
+      event.preventDefault();
+      setIsFileTreeVisible((prev) => !prev);
     }
   };
 
@@ -110,128 +116,131 @@ const BlogEditorPage = ({
       content: code,
     });
 
-    const metaDataRes = await axios.patch("/api/blog/update-metadata", {
-      id: blogData?.id,
-      title: editedBlogData.title,
-      type: editedBlogData.type,
-    });
-
-    if (res.status === 200 && metaDataRes.status === 200) {
+    if (res.status === 200) {
       setIsSaving(false);
     }
-    const thumbnailURL = await htmlToImageConvert();
-    await axios.post("/api/blog/upload-thumbnail", {
-      id: blogData?.id,
-      dataURL: thumbnailURL,
-    });
+    try {
+      const thumbnailURL = await htmlToImageConvert();
+      await axios.post("/api/blog/upload-thumbnail", {
+        id: blogData?.id,
+        dataURL: thumbnailURL,
+      });
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
-    <div className="min-w-screen min-h-screen flex flex-col justify-center items-center">
-      <div className="w-full">
-        <TopBar
-          openModal={() => setIsModalOpen(true)}
-          updatedAt={blogData?.updatedAt || ""}
-          blogType={editedBlogData.type}
-          isSaving={isSaving}
-          onSave={onSave}
-          fileName={editedBlogData.title}
-          setFileName={(val) => {
-            setEditedBlogData({
-              ...editedBlogData,
-              title: val,
-            });
-          }}
-        />
-      </div>
-      <div className="w-full flex">
-        <div
-          id="file-tree-container"
-          className="w-[15%] flex ease-in-out duration-150"
-          style={{
-            transform: isFileTreeVisible
-              ? "translateX(0)"
-              : "translateX(-100%)",
-          }}
-        >
-          <FileTree
-            rootFolderName={blogId}
-            displayName="Untitled"
-            publicPrefix="PUBLIC"
+    <>
+      <Head>
+        <title>[Editor] {currentBlogData.title}</title>
+      </Head>
+      <div className="min-w-screen min-h-screen flex flex-col justify-center items-center">
+        <div className="w-full">
+          <TopBar
+            openModal={() => setIsModalOpen(true)}
+            updatedAt={blogData?.updatedAt || ""}
+            blogType={editedBlogData.type}
+            isSaving={isSaving}
+            onSave={onSave}
+            fileName={currentBlogData.title}
           />
-          <div className="h-full flex justify-center items-center">
-            <button
-              className="bg-[#aaaaaa] hover:bg-[#ffffff] text-[#333333] 
-              p-1 rounded-full cursor-pointer flex justify-center items-center
-              ease-in-out duration-150
-              "
-              onClick={() => setIsFileTreeVisible((prev) => !prev)}
-              style={{
-                transform: isFileTreeVisible
-                  ? "rotate(0deg)"
-                  : "rotate(180deg)",
-              }}
-            >
-              <MdArrowBackIosNew />
-            </button>
-          </div>
         </div>
-        <div
-          id="preview-editor-container"
-          className="flex justify-center w-[85%] min-h-screen"
-        >
-          {!isPreview && (
-            <div
-              id="code-editor"
-              className=" w-1/2 wmde-markdown-var border-r-2 border-[#ffffff] select-none"
-              aria-readonly="true"
-            >
-              <CodeEditor
-                value={code}
-                rehypePlugins={[
-                  [
-                    rehypePrismAll,
-                    { ignoreMissing: true, showLineNumbers: true },
-                  ],
-                ]}
-                language="markdown"
-                minHeight={400}
-                placeholder="Paste Markdown here"
-                onChange={(evn: any) => setCode(evn.target.value)}
-                padding={15}
-                style={{
-                  height: "100%",
-                  fontSize: 16,
-                  backgroundColor: "#1f1f1f",
-                }}
-              />
-            </div>
-          )}
+        <div className="w-full flex">
           <div
-            ref={elementRef}
-            id="markdown-preview"
-            className={
-              isPreview ? "w-[90%] lg:w-[60%]" : "w-1/2 px-4 pb-10 bg-[#1f1f1f]"
-            }
+            id="file-tree-container"
+            className="w-[15%] flex ease-in-out duration-150"
+            style={{
+              transform: isFileTreeVisible
+                ? "translateX(0)"
+                : "translateX(-90%)",
+            }}
           >
-            <ReactMarkdownWrapper
-              code={code}
-              className={`${styles.post}  h-full`}
+            <FileTree
+              rootFolderName={blogId}
+              displayName={blogData.title}
+              publicPrefix="PUBLIC"
             />
           </div>
+          <div
+            id="preview-editor-container"
+            className={
+              isFileTreeVisible
+                ? "mt-10 flex justify-center w-[85%] min-h-screen"
+                : "mt-10 flex justify-center w-[100%] min-h-screen"
+            }
+          >
+            {!isPreview && (
+              <div
+                id="code-editor"
+                className=" w-1/2 wmde-markdown-var border-r-2 border-[#ffffff] select-none"
+                aria-readonly="true"
+              >
+                <CodeEditor
+                  value={code}
+                  rehypePlugins={[
+                    [
+                      rehypePrismAll,
+                      { ignoreMissing: true, showLineNumbers: true },
+                    ],
+                  ]}
+                  language="markdown"
+                  minHeight={400}
+                  placeholder="Paste Markdown here"
+                  onChange={(evn: any) => setCode(evn.target.value)}
+                  padding={15}
+                  style={{
+                    height: "100%",
+                    fontSize: 16,
+                    backgroundColor: "#1b1b1b",
+                  }}
+                />
+              </div>
+            )}
+            <div
+              ref={elementRef}
+              id="markdown-preview"
+              className={isPreview ? "w-[70%]" : "w-1/2 px-4 pb-10"}
+            >
+              <ReactMarkdownWrapper
+                code={code}
+                className={`${styles.post} h-full`}
+              />
+            </div>
+          </div>
         </div>
+        <MetaDataModal
+          currentTags={currentBlogTags}
+          allTags={tags}
+          editedBlogData={editedBlogData}
+          currentBlogData={currentBlogData}
+          setEditedBlogData={setEditedBlogData}
+          onSaveMetaData={async (imageURL, selectedTags) => {
+            onSave();
+            const updatingPostRes = await axios.patch(
+              "/api/blog/update-metadata",
+              {
+                id: currentBlogData.id,
+                cover: imageURL,
+                title: editedBlogData.title,
+                description: editedBlogData.description,
+                readTime: editedBlogData.readTime,
+                views: editedBlogData.views,
+                type: editedBlogData.type,
+                url: editedBlogData.url,
+                tags: selectedTags,
+              }
+            );
+            if (updatingPostRes.status === 200) {
+              setCurrentBlogData(updatingPostRes.data.body);
+              setEditedBlogData(updatingPostRes.data.body);
+            }
+          }}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
       </div>
-      <MetaDataModal
-        currentTags={currentBlogTags}
-        allTags={tags}
-        editedBlogData={editedBlogData}
-        currentBlogData={blogData}
-        setEditedBlogData={setEditedBlogData}
-        onSaveMetaData={() => {}}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
-    </div>
+    </>
   );
 };
 

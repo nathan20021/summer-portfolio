@@ -1,6 +1,7 @@
 /* eslint-disable require-jsdoc */
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/db";
+import { Tags } from "@prisma/client";
 
 export default async function UpdateBlog(
   req: NextApiRequest,
@@ -18,10 +19,16 @@ export default async function UpdateBlog(
             ...(body.description && { description: body.description }),
             ...(body.readTime && { readTime: parseInt(body.readTime) }),
             ...(body.views && { views: parseInt(body.views) }),
-            ...(body.cover && { cover: body.cover }),
             ...(body.type && { type: body.type }),
             ...(body.bucketURL && { bucketURL: body.bucketURL }),
             ...(body.url && { url: body.url }),
+            ...(body.tags && {
+              tags: {
+                set: [],
+                connect: body.tags.map((tag: Tags) => ({ id: tag.id })),
+              },
+            }),
+            cover: body.cover,
             publishedAt: new Date(),
             updatedAt: new Date(),
           },

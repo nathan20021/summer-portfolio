@@ -6,11 +6,16 @@ import DropDown from "./VisibilityDropdown";
 import { RxCross2 } from "react-icons/rx";
 import BlogCard from "./BlogCardPreview";
 import { BsThreeDots } from "react-icons/bs";
+import axios from "axios";
+import config from "../../config.json";
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  onSaveMetaData: () => void;
+  onSaveMetaData: (
+    imageURL: string | null,
+    selectedTagIds: Tags[]
+  ) => Promise<void>;
   setEditedBlogData: (data: FrontEndBlogPost) => void;
   editedBlogData: FrontEndBlogPost;
   currentBlogData: FrontEndBlogPost;
@@ -30,11 +35,23 @@ const Modal = ({
   currentTags,
   allTags,
 }: Props) => {
-  const [selectedTags, setSelectedTags] = React.useState<number[]>(
-    currentTags.map((tag) => tag.id)
-  );
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen]);
+  const [selectedTags, setSelectedTags] = React.useState<Tags[]>(currentTags);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
-  const [file, setFile] = React.useState<File | null>(null);
+  const [coverImageFile, setCoverImageFile] = React.useState<File | null>(null);
+  const blogDataCoverImageFileName = decodeURIComponent(editedBlogData.cover)
+    .split("/")
+    .pop();
   return (
     <>
       {isOpen && (
@@ -69,11 +86,7 @@ const Modal = ({
                     </p>
                     <DropDown
                       showArrow={true}
-                      options={
-                        editedBlogData.type === "DRAFT"
-                          ? ["DRAFT"]
-                          : ["PUBLISHED", "PRIVATE"]
-                      }
+                      options={["DRAFT", "PUBLISHED", "PRIVATE"]}
                       selected={editedBlogData.type}
                       setSelected={(type) => {
                         setEditedBlogData({
@@ -121,11 +134,14 @@ const Modal = ({
                     </div>
                   </div>
                   <div className="w-[45%] h-full flex flex-col">
-                    <p className="text-base mb-1 after:ml-[0.2rem] after:content-['*'] after:text-blue-100">
-                      Cover Image
-                    </p>
+                    <div className="flex items-center gap-1 ">
+                      <p className="text-base after:ml-[0.2rem] after:content-['*'] after:text-blue-100">
+                        Cover Image
+                      </p>
+                      <p className="text-xs text-grey-600">740x493 (1.5)</p>
+                    </div>
                     <div className="flex">
-                      {!file ? (
+                      {!editedBlogData.cover && !coverImageFile ? (
                         <button
                           onClick={() => {
                             fileInputRef.current?.click();
@@ -141,16 +157,18 @@ const Modal = ({
                            bg-[#3b3b3b] border-[#3b3b3b] flex justify-center items-center"
                         >
                           <p className="text-ellipsis flex-1 line-clamp-1 overflow-hidden">
-                            {file?.name || ""}
+                            {coverImageFile?.name ||
+                              blogDataCoverImageFileName ||
+                              ""}
                           </p>
                           <button
                             className="pl-2 ml-2"
                             onClick={() => {
                               fileInputRef.current.value = null;
-                              setFile(null);
+                              setCoverImageFile(null);
                               setEditedBlogData({
                                 ...editedBlogData,
-                                cover: "",
+                                cover: null,
                               });
                             }}
                           >
@@ -165,7 +183,7 @@ const Modal = ({
                         accept="image/*"
                         onChange={(e) => {
                           if (e.target.files) {
-                            setFile(e.target.files[0]);
+                            setCoverImageFile(e.target.files[0]);
                             setEditedBlogData({
                               ...editedBlogData,
                               cover: URL.createObjectURL(e.target.files[0]),
@@ -254,18 +272,18 @@ const Modal = ({
                   <div
                     key={index}
                     className={
-                      selectedTags.includes(tag.id)
+                      selectedTags.map((t) => t.id).includes(tag.id)
                         ? "select-none bg-[#007bff] hover:bg-[#3793f0] px-5 py-1 text-xs rounded-full cursor-pointer"
                         : "select-none bg-grey-800 px-5 py-1 text-xs rounded-full cursor-pointer hover:bg-grey-600"
                     }
                     onClick={() => {
-                      if (selectedTags.includes(tag.id)) {
+                      if (selectedTags.map((t) => t.id).includes(tag.id)) {
                         setSelectedTags((prev) =>
-                          prev.filter((tid) => tid !== tag.id)
+                          prev.filter((prevTag) => prevTag.id !== tag.id)
                         );
                       } else {
                         if (selectedTags.length <= 2) {
-                          setSelectedTags((prev) => [...prev, tag.id]);
+                          setSelectedTags((prevTag) => [...prevTag, tag]);
                         }
                       }
                     }}
@@ -287,9 +305,7 @@ const Modal = ({
                 <BlogCard
                   metaData={{
                     ...editedBlogData,
-                    tags: allTags.filter((tag) =>
-                      selectedTags.includes(tag.id)
-                    ) as Tags[],
+                    tags: selectedTags,
                     read_time: editedBlogData.readTime,
                     published_at: editedBlogData.updatedAt,
                     file_name: editedBlogData.title,
@@ -299,7 +315,7 @@ const Modal = ({
               </div>
               <div
                 id="button-group"
-                className="flex gap-2 w-full justify-end mt-5"
+                className="flex gap-2 w-full justify-end mt-10 pb-5"
               >
                 <button
                   className="text-sm px-4 py-1 border-[0.5px] rounded-sm border-grey-600 hover:border-grey-500 hover:bg-grey-900"
@@ -308,17 +324,55 @@ const Modal = ({
                   Close
                 </button>
                 <button
-                  className="text-sm px-4 py-1 border-[0.5px] rounded-sm border-grey-600 hover:border-grey-500 hover:bg-grey-900"
-                  onClick={onSaveMetaData}
-                >
-                  Save
-                </button>
-                <button
                   className="text-sm px-4 py-1 border-[0.5px] rounded-sm border-[#007bff] bg-[#007bff] 
-                    hover:bg-[#3793f0] hover:border-[#3793f0]"
-                  onClick={onClose}
+                          hover:bg-[#3793f0] hover:border-[#3793f0]"
+                  onClick={async () => {
+                    let imageURL: string | null = editedBlogData.cover;
+                    if (coverImageFile) {
+                      await axios.post(
+                        "/api/s3-blog-folder/create-empty-folder",
+                        {
+                          bucketName: config.S3_BUCKET,
+                          folderName: `PUBLIC/${currentBlogData.id}/COVER`,
+                        }
+                      );
+                      const uri = `PUBLIC/${
+                        currentBlogData.id
+                      }/COVER/${encodeURI(coverImageFile.name)}`;
+
+                      const presignedURL = await axios.get(
+                        `/api/s3-blog-file/presigned-url?bucketName=${config.S3_BUCKET}&fileName=${uri}`
+                      );
+                      const res = await axios.put(
+                        presignedURL.data.s3Response,
+                        coverImageFile,
+                        {
+                          headers: {
+                            "Content-Type": coverImageFile.type,
+                            "Allow-Cross-Origin-Access": "*",
+                          },
+                        }
+                      );
+                      if (res.status === 200) {
+                        imageURL = `https://${
+                          config.S3_BUCKET_ENDPOINT
+                        }/${encodeURIComponent(uri)}`;
+                      }
+                    }
+                    await onSaveMetaData(imageURL, selectedTags);
+                    setCoverImageFile(null);
+                  }}
                 >
-                  Publish
+                  {currentBlogData.type === editedBlogData.type
+                    ? "Update"
+                    : currentBlogData.type === "DRAFT"
+                    ? "Publish"
+                    : editedBlogData.type === "DRAFT"
+                    ? "Unpublish"
+                    : currentBlogData.type === "PUBLISHED" &&
+                      editedBlogData.type === "PRIVATE"
+                    ? "Make Private"
+                    : "Make Public"}
                 </button>
               </div>
             </div>

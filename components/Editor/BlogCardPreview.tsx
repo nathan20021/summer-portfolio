@@ -1,5 +1,4 @@
 import * as React from "react";
-import Image from "next/image";
 import { BlogMetaData } from "../../interfaces/index";
 import { BsThreeDots } from "react-icons/bs";
 const BlogCard = ({ metaData }: { metaData: BlogMetaData }) => {
@@ -10,14 +9,12 @@ const BlogCard = ({ metaData }: { metaData: BlogMetaData }) => {
                   flex justify-start items-center ease-out duration-500 peer hover:bg-[#262626]"
     >
       <div id="image-container" className="w-2/5 relative ml-3">
-        <Image
+        <img
           className="rounded"
           onError={(e) => (e.currentTarget.src = "/gradient.png")}
-          src={metaData.cover}
-          layout="responsive"
+          src={metaData.cover || "/gradient.png"}
           width={740}
           height={493}
-          objectFit="cover"
         />
       </div>
       <div
