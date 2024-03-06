@@ -41,7 +41,7 @@ const DropDown = ({ options, selected, setSelected }: Props) => {
           {selected === "PUBLISHED" ? "Public" : formatString(selected)}
         </div>
         <div className="px-2 border-l-2 text-lg border-[#828282]">
-          <MdKeyboardArrowDown className={isOpen && "rotate-180"} />
+          <MdKeyboardArrowDown className={isOpen ? "rotate-180" : ""} />
         </div>
       </button>
       {isOpen && (

@@ -23,8 +23,9 @@ const FolderCard = ({
   const [isOpen, setIsOpen] = useState(true);
   const [isNewEmptyFolderActive, setIsNewEmptyFolderActive] = useState(false);
   const filePickerRef = useRef<HTMLInputElement>(null);
-  const [fileTreeChildren, setFileTreeChildren] =
-    useState<FileTreeElement[]>(FileTreeChildren);
+  const [fileTreeChildren, setFileTreeChildren] = useState<FileTreeElement[]>(
+    FileTreeChildren || []
+  );
 
   const removeNewFolder = () => {
     if (fileTreeChildren[0] && fileTreeChildren[0].type === "new-folder") {
@@ -33,7 +34,7 @@ const FolderCard = ({
   };
 
   useEffect(() => {
-    setFileTreeChildren(FileTreeChildren);
+    setFileTreeChildren(FileTreeChildren || []);
   }, [FileTreeChildren]);
 
   return (
@@ -96,7 +97,7 @@ const FolderCard = ({
               style={{ display: "none" }}
               accept=".jpg, .png, .jpeg, .webp, .gif"
               onChange={async (e) => {
-                const selectedFile = e.target.files[0];
+                const selectedFile = e.target.files ? e.target.files[0] : null;
                 if (!selectedFile) return;
                 const uri = `${url}/${encodeURI(selectedFile.name)}`;
                 const presignedURL = await axios.get(

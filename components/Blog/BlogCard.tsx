@@ -28,7 +28,7 @@ const BlogCard = ({
         <a id="image-container" className="w-full sm:w-2/5 relative">
           <Image
             alt={`Cover Image ${index} : ${metaData.title} `}
-            src={metaData.cover}
+            src={metaData.cover || "/gradient.png"}
             layout="responsive"
             width={740}
             height={493}
@@ -62,24 +62,25 @@ const BlogCard = ({
           className=" z-50 w-full h-[18%] flex flex-start items-center
                    ease-out duration-500 gap-6 peer-hover:bg-[#262626]"
         >
-          {metaData.tags.map((tag, index) => {
-            return (
-              <button
-                onClick={() => {
-                  setCurrentFilterId(tag.id);
-                  filterMetaData(tag.id);
-                }}
-                className="z-[1000] select-none py-1 px-3 rounded-xl text-xs
+          {metaData?.tags &&
+            metaData?.tags.map((tag, index) => {
+              return (
+                <button
+                  onClick={() => {
+                    setCurrentFilterId(tag.id);
+                    filterMetaData(tag.id);
+                  }}
+                  className="z-[1000] select-none py-1 px-3 rounded-xl text-xs
                          ease-out duration-300 bg-[#404040]"
-                key={index}
-                style={{
-                  color: tag.id === currentFilterId ? "#4bd8ed" : "white",
-                }}
-              >
-                {tag.name}
-              </button>
-            );
-          })}
+                  key={index}
+                  style={{
+                    color: tag.id === currentFilterId ? "#4bd8ed" : "white",
+                  }}
+                >
+                  {tag.name}
+                </button>
+              );
+            })}
         </div>
       </div>
     </div>

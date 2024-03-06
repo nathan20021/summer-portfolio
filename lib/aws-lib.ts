@@ -93,6 +93,7 @@ export const generateUploadPreSignedUrl = async (
 ) => {
   try {
     const command = new PutObjectCommand({ Bucket: bucketName, Key: fileName });
+    // @ts-ignore
     return await getSignedUrl(s3Client, command, { expiresIn: 1000 });
   } catch (error) {
     console.error("Error generating upload pre-signed URL:", error);

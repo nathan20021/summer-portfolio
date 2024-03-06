@@ -50,7 +50,7 @@ export type FileTreeNewFolder = {
 export type BlogMetaData = {
   id?: string;
   title: string;
-  cover: string;
+  cover: string | null;
   description: string;
   published_at?: string | number;
   updated_at?: string | number;

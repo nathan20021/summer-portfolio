@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 type Props = {
   updatedAt: string;
   blogType: BlogType;
-  onSave?: () => Promise<void>;
+  onSave: () => Promise<void>;
   isSaving?: boolean;
   onPublish?: () => Promise<void>;
   isPublishing?: boolean;

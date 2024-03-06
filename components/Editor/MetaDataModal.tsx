@@ -49,7 +49,9 @@ const Modal = ({
   const [selectedTags, setSelectedTags] = React.useState<Tags[]>(currentTags);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const [coverImageFile, setCoverImageFile] = React.useState<File | null>(null);
-  const blogDataCoverImageFileName = decodeURIComponent(editedBlogData.cover)
+  const blogDataCoverImageFileName = decodeURIComponent(
+    editedBlogData.cover || ""
+  )
     .split("/")
     .pop();
   return (
@@ -164,7 +166,10 @@ const Modal = ({
                           <button
                             className="pl-2 ml-2"
                             onClick={() => {
-                              fileInputRef.current.value = null;
+                              if (fileInputRef.current) {
+                                // @ts-ignore
+                                fileInputRef.current.value = null;
+                              }
                               setCoverImageFile(null);
                               setEditedBlogData({
                                 ...editedBlogData,

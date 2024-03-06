@@ -14,10 +14,10 @@ const FileTree = ({
   const [data, setData] = useState<FileTreeElement[]>([]);
 
   const parseData = (
-    data: recursiveFile[] | null,
+    data: recursiveFile[] | null | undefined,
     currentUrl: string = `${publicPrefix}/${rootFolderName}`
   ): FileTreeElement[] | null => {
-    if (data === null) return null;
+    if (!data) return null;
 
     return data.map((recFile: recursiveFile) => {
       if (recFile.itemType == "file") {
@@ -56,7 +56,12 @@ const FileTree = ({
     const s3data = getData();
 
     s3data.then((data) => {
-      setData(data[0] ? parseData(data[0].children) : []);
+      if (!data) {
+        setData([]);
+        return;
+      }
+      const parsedData = data[0] ? parseData(data[0].children) : [];
+      setData(parsedData || []);
     });
   };
 

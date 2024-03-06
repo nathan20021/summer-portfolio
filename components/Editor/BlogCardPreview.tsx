@@ -41,7 +41,7 @@ const BlogCard = ({ metaData }: { metaData: BlogMetaData }) => {
           className=" w-full flex flex-start items-center min-h-[24px]
                    ease-out duration-500 gap-3 peer-hover:bg-[#262626]"
         >
-          {metaData.tags.length > 0 ? (
+          {metaData?.tags && metaData?.tags.length > 0 ? (
             metaData.tags.map((tag, index) => {
               return (
                 <div
