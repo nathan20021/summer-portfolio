@@ -110,9 +110,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
 const getParamFromList = (data: Array<BlogPost>) => {
   const result: Array<{ params: { slug: string } }> = [];
-  data.forEach((element) => {
+  data.forEach((blogPost: BlogPost) => {
+    if (!blogPost.url) return;
     result.push({
-      params: { slug: element.url },
+      params: { slug: blogPost.url },
     });
   });
   return result;
