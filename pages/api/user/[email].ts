@@ -24,13 +24,13 @@ export default async function userHandler(
       }
       if (email !== undefined && isValidEmail(email)) {
         // Check if user exists
-        const userData = await prisma.subcribers.findFirst({
+        const userData = await prisma.subscribers.findFirst({
           where: {
             email: email,
           },
         });
         if (userData === null) {
-          await prisma.subcribers.create({
+          await prisma.subscribers.create({
             data: {
               email: email,
             },

@@ -3,20 +3,21 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
   relationMode = "prisma"
 }
 
 model BlogPost {
   id          String   @id @default(uuid())
-  readTime    Int      @db.UnsignedTinyInt
-  cover       String?   @db.VarChar(255)
+  readTime    Int      @db.Integer
+  cover       String?  @db.VarChar(255)
   description String   @db.VarChar(255)
   publishedAt DateTime @default(now())
   updatedAt   DateTime @default(now())
   title       String   @db.VarChar(255)
-  views       Int
+  views       Int      @db.Integer
   url         String   @default("/") @db.VarChar(255)
   featured    Boolean  @default(false)
   bucketURL   String   @default("/") @db.VarChar(255)
@@ -30,7 +31,7 @@ enum BlogType {
   PRIVATE
 }
 
-model Subcribers {
+model Subscribers {
   id       Int      @id @default(autoincrement())
   email    String   @db.VarChar(255)
   subbedAt DateTime @default(now())
@@ -43,7 +44,7 @@ model Tags {
 }
 
 model BlogPostToTags {
-  A Int
+  A String
   B Int
 
   @@unique([A, B], map: "_BlogPostToTags_AB_unique")

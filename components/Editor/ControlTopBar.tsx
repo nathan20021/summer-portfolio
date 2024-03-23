@@ -73,10 +73,13 @@ const ControlTopBar = ({
         >
           <div id="title" className="w-full">
             <h1
-              className="text-xl font-semibold bg-grey-900 caret-white indent-2 
-                outline-0 w-full"
+              className={
+                fileName === "Untitled"
+                  ? "text-xl font-semibold text-[#b0b0b0] bg-grey-900 caret-white indent-2 outline-0 w-full"
+                  : "text-xl font-semibold text-[#ffffff] bg-grey-900 caret-white indent-2 outline-0 w-full"
+              }
             >
-              {fileName === "Untitled" ? "" : fileName}
+              {fileName}
             </h1>
           </div>
           <div id="last-edited-status">

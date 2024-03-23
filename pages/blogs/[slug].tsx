@@ -111,7 +111,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 const getParamFromList = (data: Array<BlogPost>) => {
   const result: Array<{ params: { slug: string } }> = [];
   data.forEach((blogPost: BlogPost) => {
-    if (!blogPost.url) return;
+    if (!blogPost.url || blogPost.type !== "PUBLISHED") return;
     result.push({
       params: { slug: blogPost.url },
     });

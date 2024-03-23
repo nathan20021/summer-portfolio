@@ -9,7 +9,7 @@ export default async function handler(
   const { method } = _req;
   switch (method) {
     case "GET":
-      const subs = await prisma.subcribers.findMany();
+      const subs = await prisma.subscribers.findMany();
       res.status(200).json({ data: subs });
       break;
     default:
