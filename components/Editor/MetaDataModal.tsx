@@ -359,9 +359,8 @@ const Modal = ({
                         }
                       );
                       if (res.status === 200) {
-                        imageURL = `https://${
-                          config.S3_BUCKET_ENDPOINT
-                        }/${encodeURIComponent(uri)}`;
+                        console.log(res);
+                        imageURL = `https://${config.S3_BUCKET_ENDPOINT}/${uri}`;
                       }
                     }
                     await onSaveMetaData(imageURL, selectedTags);

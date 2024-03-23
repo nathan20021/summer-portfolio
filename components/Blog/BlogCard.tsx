@@ -26,13 +26,12 @@ const BlogCard = ({
     >
       <Link href={`/blogs/${metaData.file_name}`} key={index}>
         <a id="image-container" className="w-full sm:w-2/5 relative">
-          <Image
+          <img
+            onError={(e) => (e.currentTarget.src = "/gradient.png")}
             alt={`Cover Image ${index} : ${metaData.title} `}
             src={metaData.cover || "/gradient.png"}
-            layout="responsive"
             width={740}
             height={493}
-            objectFit="cover"
           />
         </a>
       </Link>
