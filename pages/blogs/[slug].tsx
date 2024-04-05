@@ -62,7 +62,7 @@ export async function getStaticPaths() {
   const files = await prisma.blogPost.findMany();
   return {
     paths: getParamFromList(files),
-    fallback: false,
+    fallback: "blocking",
   };
 }
 

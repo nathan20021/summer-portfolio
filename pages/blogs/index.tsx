@@ -299,6 +299,7 @@ export async function getStaticProps() {
           a.name.localeCompare(b.name)
       ),
     },
+    revalidate: 60 * 60,
   };
 }
 
