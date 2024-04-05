@@ -346,7 +346,7 @@ const MarkdownComponents: object = {
           <h1 className="text-white text-xl">{icon}</h1>
           <h1 className="text-xl text-[#ffffff]">{title}</h1>
         </div>
-        <div className="indent-5">{children}</div>
+        <div className="pl-5">{children}</div>
       </div>
     );
   },
@@ -366,7 +366,7 @@ const MarkdownComponents: object = {
           <h1 className="text-white text-xl">{icon}</h1>
           <h1 className="text-xl text-[#e5ffb9]">{title}</h1>
         </div>
-        <div className="indent-5">{children}</div>
+        <div className="pl-5">{children}</div>
       </div>
     );
   },
@@ -380,13 +380,13 @@ const MarkdownComponents: object = {
   }: CallOutProps) => {
     return (
       <div
-        className={`${calloutCommonStyles} notes border-l-[#8d81ff] bg-[#8d81ff33] ${className} border-l-[5px]`}
+        className={`${calloutCommonStyles} notes border-l-[#8d81ff] bg-[#8d81ff33] p-10 ${className} border-l-[5px]`}
       >
         <div className="flex w-full">
           <h1 className="text-white text-xl">{icon}</h1>
           <h1 className="text-xl text-[#cdcfff]">{title}</h1>
         </div>
-        <div className="indent-5">{children}</div>
+        <div className="pl-5">{children}</div>
       </div>
     );
   },
@@ -406,7 +406,7 @@ const MarkdownComponents: object = {
           <h1 className="text-white text-xl">{icon}</h1>
           <h1 className="text-xl text-[#f5cb90]">{title}</h1>
         </div>
-        <div className="indent-5">{children}</div>
+        <div className="pl-5">{children}</div>
       </div>
     );
   },
@@ -426,7 +426,7 @@ const MarkdownComponents: object = {
           <h1 className="text-white text-xl">{icon}</h1>
           <h1 className="text-xl text-[#ffacac]">{title}</h1>
         </div>
-        <div className="indent-5">{children}</div>
+        <div className="pl-5">{children}</div>
       </div>
     );
   },
@@ -446,7 +446,7 @@ const MarkdownComponents: object = {
           <h1 className="text-white text-xl">{icon}</h1>
           <h1 className="text-xl text-[#addaff]">{title}</h1>
         </div>
-        <div className="indent-5">{children}</div>
+        <div className="pl-5">{children}</div>
       </div>
     );
   },

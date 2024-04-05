@@ -11,7 +11,7 @@ const login = () => {
       {session ? (
         <div className="px-20 py-10 bg-[#333333] z-50">
           <h1 className="text-white font-bold z-50 pb-6">
-            🗿🗿 Welcome back Master Nathan 🗿🗿
+            🗿🗿 Welcome back Master 🗿🗿
           </h1>
           <div className="flex gap-3">
             <button

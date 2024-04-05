@@ -149,41 +149,36 @@ const BlogEditorPage = ({
         <div className="w-full flex">
           <div
             id="file-tree-container"
-            className="w-[15%] flex ease-in-out duration-150"
-            style={{
-              transform: isFileTreeVisible
-                ? "translateX(0)"
-                : "translateX(-90%)",
-            }}
+            className="w-[5%] flex ease-in-out duration-150 relative z-[100]"
           >
-            <FileTree
-              rootFolderName={blogId}
-              displayName={blogData.title}
-              publicPrefix="PUBLIC"
-            />
+            <div
+              className="flex ease-in-out duration-150 w-[500px] h-full absolute"
+              style={{
+                transform: isFileTreeVisible
+                  ? "translateX(0)"
+                  : "translateX(-500px)",
+              }}
+            >
+              <FileTree
+                rootFolderName={blogId}
+                displayName={blogData.title}
+                publicPrefix="PUBLIC"
+              />
+            </div>
           </div>
           <div
             id="preview-editor-container"
-            className={
-              isFileTreeVisible
-                ? "mt-10 flex justify-center w-[85%] min-h-screen"
-                : "mt-10 flex justify-center w-[100%] min-h-screen"
-            }
+            className="flex justify-center w-full min-h-screen"
           >
             {!isPreview && (
               <div
                 id="code-editor"
-                className=" w-1/2 wmde-markdown-var border-r-2 border-[#ffffff] select-none"
+                className=" w-1/2 wmde-markdown-var border-r-2 border-[#606060] select-none pt-8"
                 aria-readonly="true"
               >
                 <CodeEditor
                   value={code}
-                  rehypePlugins={[
-                    [
-                      rehypePrismAll,
-                      { ignoreMissing: true, showLineNumbers: true },
-                    ],
-                  ]}
+                  rehypePlugins={[[rehypePrismAll, { ignoreMissing: true }]]}
                   language="markdown"
                   minHeight={400}
                   placeholder="Paste Markdown here"
@@ -192,7 +187,7 @@ const BlogEditorPage = ({
                   style={{
                     height: "100%",
                     fontSize: 16,
-                    backgroundColor: "#1b1b1b",
+                    backgroundColor: "#202020",
                   }}
                 />
               </div>
@@ -200,7 +195,7 @@ const BlogEditorPage = ({
             <div
               ref={elementRef}
               id="markdown-preview"
-              className={isPreview ? "w-[70%]" : "w-1/2 px-4 pb-10"}
+              className={isPreview ? "w-[70%] px-4 py-10" : "w-1/2 px-4 py-10"}
             >
               <ReactMarkdownWrapper
                 code={code}

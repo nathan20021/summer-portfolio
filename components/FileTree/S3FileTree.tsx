@@ -70,7 +70,7 @@ const FileTree = ({
   }, []);
 
   return (
-    <div className="w-full bg-[#131313] pt-5">
+    <div className="w-full bg-[#161616] pt-5">
       <FolderCard
         isRoot={true}
         name={displayName}
