@@ -62,4 +62,5 @@ export type BlogMetaData = {
   tags?: Array<Tags>;
   featured: boolean;
   type: "PUBLISHED" | "DRAFT" | "PRIVATE";
+  url?: String;
 };

@@ -1,7 +1,14 @@
 import * as React from "react";
 import { BlogMetaData } from "../../interfaces/index";
 import { BsThreeDots } from "react-icons/bs";
-const BlogCard = ({ metaData }: { metaData: BlogMetaData }) => {
+import Link from "next/link";
+import { FaExternalLinkAlt } from "react-icons/fa";
+type props = {
+  metaData: BlogMetaData;
+  currentMetadata: BlogMetaData;
+};
+
+const BlogCard = ({ metaData, currentMetadata }: props) => {
   return (
     <div
       id="blog-container-box"
@@ -9,6 +16,17 @@ const BlogCard = ({ metaData }: { metaData: BlogMetaData }) => {
                   flex justify-start items-center ease-out duration-500 peer hover:bg-[#262626]"
     >
       <div id="image-container" className="w-2/5 relative ml-3">
+        {currentMetadata.type === "PUBLISHED" && (
+          <Link href={`/blogs/${currentMetadata.url}` || "/404"}>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              className="absolute w-full h-full bg-black hover:opacity-90 opacity-0 rounded flex items-center justify-center"
+            >
+              <FaExternalLinkAlt />
+            </a>
+          </Link>
+        )}
         <img
           className="rounded"
           onError={(e) => (e.currentTarget.src = "/gradient.png")}

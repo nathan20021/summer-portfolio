@@ -76,6 +76,13 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     },
   });
 
+  if (!metaData || metaData.type !== "PUBLISHED") {
+    return {
+      redirect: {
+        destination: "/404",
+      },
+    };
+  }
   const res = await axios.get(`${process.env.URL}/api/blog/${slug}`, {
     timeout: 5000,
     headers: {

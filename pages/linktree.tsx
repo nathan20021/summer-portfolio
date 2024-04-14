@@ -62,11 +62,6 @@ const FeaturedPosts: Array<LinkCardProps> = [
   },
   {
     icon: <FaLink />,
-    title: <p>Rocketry Leadership Team</p>,
-    link: "https://www.macrocketry.ca/members",
-  },
-  {
-    icon: <FaLink />,
     title: <p>McMaster Faculty of Engineering</p>,
     link: "https://www.linkedin.com/feed/update/urn:li:activity:6972576223445090305/",
   },
