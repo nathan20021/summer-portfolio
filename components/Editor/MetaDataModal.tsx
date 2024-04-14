@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React from "react";
 import { FrontEndBlogPost } from "../../pages/admin/editor/[blogId]";
 import { FaCheck } from "react-icons/fa";
@@ -46,6 +47,8 @@ const Modal = ({
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen]);
+
+  const isUpdateDisabled = _.isEqual(currentBlogData, editedBlogData);
   const [selectedTags, setSelectedTags] = React.useState<Tags[]>(currentTags);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const [coverImageFile, setCoverImageFile] = React.useState<File | null>(null);
@@ -315,6 +318,16 @@ const Modal = ({
                     published_at: editedBlogData.updatedAt,
                     file_name: editedBlogData.title,
                     cover: editedBlogData.cover,
+                    url: editedBlogData.url,
+                  }}
+                  currentMetadata={{
+                    ...currentBlogData,
+                    tags: selectedTags,
+                    read_time: currentBlogData.readTime,
+                    published_at: currentBlogData.updatedAt,
+                    file_name: currentBlogData.title,
+                    cover: currentBlogData.cover,
+                    url: currentBlogData.url,
                   }}
                 />
               </div>
@@ -329,8 +342,11 @@ const Modal = ({
                   Close
                 </button>
                 <button
-                  className="text-sm px-4 py-1 border-[0.5px] rounded-sm border-[#007bff] bg-[#007bff] 
-                          hover:bg-[#3793f0] hover:border-[#3793f0]"
+                  className={
+                    isUpdateDisabled
+                      ? "text-sm px-4 py-1 border-[0.5px] rounded-sm border-grey-600 bg-grey-600 text-grey-300 cursor-not-allowed"
+                      : "text-sm px-4 py-1 border-[0.5px] rounded-sm border-[#007bff] bg-[#007bff] hover:bg-[#3793f0] hover:border-[#3793f0]"
+                  }
                   onClick={async () => {
                     let imageURL: string | null = editedBlogData.cover;
                     if (coverImageFile) {

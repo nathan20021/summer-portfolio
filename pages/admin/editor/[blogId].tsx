@@ -44,9 +44,9 @@ const BlogEditorPage = ({
 }: prop) => {
   const [code, setCode] = React.useState<string>(content);
   const [isSaving, setIsSaving] = React.useState<boolean>(false);
-  const [isPreview, setIsPreview] = React.useState<boolean>(true);
+  const [isPreview, setIsPreview] = React.useState<boolean>(false);
   const [isFileTreeVisible, setIsFileTreeVisible] =
-    React.useState<boolean>(true);
+    React.useState<boolean>(false);
   const [editedBlogData, setEditedBlogData] =
     React.useState<FrontEndBlogPost>(blogData);
   const [currentBlogData, setCurrentBlogData] =
@@ -117,6 +117,11 @@ const BlogEditorPage = ({
     });
 
     if (res.status === 200) {
+      if (blogData?.url) {
+        await axios.post("/api/revalidate", {
+          path: `/blogs/${blogData.url}`,
+        });
+      }
       setIsSaving(false);
     }
     try {
@@ -226,6 +231,11 @@ const BlogEditorPage = ({
                 tags: selectedTags,
               }
             );
+            if (editedBlogData.url !== currentBlogData.url) {
+              await axios.post("/api/revalidate", {
+                path: `/blogs`,
+              });
+            }
             if (updatingPostRes.status === 200) {
               setCurrentBlogData(updatingPostRes.data.body);
               setEditedBlogData(updatingPostRes.data.body);
