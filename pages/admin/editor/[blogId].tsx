@@ -81,7 +81,7 @@ const BlogEditorPage = ({
           node.classList?.contains(htmlClassName)
         );
       },
-      cacheBust: false,
+      cacheBust: true,
       quality: 0.1,
       width: 900,
       height: 1300,
@@ -119,7 +119,7 @@ const BlogEditorPage = ({
     if (res.status === 200) {
       if (blogData?.url) {
         await axios.post("/api/revalidate", {
-          path: `/blogs/${blogData.url}`,
+          path: `/blogs/${currentBlogData.url}`,
         });
       }
       setIsSaving(false);
