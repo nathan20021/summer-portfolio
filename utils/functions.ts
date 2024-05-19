@@ -83,3 +83,24 @@ export function slugifyHeading(heading: string): string {
     .replace(/ /g, "-")
     .replace(/[^a-zA-Z0-9-]/g, "");
 }
+
+/**
+ * Extracts the YouTube video ID from a given URL.
+ * @param {string} url - The YouTube video URL.
+ * @return {string | null} - The YouTube video ID if found, otherwise null.
+ */
+export function getYTEmbeddedID(url: string): string | null {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = url.match(regExp);
+
+  return match && match[2].length === 11 ? match[2] : null;
+}
+
+/**
+ * @param {string} name - Name of the file.
+ * @return {boolean}
+ */
+export const validateImageFileName = (name: string): boolean => {
+  const imageFileTypes = [".jpg", ".png", ".jpeg", ".webp", ".gif"];
+  return imageFileTypes.some((fileType) => name.endsWith(fileType));
+};

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { FcImageFile } from "react-icons/fc";
 import { FiFileText } from "react-icons/fi";
-import { validateImageFileName } from "./S3File";
+import { validateImageFileName } from "../../utils/functions";
 
 const EmptyFileCard = () => {
   const [fileName, setFileName] = React.useState("");

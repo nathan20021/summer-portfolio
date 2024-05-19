@@ -38,7 +38,7 @@ const FolderCard = ({
   }, [FileTreeChildren]);
 
   return (
-    <div className="flex flex-col cursor-pointer select-none">
+    <div className="flex flex-col cursor-pointer select-none w-full">
       <div
         className="flex justify-between cursor-pointer select-none hover:bg-[#414148] 
                     items-center pl-1 group min-h-[2.2rem]"

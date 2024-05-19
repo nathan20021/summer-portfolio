@@ -151,61 +151,65 @@ const BlogEditorPage = ({
             fileName={currentBlogData.title}
           />
         </div>
-        <div className="w-full flex">
+        <div className="w-full flex relative">
           <div
             id="file-tree-container"
-            className="w-[5%] flex ease-in-out duration-150 relative z-[100]"
+            className="flex ease-in-out fixed duration-150 z-[100] h-screen top-0 left-0 overflow-y-scroll"
+            style={{
+              transform: isFileTreeVisible
+                ? "translateX(0)"
+                : "translateX(-500px)",
+            }}
           >
-            <div
-              className="flex ease-in-out duration-150 w-[500px] h-full absolute"
-              style={{
-                transform: isFileTreeVisible
-                  ? "translateX(0)"
-                  : "translateX(-500px)",
-              }}
-            >
-              <FileTree
-                rootFolderName={blogId}
-                displayName={blogData.title}
-                publicPrefix="PUBLIC"
-              />
-            </div>
-          </div>
-          <div
-            id="preview-editor-container"
-            className="flex justify-center w-full min-h-screen"
-          >
-            {!isPreview && (
-              <div
-                id="code-editor"
-                className=" w-1/2 wmde-markdown-var border-r-2 border-[#606060] select-none pt-8"
-                aria-readonly="true"
-              >
-                <CodeEditor
-                  value={code}
-                  rehypePlugins={[[rehypePrismAll, { ignoreMissing: true }]]}
-                  language="markdown"
-                  minHeight={400}
-                  placeholder="Paste Markdown here"
-                  onChange={(evn: any) => setCode(evn.target.value)}
-                  padding={15}
-                  style={{
-                    height: "100%",
-                    fontSize: 16,
-                    backgroundColor: "#202020",
-                  }}
+            <div className="flex flex-col items-center w-[500px] h-full bg-[#161616] pt-5">
+              <div className="w-[95%]">
+                <FileTree
+                  rootFolderName={blogId}
+                  displayName={currentBlogData.title}
+                  publicPrefix="PUBLIC"
                 />
               </div>
-            )}
+            </div>
+          </div>
+          <div className="flex justify-center">
             <div
-              ref={elementRef}
-              id="markdown-preview"
-              className={isPreview ? "w-[70%] px-4 py-10" : "w-1/2 px-4 py-10"}
+              id="preview-editor-container"
+              className="flex justify-center w-[95%] min-h-screen"
             >
-              <ReactMarkdownWrapper
-                code={code}
-                className={`${styles.post} h-full`}
-              />
+              <div
+                ref={elementRef}
+                id="markdown-preview"
+                className={
+                  isPreview ? "w-[60%] px-4 py-10" : "w-1/2 px-4 py-10"
+                }
+              >
+                <ReactMarkdownWrapper
+                  code={code}
+                  className={`${styles.post} h-full`}
+                />
+              </div>
+              {!isPreview && (
+                <div
+                  id="code-editor"
+                  className=" w-1/2 wmde-markdown-var border-[#606060] select-none pt-8"
+                  aria-readonly="true"
+                >
+                  <CodeEditor
+                    value={code}
+                    rehypePlugins={[[rehypePrismAll, { ignoreMissing: true }]]}
+                    language="markdown"
+                    minHeight={400}
+                    placeholder="Paste Markdown here"
+                    onChange={(evn: any) => setCode(evn.target.value)}
+                    padding={15}
+                    style={{
+                      height: "100%",
+                      fontSize: 16,
+                      backgroundColor: "#202020",
+                    }}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -231,11 +235,9 @@ const BlogEditorPage = ({
                 tags: selectedTags,
               }
             );
-            if (editedBlogData.url !== currentBlogData.url) {
-              await axios.post("/api/revalidate", {
-                path: `/blogs`,
-              });
-            }
+            await axios.post("/api/revalidate", {
+              path: `/blogs`,
+            });
             if (updatingPostRes.status === 200) {
               setCurrentBlogData(updatingPostRes.data.body);
               setEditedBlogData(updatingPostRes.data.body);

@@ -5,6 +5,7 @@ import { FileTreeElement } from "../../interfaces";
 import { recursiveFile } from "../../interfaces/backend";
 import FolderCard from "./S3Folder";
 import { FileTree as FileTreeProps } from "../../interfaces";
+import FileDropZone from "./DragDropFileSelector";
 
 const FileTree = ({
   rootFolderName,
@@ -70,7 +71,7 @@ const FileTree = ({
   }, []);
 
   return (
-    <div className="w-full bg-[#161616] pt-5">
+    <div className="flex flex-col w-full pt-5">
       <FolderCard
         isRoot={true}
         name={displayName}
@@ -79,6 +80,21 @@ const FileTree = ({
         isParentOpen={true}
         reloadTreeData={loadTreeData}
       />
+      <div
+        className="h-12 w-full relative flex justify-center items-center  
+                  after:border-[#787878] after:w-full after:absolute 
+                    after:top-1/2 after:border-b-2 after:content-['']"
+      >
+        <h1 className="bg-[#161616] z-[101] inline-block px-2 text-[#ffffff]">
+          Bulk Upload
+        </h1>
+      </div>
+      <div className="px-[4%]">
+        <FileDropZone
+          url={`${publicPrefix}/${rootFolderName}`}
+          reloadTreeData={loadTreeData}
+        />
+      </div>
     </div>
   );
 };

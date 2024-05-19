@@ -4,7 +4,7 @@ import { useState } from "react";
 import { MdOutlineContentCopy } from "react-icons/md";
 import { BsCaretDownFill, BsCheck } from "react-icons/bs";
 import { BlockMath, InlineMath } from "react-katex";
-
+import { getYTEmbeddedID } from "../../utils/functions";
 import { flattenDeep } from "lodash";
 import { slugifyHeading } from "../../utils/functions";
 type DeepArray<T> = T | Array<DeepArray<T>>;
@@ -447,6 +447,33 @@ const MarkdownComponents: object = {
           <h1 className="text-xl text-[#addaff]">{title}</h1>
         </div>
         <div className="pl-5">{children}</div>
+      </div>
+    );
+  },
+
+  yt: (element: { className: string; children: Array<any>; node: object }) => {
+    const defaultURL =
+      "https://www.youtube.com/embed/ubFq-wV3Eic?si=YAlzowW6dO8Sz1bf";
+    const grabYoutubeLink = (node: any) => {
+      if (!node?.properties?.s) {
+        return defaultURL;
+      }
+      const embeddedURL = getYTEmbeddedID(node.properties.s);
+      return embeddedURL
+        ? `//www.youtube.com/embed/${embeddedURL}`
+        : defaultURL;
+    };
+    return (
+      <div className="flex justify-center">
+        <iframe
+          width="560"
+          height="315"
+          src={grabYoutubeLink(element.node)}
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        ></iframe>
       </div>
     );
   },

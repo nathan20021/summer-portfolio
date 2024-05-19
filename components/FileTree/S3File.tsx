@@ -5,11 +5,7 @@ import { MdDelete, MdFileCopy } from "react-icons/md";
 import { FiFileText } from "react-icons/fi";
 import config from "../../config.json";
 import axios from "axios";
-
-export const validateImageFileName = (name: string) => {
-  const imageFileTypes = [".jpg", ".png", ".jpeg", ".webp", ".gif"];
-  return imageFileTypes.some((fileType) => name.endsWith(fileType));
-};
+import { validateImageFileName } from "../../utils/functions";
 
 const FileCard = ({ name, url, reloadTreeData }: FileTreeFile) => {
   return (
@@ -36,11 +32,11 @@ const FileCard = ({ name, url, reloadTreeData }: FileTreeFile) => {
             className="border-[1px] rounded-md p-[.3rem] text-white
                         hover:bg-[#62a1ff] border-[#62a1ff]"
             onClick={() => {
-              navigator.clipboard.writeText(
-                `https://${config.S3_BUCKET_ENDPOINT}/${encodeURIComponent(
-                  url
-                )}`
-              );
+              const S3_OBJECT_URL = `https://${
+                config.S3_BUCKET_ENDPOINT
+              }/${encodeURIComponent(url)}`;
+              const markdownText = `![Untitled](${S3_OBJECT_URL})`;
+              navigator.clipboard.writeText(markdownText);
             }}
           >
             <MdFileCopy />
