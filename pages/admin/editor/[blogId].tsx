@@ -171,7 +171,7 @@ const BlogEditorPage = ({
               </div>
             </div>
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center w-screen">
             <div
               id="preview-editor-container"
               className="flex justify-center w-[95%] min-h-screen"
