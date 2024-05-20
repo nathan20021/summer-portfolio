@@ -16,6 +16,7 @@ type FileDropZoneProps = {
 
 const FileDropZone = ({ reloadTreeData, url }: FileDropZoneProps) => {
   const [files, setFiles] = useState<File[]>([]);
+  const [isDraggedOver, setIsDraggedOver] = useState(false);
 
   const removeFileFromList = (fileName: string) => {
     setFiles((prevFiles) =>
@@ -51,11 +52,25 @@ const FileDropZone = ({ reloadTreeData, url }: FileDropZoneProps) => {
   };
 
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col">
       <div
-        onDragOver={(event) => event.preventDefault()}
-        onDrop={handleDrop}
-        className="flex justify-center items-center border-[1px] border-dashed border-grey-400 h-20 w-full"
+        onDragOver={(e: React.DragEvent<HTMLDivElement>) => {
+          e.preventDefault();
+          setIsDraggedOver(true);
+        }}
+        onDragLeave={(e: React.DragEvent<HTMLDivElement>) => {
+          e.preventDefault();
+          setIsDraggedOver(false);
+        }}
+        onDrop={(e: React.DragEvent<HTMLDivElement>) => {
+          handleDrop(e);
+          setIsDraggedOver(false);
+        }}
+        className={
+          isDraggedOver
+            ? "flex justify-center items-center border-[1px] border-dashed w-full bg-[#54a4ff] h-20 rounded border-white bg-opacity-20 text-grey-100"
+            : "flex justify-center items-center border-[1px] border-dashed w-full bg-black h-20 rounded border-grey-700 bg-opacity-40 text-grey-400 cursor-not-allowed select-none"
+        }
       >
         <p>Drag and drop images</p>
       </div>

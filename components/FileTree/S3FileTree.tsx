@@ -71,7 +71,7 @@ const FileTree = ({
   }, []);
 
   return (
-    <div className="flex flex-col w-full pt-5">
+    <div className="flex flex-col w-full">
       <FolderCard
         isRoot={true}
         name={displayName}

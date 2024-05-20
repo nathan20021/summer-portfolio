@@ -18,6 +18,7 @@ import FileTree from "../../../components/FileTree/S3FileTree";
 import TopBar from "@/components/Editor/ControlTopBar";
 import MetaDataModal from "@/components/Editor/MetaDataModal";
 import Head from "next/head";
+import { GoSidebarExpand } from "react-icons/go";
 
 const CodeEditor = dynamic<any>(
   () => import("@uiw/react-textarea-code-editor").then((mod) => mod.default),
@@ -154,15 +155,26 @@ const BlogEditorPage = ({
         <div className="w-full flex relative">
           <div
             id="file-tree-container"
-            className="flex ease-in-out fixed duration-150 z-[100] h-screen top-0 left-0 overflow-y-scroll"
+            className="flex flex-col ease-in-out fixed duration-150 z-[100] h-screen top-0 left-0 
+                        overflow-y-scroll bg-[#161616] shadow-xl shadow-black"
             style={{
               transform: isFileTreeVisible
                 ? "translateX(0)"
-                : "translateX(-500px)",
+                : "translateX(-520px)",
             }}
           >
-            <div className="flex flex-col items-center w-[500px] h-full bg-[#161616] pt-5">
-              <div className="w-[95%]">
+            <div className="w-full flex justify-end my-2">
+              <button
+                className="p-2 mr-3 text-grey-400 text-lg hover:text-white"
+                onClick={() => {
+                  setIsFileTreeVisible(false);
+                }}
+              >
+                <GoSidebarExpand />
+              </button>
+            </div>
+            <div className="flex flex-col items-center w-[500px] h-full pb-5">
+              <div className="w-[95%] pb-10">
                 <FileTree
                   rootFolderName={blogId}
                   displayName={currentBlogData.title}

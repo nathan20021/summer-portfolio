@@ -6,8 +6,12 @@ import { FiFileText } from "react-icons/fi";
 import config from "../../config.json";
 import axios from "axios";
 import { validateImageFileName } from "../../utils/functions";
+import { FaEye } from "react-icons/fa";
 
 const FileCard = ({ name, url, reloadTreeData }: FileTreeFile) => {
+  const S3_OBJECT_URL = `https://${
+    config.S3_BUCKET_ENDPOINT
+  }/${encodeURIComponent(url)}`;
   return (
     <div className="flex flex-col cursor-pointer select-none">
       <div
@@ -30,11 +34,15 @@ const FileCard = ({ name, url, reloadTreeData }: FileTreeFile) => {
           <p className="text-lg">|</p>
           <button
             className="border-[1px] rounded-md p-[.3rem] text-white
+                        hover:bg-[#a3a3a3] border-[#b5b5b5]"
+            onClick={() => window.open(S3_OBJECT_URL, "_blank")}
+          >
+            <FaEye />
+          </button>
+          <button
+            className="border-[1px] rounded-md p-[.3rem] text-white
                         hover:bg-[#62a1ff] border-[#62a1ff]"
             onClick={() => {
-              const S3_OBJECT_URL = `https://${
-                config.S3_BUCKET_ENDPOINT
-              }/${encodeURIComponent(url)}`;
               const markdownText = `![Untitled](${S3_OBJECT_URL})`;
               navigator.clipboard.writeText(markdownText);
             }}
