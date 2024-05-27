@@ -9,14 +9,7 @@ export default async function handler(
   const { method } = _req;
   switch (method) {
     case "GET":
-      const stats = await prisma.blogPost.findMany({
-        select: {
-          id: true,
-          url: true,
-          publishedAt: true,
-          views: true,
-        },
-      });
+      const stats = await prisma.blogPost.findMany({});
       let total = 0;
       stats.forEach((val) => {
         total += val.views;

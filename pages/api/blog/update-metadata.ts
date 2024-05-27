@@ -29,7 +29,6 @@ export default async function UpdateBlog(
               },
             }),
             cover: body.cover,
-            publishedAt: new Date(),
             updatedAt: new Date(),
           },
         });

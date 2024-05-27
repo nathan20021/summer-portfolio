@@ -375,7 +375,6 @@ const Modal = ({
                         }
                       );
                       if (res.status === 200) {
-                        console.log(res);
                         imageURL = `https://${config.S3_BUCKET_ENDPOINT}/${uri}`;
                       }
                     }

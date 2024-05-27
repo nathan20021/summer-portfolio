@@ -1,6 +1,16 @@
 .analytic-table td {
-  padding: 1em;
+  padding: 0.7em;
   border: 1px solid #eaeaea;
+  color: #d5d5d5;
+  text-align: start;
+}
+
+.analytic-table td a {
+  color: #018fbd;
+}
+
+.analytic-table td a:hover {
+  color: #00c1ff;
 }
 
 .analytic-table th {
@@ -13,7 +23,7 @@
 }
 
 .analytic-table tbody tr:nth-child(even) {
-  background-color: #2f2f2f;
+  background-color: #212121;
 }
 .analytic-table thead tr {
   background-color: #212121;

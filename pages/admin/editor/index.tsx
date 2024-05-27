@@ -10,7 +10,7 @@ import config from "../../../config.json";
 import { BlogMetaData } from "@/interfaces";
 import { MdPublishedWithChanges } from "react-icons/md";
 import { RiGitRepositoryPrivateFill, RiDraftFill } from "react-icons/ri";
-
+import DashBoard from "@/components/Analytics/Dashboard";
 import { BlogPost } from "@prisma/client";
 import Link from "next/link";
 
@@ -29,7 +29,7 @@ const AdminBlogCard = ({ blogMetaData, currentTime }: AdminBlogCardProps) => {
       <a className="w-[12rem] flex flex-col rounded-md border-2 border-[#909090] ease-in-out duration-300 overflow-hidden group">
         <div
           id="thumbnail-container"
-          className="z-50 w-[12rem] h-[14rem] justify-center items-center overflow-hidden p-3 hover:p-[0.7rem] bg-primary ease-in-out duration-300"
+          className="w-[12rem] h-[14rem] justify-center items-center overflow-hidden p-3 hover:p-[0.7rem] bg-primary ease-in-out duration-300"
         >
           <img
             src={`https://${config.S3_THUMBNAIL_BUCKET_ENDPOINT}/${blogMetaData.id}.jpeg`}
@@ -75,9 +75,9 @@ const AdminBlogCard = ({ blogMetaData, currentTime }: AdminBlogCardProps) => {
 
 const CreateNewBlogCard = () => {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 w-full h-full">
       <button
-        className="z-50 w-[9rem] h-[12rem] border-2 shadow-sm ease-in-out duration-150
+        className="w-[90%] h-[14rem] border-2 shadow-sm ease-in-out duration-150
               hover:shadow-[#373e4f] hover:border-[#b7b7b7] hover:bg-[#1f2943] bg-[#25272e] border-[#d5d5d5] rounded-md flex 
                 justify-center items-center group"
         onClick={async () => {
@@ -89,7 +89,7 @@ const CreateNewBlogCard = () => {
           <HiOutlinePlus style={{ strokeWidth: "3" }} />
         </h1>
       </button>
-      <h1 className="text-xl ml-1">Blank</h1>
+      <h1 className="text-xl ml-1">New Blog</h1>
     </div>
   );
 };
@@ -104,15 +104,18 @@ const AdminEditor = ({ metaDataArray, currentTime }: props) => {
       <Head>
         <title>Admin Editor</title>
       </Head>
-      <section className="mt-10 min-h-screen z-50 flex flex-col justify-start items-center">
+      <section className="mt-10 min-h-screen flex flex-col justify-start items-center">
         <div
           className="flex flex-col items-center justify-center
-                    gap-10 z-50 h-full"
+                    gap-10 h-full"
         >
-          <div className="flex flex-row flex-wrap gap-20 w-[70%] z-50">
-            <CreateNewBlogCard />
+          <div className="flex flex-row flex-wrap gap-20 w-[70%]">
+            <DashBoard />
           </div>
-          <div className="flex flex-row flex-wrap gap-20 w-[70%] z-50">
+          <div className="flex flex-row flex-wrap gap-20 w-[70%]">
+            <div className="flex items-center justify-center h-[18rem] w-[12rem]">
+              <CreateNewBlogCard />
+            </div>
             {metaDataArray.map((data, index) => (
               <AdminBlogCard
                 blogMetaData={data}

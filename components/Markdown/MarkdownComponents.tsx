@@ -135,7 +135,12 @@ const MarkdownComponents: object = {
       const height = metaHeight ? metaHeight[1] : "432";
 
       return (
-        <div className="mt-4 flex justify-center">
+        <a
+          href={image.properties.src}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-4 flex justify-center cursor-zoom-in"
+        >
           <img
             src={image.properties.src}
             width={width}
@@ -143,7 +148,7 @@ const MarkdownComponents: object = {
             className="postImg"
             alt={alt}
           />
-        </div>
+        </a>
       );
     }
     return <p className={paragraph.className}>{paragraph.children}</p>;

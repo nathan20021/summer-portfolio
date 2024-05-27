@@ -32,7 +32,7 @@ enum BlogType {
 }
 
 model Subscribers {
-  id       Int      @id @default(autoincrement())
+  id       String   @id @default(uuid())
   email    String   @db.VarChar(255)
   subbedAt DateTime @default(now())
 }

@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useState, useRef } from "react";
-import emailjs from "@emailjs/browser";
 import axios from "axios";
 
 import { BsArrowClockwise } from "react-icons/bs";
@@ -23,20 +22,6 @@ const Footer = ({ currentPath }: prop) => {
     return /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
   };
 
-  const sendEmail = (email: string) => {
-    emailjs
-      .send(
-        "service_mxkr2ui",
-        "template_vv3sard",
-        { email: email },
-        "tFewBi5JGZg2ADF7h"
-      )
-      .then(
-        (result) => {},
-        (error) => {}
-      );
-  };
-
   const handleClick = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setIsWaiting(true);
@@ -51,7 +36,6 @@ const Footer = ({ currentPath }: prop) => {
         setUserFound(true);
       }
       if (data.message.toLowerCase() === "user added") {
-        sendEmail(formValue);
         setMessage("Thanks for the sub! Have a lovely day 😄");
         setUserFound(true);
       }
