@@ -190,24 +190,11 @@ const MarkdownComponents: object = {
       console.log("Failed to parse URL", e);
     }
 
-    const getFaviconFromURL = (url: URL): any => {
-      let faviconIcoURL = `${url.protocol}//${url.hostname}/favicon.ico`;
-      fetch(faviconIcoURL, { mode: "no-cors" })
-        .then((res) => {
-          if (res.ok) {
-            faviconIcoURL = res.url;
-          }
-        })
-        .catch((e) => {
-          console.log("Failed to fetch faviconLink", e);
-        });
-      return faviconIcoURL;
-    };
     return (
       <div className="cursor-pointer inline max-h-[23px] break-words align-middle">
         <div className="inline h-full mr-1">
           <img
-            src={getFaviconFromURL(url)}
+            src={`${url.protocol}//${url.hostname}/favicon.ico`}
             alt="favicon"
             onError={({ currentTarget }) => {
               currentTarget.onerror = null;
