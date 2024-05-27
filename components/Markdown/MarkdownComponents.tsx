@@ -63,6 +63,7 @@ const MarkdownComponents: object = {
   h3: (element: headingProps) => {
     return (
       <h3
+        className="text-blue-500 text-base"
         id={
           Array.isArray(element.children) &&
           typeof element.children[0] === "string"
@@ -78,6 +79,7 @@ const MarkdownComponents: object = {
   h4: (element: headingProps) => {
     return (
       <h4
+        className="text-[#e4b45a] text-base"
         id={
           Array.isArray(element.children) &&
           typeof element.children[0] === "string"
@@ -172,35 +174,57 @@ const MarkdownComponents: object = {
         </a>
       );
     }
-    const invertible: string[] = ["github.com", "okta.com"];
-    const url = element.href.startsWith("/")
-      ? new URL(`https://nathanluong.me/${element.href}`)
-      : new URL(element.href);
-    return (
-      <a
-        className="cursor-pointer inline max-h-[23px] break-words align-middle"
-        href={element.href}
-        target="_blank"
-        rel="noreferrer"
-      >
-        <img
-          src={`${url.protocol}//${url.hostname}/favicon.ico`}
-          alt="favicon"
-          onError={({ currentTarget }) => {
-            currentTarget.onerror = null;
-            currentTarget.src = "/url.ico";
-            currentTarget.className =
-              "max-h-[23px] h-full aspect-square invert inline align-middle mr-1";
-          }}
-          className={
-            invertible.includes(url.hostname)
-              ? "link-img max-h-[23px] h-full aspect-square inline invert align-middle mr-1"
-              : "link-img max-h-[23px] h-full aspect-square inline align-middle mr-1"
-          }
-        />
+    const invertible: string[] = [
+      "github.com",
+      "okta.com",
+      "developer.hashicorp.com",
+      "redhat.com",
+    ];
 
-        {element.children}
-      </a>
+    let url = new URL(`https://nathanluong.me/`);
+    try {
+      url = element.href.startsWith("/")
+        ? new URL(`https://nathanluong.me/${element.href}`)
+        : new URL(element.href);
+    } catch (e) {
+      console.log("Failed to parse URL", e);
+    }
+
+    const getFaviconFromURL = (url: URL): any => {
+      let faviconIcoURL = `${url.protocol}//${url.hostname}/favicon.ico`;
+      fetch(faviconIcoURL, { mode: "no-cors" })
+        .then((res) => {
+          if (res.ok) {
+            faviconIcoURL = res.url;
+          }
+        })
+        .catch((e) => {
+          console.log("Failed to fetch faviconLink", e);
+        });
+      return faviconIcoURL;
+    };
+    return (
+      <div className="cursor-pointer inline max-h-[23px] break-words align-middle">
+        <div className="inline h-full mr-1">
+          <img
+            src={getFaviconFromURL(url)}
+            alt="favicon"
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null;
+              currentTarget.src = "/url.ico";
+              currentTarget.className = "h-[10px] aspect-square invert inline";
+            }}
+            className={
+              invertible.includes(url.hostname)
+                ? "link-img h-[13px] aspect-square inline invert"
+                : "link-img h-[13px] aspect-square inline"
+            }
+          />
+        </div>
+        <a href={element.href} target="_blank" rel="noreferrer">
+          {element.children}
+        </a>
+      </div>
     );
   },
 

@@ -2,7 +2,7 @@
   font-family: "Roboto", sans-serif;
 }
 
-.post *:not(semantics *, code, table *, p, span *, blockquote) {
+.post *:not(semantics *, code, table *, p, span *, blockquote, ul li div img) {
   padding: 0.2rem;
 }
 
