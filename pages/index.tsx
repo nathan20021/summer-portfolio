@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import ParticleBg from "../components/particleBg";
 import ProjectCard from "../components/ProjectCard";
@@ -15,7 +16,6 @@ import {
   SiMysql,
   SiVercel,
 } from "react-icons/si";
-import LazySpline from "@/components/LazySpline";
 import ReactTextTransition, { presets } from "react-text-transition";
 import { GoArrowRight } from "react-icons/go";
 import ProjectShowcase from "../components/ProjectShowcase";
@@ -25,21 +25,18 @@ import { motion } from "framer-motion";
 const lol = ["Full-stack Developer", "Cloud-Tech Enthusiast", "AWS Trainee"];
 
 const Home: NextPage = () => {
-  const splineContainer = useRef<HTMLDivElement>(null!);
-  const [lolIndex, setIndex] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [titleIndex, setIndex] = useState(0);
   useEffect(() => {
     const timer = setInterval(() => {
-      if (loading) return;
       setIndex((lolIndex) => lolIndex + 1);
     }, 3500);
     return () => {
       clearInterval(timer);
     };
-  }, [loading]);
+  }, []);
   return (
     <div className="z-20 w-screen flex flex-col justify-start items-center">
-      <section className="w-full h-max lg:h-screen flex flex-col justify-center items-center z-40 bg-primary ">
+      <section className="w-full h-max lg:h-[80dvh] flex flex-col justify-center items-center z-40 bg-primary ">
         <div className="min-h-max h-[90%] w-[95%] flex flex-col items-center lg:item-start lg:flex-row max-w-[1400px] gap-6 lg:gap-0">
           <div className="w-full lg:w-[30%] h-full flex flex-col justify-start mt-10 lg:mt-16 items-start">
             <div className="w-full h-full flex justify-center">
@@ -90,7 +87,7 @@ const Home: NextPage = () => {
                   </div>
                   <ReactTextTransition springConfig={presets.gentle} inline>
                     <h1 className="text-xl lg:text-2xl">
-                      {lol[lolIndex % lol.length]}
+                      {lol[titleIndex % lol.length]}
                     </h1>
                   </ReactTextTransition>
                   <div
@@ -119,31 +116,13 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div
-            ref={splineContainer}
             id="spline-container"
-            className="hidden md:block h-[400px] lg:h-full w-[90%] lg:w-[70%] hover:cursor-grab relative"
+            className="hidden h-full lg:h-full w-[90%] lg:w-[70%] md:flex md:justify-center md:items-start"
           >
-            {loading && (
-              <div className="absolute h-full w-full bg-primary z-50 flex justify-center items-center top-0 left-0">
-                <div className="dots">
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                </div>
-              </div>
-            )}
-            <LazySpline
-              scene="https://prod.spline.design/RwmvyKIRcAII4-yT/scene.splinecode"
-              onLoad={(spline: { setZoom: (arg0: number) => void }) => {
-                if (splineContainer.current !== null && window !== undefined) {
-                  spline.setZoom(
-                    window.innerWidth > 1024
-                      ? splineContainer.current.offsetWidth / 1200
-                      : splineContainer.current.offsetWidth / 700
-                  );
-                  setLoading(false);
-                }
-              }}
+            <img
+              src="/hero_section.jpg"
+              className="h-full lg:h-auto"
+              draggable={false}
             />
           </div>
         </div>
@@ -158,7 +137,7 @@ const Home: NextPage = () => {
             Projects
           </h1>
         </div>
-        <div className="mb-[4vh] max-w-[1400px] md:mb-0 w-[90%] xl:w-[80%] h-[80vh] flex justify-center items-center relative">
+        <div className="mb-[4vh] max-w-[1400px] md:mb-0 w-[90%] xl:w-[80%] h-[60vh] flex justify-center items-center relative">
           <ProjectShowcase
             color="#52409f"
             side="right"
@@ -193,7 +172,7 @@ const Home: NextPage = () => {
             ]}
           />
         </div>
-        <div className="mb-[4vh] max-w-[1400px] md:mb-0 w-[90%] xl:w-[80%] h-[80vh] flex justify-center items-center relative">
+        <div className="mb-[4vh] max-w-[1400px] md:mb-0 w-[90%] xl:w-[80%] h-[60vh] flex justify-center items-center relative">
           <ProjectShowcase
             color="#01529a"
             side="left"
@@ -234,7 +213,7 @@ const Home: NextPage = () => {
             ]}
           />
         </div>
-        <div className="mb-[4vh] max-w-[1400px] md:mb-0 w-[90%] xl:w-[80%] h-[80vh] flex justify-center items-center relative">
+        <div className="mb-[4vh] max-w-[1400px] md:mb-0 w-[90%] xl:w-[80%] h-[60vh] flex justify-center items-center relative">
           <ProjectShowcase
             color="#7a003c"
             side="right"

@@ -80,7 +80,7 @@ const ImageGallery = ({ images }: props) => {
               draggable={false}
               alt={images[imageIndex]}
               loading={imageIndex !== 0 ? "lazy" : "eager"}
-              className="w-full aspect-[16/10] md:aspect-auto opacity-80 group-hover:opacity-100 hover:opacity-100 duration-150 ease-in-out"
+              className="w-full aspect-[16/10] md:aspect-auto opacity-70 duration-150 ease-in-out"
             />
           </div>
         </motion.div>
