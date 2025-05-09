@@ -7,7 +7,7 @@ import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 const variants = {
   enter: (direction: number) => {
     return {
-      x: direction > 0 ? 1000 : -1000,
+      x: direction > 0 ? "50%" : "-50%",
       opacity: 0,
     };
   },
@@ -19,7 +19,7 @@ const variants = {
   exit: (direction: number) => {
     return {
       zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
+      x: direction < 0 ? "50%" : "-50%",
       opacity: 0,
     };
   },
@@ -80,7 +80,7 @@ const ImageGallery = ({ images }: props) => {
               draggable={false}
               alt={images[imageIndex]}
               loading={imageIndex !== 0 ? "lazy" : "eager"}
-              className="w-full aspect-[16/10] md:aspect-auto opacity-70 duration-150 ease-in-out"
+              className="w-full aspect-[16/10] md:aspect-auto opacity-90 duration-150 ease-in-out"
             />
           </div>
         </motion.div>
