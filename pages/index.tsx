@@ -15,14 +15,201 @@ import {
   SiTailwindcss,
   SiMysql,
   SiVercel,
+  SiFlask,
+  SiPytorch,
 } from "react-icons/si";
+import { FaAws } from "react-icons/fa";
 import ReactTextTransition, { presets } from "react-text-transition";
 import { GoArrowRight } from "react-icons/go";
 import ProjectShowcase from "../components/ProjectShowcase";
 
 import { motion } from "framer-motion";
 
-const lol = ["Full-stack Developer", "Cloud-Tech Enthusiast", "AWS Trainee"];
+const lol = [
+  "Cloud-Tech Enthusiast",
+  "Backend/ DevOps Engineer",
+  "AWS Certified",
+  "GoLang lover",
+];
+
+const projects = [
+  {
+    color: "#52409f",
+    name: "☁️ Viz",
+    slogan: "Diagramming Made Easy",
+    paragraph:
+      "A web-based editor to help backend engineers create, edit,visualize and maitain their cloud infastructure diagrams.",
+    githubLink: "https://github.com/nathan20021/VIZ-PROD",
+    demoLink: "https://viz.nathanluong.me",
+    imagePath: "/viz-logo.png",
+    images: [
+      "viz-screenshot.png",
+      "IOT-Solution-Diagram.jpeg",
+      "ML-in-Swimming.jpeg",
+    ],
+    links: [
+      {
+        link: "https://vercel.com/",
+        icon: <SiVercel />,
+        name: "Vercel",
+      },
+      {
+        link: "https://reactjs.org/",
+        icon: <SiReact />,
+        name: "React",
+      },
+      {
+        link: "https://redux.js.org/",
+        icon: <SiRedux />,
+        name: "Redux",
+      },
+      {
+        link: "https://www.postgresql.org/",
+        icon: <SiPostgresql />,
+        name: "PostgreSQL",
+      },
+    ],
+  },
+  {
+    color: "#338cb2",
+    name: "🩻 Lung Vision AI",
+    slogan: "AI-Powered Lung Disease Detection & Progression.",
+    paragraph:
+      "Home-made state-of-the-art localized disease classification model to analyze lung CT scans (trained on Oxford's MIMIC dataset: 500GB+ labels). Additional Integration with a intuitive user interface automating doctor and physicians workflow.",
+    githubLink: "https://github.com/RezaJodeiri/CXR-Capstone",
+    demoLink:
+      "https://www.macvideo.ca/media/LungVisionAI+-+CAS/1_cuoc4htg/363742172",
+    imagePath: "/n_avatar.png",
+    images: ["n1.png", "n2.png", "n3.png", "n4.png"],
+    links: [
+      {
+        link: "https://aws.amazon.com/",
+        icon: <FaAws />,
+        name: "AWS",
+      },
+      {
+        link: "https://pytorch.org/",
+        icon: <SiPytorch />,
+        name: "PyTorch",
+      },
+      {
+        link: "https://reactjs.org/",
+        icon: <SiReact />,
+        name: "React",
+      },
+      {
+        link: "https://flask.palletsprojects.com/en/stable/",
+        icon: <SiFlask />,
+        name: "Flask",
+      },
+    ],
+  },
+  {
+    color: "#7a003c",
+    name: "McMaster Rocketry",
+    slogan: "Fueling Innovation.",
+    paragraph:
+      "A platform for the McMaster Rocketry Team to showcase their advancements, recruiting members, publishing blogs, and seeking external sponsorships.",
+    githubLink: undefined,
+    demoLink: "https://www.macrocketry.ca/",
+    imagePath: "/rocketry_logo.webp",
+    images: ["rocketry-landing.png", "void-lake-5.png", "flight-profile.png"],
+    links: [
+      {
+        link: "https://reactjs.org/",
+        icon: <SiReact />,
+        name: "React",
+      },
+      {
+        link: "https://nextjs.org/",
+        icon: <SiNextdotjs />,
+        name: "Next.js",
+      },
+      {
+        link: "https://graphql.org/",
+        icon: <SiGraphql />,
+        name: "GraphQL",
+      },
+      {
+        link: "https://firebase.google.com/",
+        icon: <SiFirebase />,
+        name: "Firebase",
+      },
+    ],
+  },
+  {
+    color: "#666666",
+    name: "🚗 Oober",
+    slogan: "Connecting Riders and Drivers.",
+    paragraph:
+      "A mobile application that connects riders and drivers in a safe and efficient manner.",
+    githubLink: "https://github.com/nathan20021/3A04-Project",
+    demoLink: undefined,
+    imagePath: "/Oober.png",
+    images: ["Oober_Auth.png", "Oober_carpool.png", "Oober_end.png"],
+    links: [
+      {
+        link: "https://reactjs.org/",
+        icon: <SiReact />,
+        name: "React Native",
+      },
+      {
+        link: "https://tailwindcss.com/",
+        icon: <SiTailwindcss />,
+        name: "Tailwind CSS",
+      },
+      {
+        link: "https://sqlite.org/",
+        icon: <SiSqlite />,
+        name: "SQLite",
+      },
+      {
+        link: "https://expressjs.com/",
+        icon: <SiExpress />,
+        name: "Express.js",
+      },
+    ],
+  },
+  {
+    color: "#01529a",
+    name: "Personal Blogs",
+    slogan: "A place to share my thoughts",
+    paragraph:
+      "A place where I can share my thoughts and technical experiences with the world. Aiming to improve my writting, and thought-orginization skills.",
+    githubLink: "https://github.com/nathan20021/summer-portfolio",
+    demoLink: "https://nathanluong.me/blogs",
+    imagePath: "/viz-logo-no-grad.png",
+    images: [
+      "blog-1.png",
+      "blog-3.png",
+      "blog-2.png",
+      "blog-5.png",
+      "blog-4.png",
+    ],
+    links: [
+      {
+        link: "https://vercel.com/",
+        icon: <SiVercel />,
+        name: "Vercel",
+      },
+      {
+        link: "https://reactjs.org/",
+        icon: <SiReact />,
+        name: "React",
+      },
+      {
+        link: "https://nextjs.org/",
+        icon: <SiNextdotjs />,
+        name: "Next.js",
+      },
+      {
+        link: "https://www.mysql.com/",
+        icon: <SiMysql />,
+        name: "MySQL",
+      },
+    ],
+  },
+];
 
 const Home: NextPage = () => {
   const [titleIndex, setIndex] = useState(0);
@@ -137,156 +324,27 @@ const Home: NextPage = () => {
             Projects
           </h1>
         </div>
-        <div className="mb-[4vh] max-w-[1400px] md:mb-0 w-[90%] xl:w-[80%] h-[60vh] flex justify-center items-center relative">
-          <ProjectShowcase
-            color="#52409f"
-            side="right"
-            name="Viz"
-            slogan="Diagramming Made Easy"
-            paragraph="A web-based editor to help backend engineers create, edit,
-                visualize and maitain their cloud infastructure diagrams."
-            githubLink="https://github.com/nathan20021/VIZ-PROD"
-            demoLink="https://viz.nathanluong.me"
-            imagePath="/viz-logo.png"
-            images={[
-              "viz-screenshot.png",
-              "IOT-Solution-Diagram.jpeg",
-              "ML-in-Swimming.jpeg",
-            ]}
-            links={[
-              {
-                link: "https://reactjs.org/",
-                icon: <SiReact />,
-                name: "React",
-              },
-              {
-                link: "https://redux.js.org/",
-                icon: <SiRedux />,
-                name: "Redux",
-              },
-              {
-                link: "https://www.postgresql.org/",
-                icon: <SiPostgresql />,
-                name: "PostgreSQL",
-              },
-            ]}
-          />
-        </div>
-        <div className="mb-[4vh] max-w-[1400px] md:mb-0 w-[90%] xl:w-[80%] h-[60vh] flex justify-center items-center relative">
-          <ProjectShowcase
-            color="#01529a"
-            side="left"
-            name="Personal Blogs"
-            slogan="A place to share my thoughts"
-            paragraph="A place where I can share my thoughts and technical experiences with the world. Aiming to improve my writting, and thought-orginization skills."
-            githubLink="https://github.com/nathan20021/summer-portfolio"
-            demoLink="https://nathanluong.me/blogs"
-            imagePath="/viz-logo-no-grad.png"
-            images={[
-              "blog-1.png",
-              "blog-3.png",
-              "blog-2.png",
-              "blog-5.png",
-              "blog-4.png",
-            ]}
-            links={[
-              {
-                link: "https://vercel.com/",
-                icon: <SiVercel />,
-                name: "Vercel",
-              },
-              {
-                link: "https://reactjs.org/",
-                icon: <SiReact />,
-                name: "React",
-              },
-              {
-                link: "https://nextjs.org/",
-                icon: <SiNextdotjs />,
-                name: "Next.js",
-              },
-              {
-                link: "https://www.mysql.com/",
-                icon: <SiMysql />,
-                name: "MySQL",
-              },
-            ]}
-          />
-        </div>
-        <div className="mb-[4vh] max-w-[1400px] md:mb-0 w-[90%] xl:w-[80%] h-[60vh] flex justify-center items-center relative">
-          <ProjectShowcase
-            color="#7a003c"
-            side="right"
-            name="McMaster Rocketry"
-            slogan="Fueling Innovation."
-            paragraph="A platform for the McMaster Rocketry Team to showcase their advancements, recruiting members, publishing blogs, and seeking external sponsorships."
-            githubLink={undefined}
-            demoLink="https://www.macrocketry.ca/"
-            imagePath="/rocketry_logo.webp"
-            images={[
-              "rocketry-landing.png",
-              "void-lake-5.png",
-              "flight-profile.png",
-            ]}
-            links={[
-              {
-                link: "https://reactjs.org/",
-                icon: <SiReact />,
-                name: "React",
-              },
-              {
-                link: "https://nextjs.org/",
-                icon: <SiNextdotjs />,
-                name: "Next.js",
-              },
-              {
-                link: "https://graphql.org/",
-                icon: <SiGraphql />,
-                name: "GraphQL",
-              },
-              {
-                link: "https://firebase.google.com/",
-                icon: <SiFirebase />,
-                name: "Firebase",
-              },
-            ]}
-          />
-        </div>
-        <div className="mb-[4vh] max-w-[1400px] md:mb-0 w-[90%] h-[65vh]  md:h-[90vh] flex justify-center items-center relative">
-          <ProjectShowcase
-            color="#666666"
-            side="left"
-            name="Oober 🎉"
-            slogan="Connecting Riders and Drivers."
-            paragraph="A mobile application that connects riders and drivers in a safe and efficient manner."
-            githubLink={"https://github.com/nathan20021/3A04-Project"}
-            demoLink={undefined}
-            imagePath="/Oober.png"
-            images={["Oober_Auth.png", "Oober_carpool.png", "Oober_end.png"]}
-            links={[
-              {
-                link: "https://reactjs.org/",
-                icon: <SiReact />,
-                name: "React Native",
-              },
-              {
-                link: "https://tailwindcss.com/",
-                icon: <SiTailwindcss />,
-                name: "Tailwind CSS",
-              },
-              {
-                link: "https://sqlite.org/",
-                icon: <SiSqlite />,
-                name: "SQLite",
-              },
-              {
-                link: "https://expressjs.com/",
-                icon: <SiExpress />,
-                name: "Express.js",
-              },
-            ]}
-          />
-        </div>
+        {projects.map((project, index) => {
+          return (
+            <div
+              key={index}
+              className="mb-[4vh] max-w-[1400px] md:mb-0 w-[90%] xl:w-[80%] h-[80vh] flex justify-center items-center relative"
+            >
+              <ProjectShowcase
+                color={project.color}
+                side={index % 2 === 0 ? "right" : "left"}
+                name={project.name}
+                slogan={project.slogan}
+                paragraph={project.paragraph}
+                githubLink={project.githubLink}
+                demoLink={project.demoLink}
+                imagePath={project.imagePath}
+                images={project.images}
+                links={project.links}
+              />
+            </div>
+          );
+        })}
       </section>
 
       <section
