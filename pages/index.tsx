@@ -15,8 +15,6 @@ import {
   SiMysql,
   SiVercel,
 } from "react-icons/si";
-import Spline from "@splinetool/react-spline";
-import NonSSRWrapper from "../components/no-ssr-wrapper";
 import LazySpline from "@/components/LazySpline";
 import ReactTextTransition, { presets } from "react-text-transition";
 import { GoArrowRight } from "react-icons/go";
