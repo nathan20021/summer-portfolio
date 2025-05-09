@@ -49,7 +49,7 @@ const ResumeLinks: Array<LinkCardProps> = [
   },
   {
     icon: <IoMdDocument />,
-    title: <p>Software Engineering Resume</p>,
+    title: <p>Software Engineer Resume</p>,
     link: "/Nathan_Luong_SWE.pdf",
   },
 ];
