@@ -1,6 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { BlogMetaData } from "../../interfaces/index";
+import Image from "next/image";
 
 type BlogCardProps = {
   metaData: BlogMetaData;
@@ -24,13 +25,16 @@ const BlogCard = ({
                   flex flex-col sm:flex-row justify-start items-center ease-out duration-500 peer hover:bg-[#262626]"
     >
       <Link href={`/blogs/${metaData.file_name}`} key={index}>
-        <a id="image-container" className="w-full sm:w-2/5 relative">
-          <img
+        <a
+          id="image-container"
+          className="w-full sm:w-2/5 relative flex items-center"
+        >
+          <Image
             onError={(e) => (e.currentTarget.src = "/gradient.png")}
             alt={`Cover Image ${index} : ${metaData.title} `}
             src={metaData.cover || "/gradient.png"}
             width={740}
-            height={493}
+            height={375}
           />
         </a>
       </Link>

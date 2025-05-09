@@ -9,10 +9,11 @@
 .post ul,
 .post ol {
   margin-left: 2.6rem;
+  color: #e0e0e0;
 }
 
 .post strong {
-  color: #d9959b;
+  color: #e88a95;
 }
 
 .post blockquote {
@@ -58,11 +59,11 @@
   font-size: 1.1rem;
   padding-left: 1.5rem;
   line-height: 1.2rem;
-  color: #ffffffee;
+  color: #e0e0e0;
 }
 
 .post > p {
-  margin: 1.2rem 0rem;
+  margin: 1.2rem 0rem 0.5rem 0rem;
 }
 
 .post li > p {

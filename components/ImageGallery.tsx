@@ -33,7 +33,7 @@ type props = {
   images: Array<string>;
 };
 
-const ImageGalary = ({ images }: props) => {
+const ImageGallery = ({ images }: props) => {
   const [[page, direction], setPage] = useState([0, 0]);
   const imageIndex = wrap(0, images.length, page);
 
@@ -42,7 +42,7 @@ const ImageGalary = ({ images }: props) => {
   };
   return (
     <AnimatePresence initial={false} custom={direction}>
-      <div id="image-galary" className="group relative w-full h-max md:h-full">
+      <div id="image-gallery" className="group relative w-full h-full">
         <motion.div
           className="w-full h-full flex justify-center items-center"
           id="project-image"
@@ -73,12 +73,13 @@ const ImageGalary = ({ images }: props) => {
         >
           <div
             id="haha"
-            className="relative w-full h-full flex justify-center items-center"
+            className="relative w-full h-full flex justify-center items-end md:items-center"
           >
             <img
               src={images[imageIndex]}
               draggable={false}
-              alt=""
+              alt={images[imageIndex]}
+              loading={imageIndex !== 0 ? "lazy" : "eager"}
               className="w-full aspect-[16/10] md:aspect-auto opacity-80 group-hover:opacity-100 hover:opacity-100 duration-150 ease-in-out"
             />
           </div>
@@ -107,4 +108,4 @@ const ImageGalary = ({ images }: props) => {
     </AnimatePresence>
   );
 };
-export default ImageGalary;
+export default ImageGallery;

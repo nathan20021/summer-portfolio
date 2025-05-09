@@ -1,7 +1,7 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import TechLink from "./TechLink";
-import ImageGalary from "./ImageGalary";
+import ImageGallery from "./ImageGallery";
 import { toLighterHex } from "../utils/functions";
 
 type displayIcons = {
@@ -46,12 +46,12 @@ const ProjectShowcase = ({
       }
     >
       <div
-        id="image-galary-container"
-        className="h-1/2 md:h-full w-[90%] md:w-[70%] xl:w-3/5 flex justify-center items-center"
+        id="image-gallery-container"
+        className="h-1/3 md:h-full w-[90%] md:w-[70%] xl:w-3/5 flex justify-center items-end md:items-center"
       >
-        <ImageGalary images={images} />
+        <ImageGallery images={images} />
       </div>
-      <div className="h-1/2 md:h-full w-[90%] md:w-[30%] xl:w-2/5 flex justify-center items-center">
+      <div className="md:h-full w-[90%] md:w-[30%] xl:w-2/5 flex justify-center items-center">
         <div
           className={
             side === "right"
@@ -109,7 +109,7 @@ const ProjectShowcase = ({
               </div>
             </div>
             <div
-              id="tech-link-and-para-containter"
+              id="tech-link-and-para-container"
               className="flex flex-col gap-3"
             >
               <p className="text-sm xl:text-base text-[#e4e4e4] border-y-2 border-[#7a7a7a] py-5">

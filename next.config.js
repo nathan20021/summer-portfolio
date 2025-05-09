@@ -32,24 +32,18 @@ const nextConfig = {
       },
     ];
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
+
   images: {
-    domains: ["porfolio-blogs.s3.us-east-2.amazonaws.com"],
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "porfolio-blogs.s3.us-east-2.amazonaws.com",
-        port: "",
-        pathname: "**",
-      },
-    ],
+    domains: ['porfolio-blogs.s3.us-east-2.amazonaws.com'],
+
   },
   typescript: {
     ignoreBuildErrors: true,
   },
 };
 
-module.exports = nextConfig;
 module.exports = removeImports({
+  ...nextConfig,
   experimental: { esmExternals: true },
 });

@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import { MdOutlineContentCopy } from "react-icons/md";
 import { BsCaretDownFill, BsCheck } from "react-icons/bs";
+import { MdExpandMore } from "react-icons/md";
 import { BlockMath, InlineMath } from "react-katex";
 import { getYTEmbeddedID } from "../../utils/functions";
 import { flattenDeep } from "lodash";
@@ -63,7 +64,7 @@ const MarkdownComponents: object = {
   h3: (element: headingProps) => {
     return (
       <h3
-        className="text-blue-500 text-base"
+        className="text-[#80cfff] text-base mt-10 mb-2"
         id={
           Array.isArray(element.children) &&
           typeof element.children[0] === "string"
@@ -79,7 +80,7 @@ const MarkdownComponents: object = {
   h4: (element: headingProps) => {
     return (
       <h4
-        className="text-[#e4b45a] text-base"
+        className="text-[#ffdd86] text-base mt-10 mb-2"
         id={
           Array.isArray(element.children) &&
           typeof element.children[0] === "string"
@@ -261,15 +262,16 @@ const MarkdownComponents: object = {
 
   pre: (element: { children: any; node: any }) => {
     const [copied, setCopied] = useState(false);
+    const [expanded, setExpanded] = useState(false);
     return (
       <div className="group relative my-3 cursor-text">
-        <div className="absolute right-5 top-5">
+        <div className="absolute right-10 top-5 flex gap-3">
           <button
             onClick={() => {
               setCopied(true);
               setTimeout(() => {
                 setCopied(false);
-              }, 3000);
+              }, 1000);
               navigator.clipboard.writeText(
                 flattenDeep(
                   preProcess(element.children[0].props.children)
@@ -280,20 +282,30 @@ const MarkdownComponents: object = {
               text-md bg-[#484e5b] hover:bg-[#5f6676] p-2 group-hover:visible invisible
               rounded-md flex justify-start items-center gap-1 text-2xl"
           >
-            {copied ? (
-              <>
-                <BsCheck />
-                <span className="text-sm padding-0">Copied</span>
-              </>
-            ) : (
-              <>
-                <MdOutlineContentCopy />
-                <span className="text-sm">Copy</span>
-              </>
-            )}
+            {copied ? <BsCheck /> : <MdOutlineContentCopy />}
+          </button>
+          <button
+            onClick={() => setExpanded(!expanded)}
+            className="
+              text-md bg-[#484e5b] hover:bg-[#5f6676] p-2 group-hover:visible invisible
+              rounded-md flex justify-start items-center gap-1 text-2xl"
+          >
+            <MdExpandMore
+              style={{
+                transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
+                transition: "transform 0.2s ease-in-out",
+              }}
+            />
           </button>
         </div>
-        <pre className="code-block">{element.children}</pre>
+        <div
+          className="overflow-y-scroll duration-300 ease-in-out"
+          style={{
+            height: expanded ? "auto" : "300px",
+          }}
+        >
+          <pre className="code-block">{element.children}</pre>
+        </div>
       </div>
     );
   },
@@ -360,7 +372,7 @@ const MarkdownComponents: object = {
       >
         <div className="flex w-full">
           <h1 className="text-white text-xl">{icon}</h1>
-          <h1 className="text-xl text-[#ffffff]">{title}</h1>
+          <h1 className="text-xl text-[#e0e0e0]">{title}</h1>
         </div>
         <div className="pl-5">{children}</div>
       </div>
