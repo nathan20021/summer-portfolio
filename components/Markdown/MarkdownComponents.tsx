@@ -301,7 +301,7 @@ const MarkdownComponents: object = {
         <div
           className="overflow-y-scroll duration-300 ease-in-out"
           style={{
-            height: expanded ? "auto" : "300px",
+            maxHeight: expanded ? "none" : "300px",
           }}
         >
           <pre className="code-block">{element.children}</pre>
