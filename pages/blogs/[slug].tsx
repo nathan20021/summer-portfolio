@@ -26,6 +26,23 @@ const Post = ({ content, metaData }: prop) => {
     <div className="bg-primary z-10 w-full flex justify-center items-center">
       <Head>
         <title>{metaData.title}</title>
+        <meta name="description" content={metaData.description} />
+
+        Open Graph tags
+        <meta property="og:title" content={metaData.title} />
+        <meta property="og:description" content={metaData.description} />
+        <meta property="og:image" content={metaData.cover} />
+        <meta
+          property="og:url"
+          content={`https://nathanluong.me/blog/${metaData.url}`}
+        />
+        <meta property="og:type" content="article" />
+
+        Twitter Card tags
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={metaData.title} />
+        <meta name="twitter:description" content={metaData.description} />
+        <meta name="twitter:image" content={metaData.cover} />
       </Head>
       <div
         id="Blog Container"
