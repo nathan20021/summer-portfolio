@@ -25,12 +25,7 @@ import ProjectShowcase from "../components/ProjectShowcase";
 
 import { motion } from "framer-motion";
 
-const lol = [
-  "Cloud-Tech Enthusiast",
-  "Backend/ DevOps Engineer",
-  "AWS Certified",
-  "GoLang lover",
-];
+const autoScrollTitles = ["⎈ Certified K8S Admin", "AWS Certified", "Cloud-Tech Enthusiast"];
 
 const projects = [
   {
@@ -274,7 +269,7 @@ const Home: NextPage = () => {
                   </div>
                   <ReactTextTransition springConfig={presets.gentle} inline>
                     <h1 className="text-xl lg:text-2xl">
-                      {lol[titleIndex % lol.length]}
+                      {autoScrollTitles[titleIndex % autoScrollTitles.length]}
                     </h1>
                   </ReactTextTransition>
                   <div

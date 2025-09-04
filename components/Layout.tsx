@@ -6,6 +6,8 @@ import Nav from "./Nav";
 import { withRouter } from "next/router";
 import { TbArrowBarToUp } from "react-icons/tb";
 
+const footerBlacklistRoutes = ["/admin"];
+
 const Layout = ({ router, children }: any) => {
   const [showButton, setShowButton] = useState<boolean>(false);
   const [height, setHeight] = useState<number | undefined>(undefined);
@@ -42,7 +44,10 @@ const Layout = ({ router, children }: any) => {
   return (
     <div>
       <Head>
-        <meta name="description" content="Welcome to my portfolio 👀" />
+        <meta
+          name="description"
+          content="Welcome to my corner of the internet 🌐"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div
@@ -65,7 +70,9 @@ const Layout = ({ router, children }: any) => {
         >
           <TbArrowBarToUp className="text-2xl bg-clip-text text-[#3f3f3f]" />
         </button>
-        <Footer currentPath={router.asPath} />
+        {!footerBlacklistRoutes.some((route) =>
+          router.asPath.startsWith(route)
+        ) && <Footer currentPath={router.asPath} />}
       </div>
     </div>
   );

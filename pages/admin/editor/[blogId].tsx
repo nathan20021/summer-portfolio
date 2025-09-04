@@ -1,29 +1,26 @@
+"use client";
 import React, { useRef } from "react";
 import { GetServerSidePropsContext } from "next/types";
 import { ParsedUrlQuery } from "querystring";
 import { getSession } from "next-auth/react";
-import styles from "../../../styles/mdBlogs.module.css";
 import { prisma } from "@/db";
-import "@uiw/react-textarea-code-editor/dist.css";
 import { BlogPost, Tags } from "@prisma/client";
 import config from "../../../config.json";
 import axios from "axios";
 import ReactMarkdownWrapper from "@/components/Markdown/ReactMarkdownWrapper";
-import rehypePrismAll from "rehype-prism-plus";
-import "katex/dist/katex.min.css";
 import { toJpeg } from "html-to-image";
 import matter from "gray-matter";
-import dynamic from "next/dynamic";
 import FileTree from "../../../components/FileTree/S3FileTree";
 import TopBar from "@/components/Editor/ControlTopBar";
 import MetaDataModal from "@/components/Editor/MetaDataModal";
+import MarkdownEditor from "@/components/Editor/CodeEditor";
+
+import "katex/dist/katex.min.css";
+import styles from "../../../styles/mdBlogs.module.css";
+
 import Head from "next/head";
 import { GoSidebarExpand } from "react-icons/go";
 
-const CodeEditor = dynamic<any>(
-  () => import("@uiw/react-textarea-code-editor").then((mod) => mod.default),
-  { ssr: false }
-);
 export interface FrontEndBlogPost extends Omit<BlogPost, "updatedAt"> {
   updatedAt: string;
 }
@@ -59,7 +56,14 @@ const BlogEditorPage = ({
   const handleKeyDown = (event: KeyboardEvent): void => {
     if (event.code === "KeyE" && (event.metaKey || event.ctrlKey)) {
       event.preventDefault();
-      setIsPreview((prev) => !prev);
+      setIsPreview((prev) => {
+        if (!prev) {
+          document.body.style.overflowY = "hidden";
+        } else {
+          document.body.style.overflowY = "";
+        }
+        return !prev;
+      });
     }
     if (event.code === "KeyS" && (event.metaKey || event.ctrlKey)) {
       event.preventDefault();
@@ -186,13 +190,15 @@ const BlogEditorPage = ({
           <div className="flex justify-center w-screen">
             <div
               id="preview-editor-container"
-              className="flex justify-center w-[95%] min-h-screen"
+              className="flex justify-center w-[95%]"
             >
               <div
                 ref={elementRef}
                 id="markdown-preview"
                 className={
-                  isPreview ? "w-[60%] px-4 py-10" : "w-1/2 px-4 py-10"
+                  isPreview
+                    ? "w-[60%] px-4 py-10"
+                    : "w-1/2 px-4 py-10 h-[90vh] overflow-y-scroll"
                 }
               >
                 <ReactMarkdownWrapper
@@ -203,23 +209,10 @@ const BlogEditorPage = ({
               {!isPreview && (
                 <div
                   id="code-editor"
-                  className=" w-1/2 wmde-markdown-var border-[#606060] select-none pt-8"
+                  className="h-[90vh] w-1/2 wmde-markdown-var border-[#606060] select-none pt-8"
                   aria-readonly="true"
                 >
-                  <CodeEditor
-                    value={code}
-                    rehypePlugins={[[rehypePrismAll, { ignoreMissing: true }]]}
-                    language="markdown"
-                    minHeight={400}
-                    placeholder="Paste Markdown here"
-                    onChange={(evn: any) => setCode(evn.target.value)}
-                    padding={15}
-                    style={{
-                      height: "100%",
-                      fontSize: 16,
-                      backgroundColor: "#202020",
-                    }}
-                  />
+                  <MarkdownEditor code={code} setCode={setCode} />
                 </div>
               )}
             </div>

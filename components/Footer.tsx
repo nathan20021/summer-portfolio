@@ -52,9 +52,6 @@ const Footer = ({ currentPath }: prop) => {
           ? "z-50 relative h-[400px] sm:h-[350px] w-full bg-blogBg"
           : "z-50 relative h-[400px] sm:h-[350px] w-full bg-primary"
       }
-      style={{
-        display: currentPath === "/admin/editor" ? "none" : "block",
-      }}
     >
       <div className="z-40 absolute w-full h-[80%] sm:h-[75%] flex justify-center items-end">
         <div className="flex flex-col gap-3 w-[80%] sm:w-[70%] md:w-[45%]">
