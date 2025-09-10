@@ -27,7 +27,6 @@ const Post = ({ content, metaData }: prop) => {
       <Head>
         <title>{metaData.title}</title>
         <meta name="description" content={metaData.description} />
-
         Open Graph tags
         <meta property="og:title" content={metaData.title} />
         <meta property="og:description" content={metaData.description} />
@@ -37,7 +36,6 @@ const Post = ({ content, metaData }: prop) => {
           content={`https://nathanluong.me/blog/${metaData.url}`}
         />
         <meta property="og:type" content="article" />
-
         Twitter Card tags
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={metaData.title} />
@@ -135,7 +133,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 const getParamFromList = (data: Array<BlogPost>) => {
   const result: Array<{ params: { slug: string } }> = [];
   data.forEach((blogPost: BlogPost) => {
-    if (!blogPost.url) return;
+    if (!blogPost.url || blogPost.type !== "PUBLISHED") return;
     result.push({
       params: { slug: blogPost.url },
     });

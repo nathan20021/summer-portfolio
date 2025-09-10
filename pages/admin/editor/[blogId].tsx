@@ -122,7 +122,7 @@ const BlogEditorPage = ({
     });
 
     if (res.status === 200) {
-      if (blogData?.url) {
+      if (blogData?.url && editedBlogData.type === "PUBLISHED") {
         await axios.post("/api/revalidate", {
           path: `/blogs/${currentBlogData.url}`,
         });
