@@ -45,12 +45,12 @@ const ResumeLinks: Array<LinkCardProps> = [
   {
     icon: <IoMdDocument />,
     title: <p>DevOps Resume</p>,
-    link: "/Nathan_Luong_DevOps.pdf",
+    link: "/Nathan_DevOps_2026.pdf",
   },
   {
     icon: <IoMdDocument />,
     title: <p>Software Engineer Resume</p>,
-    link: "/Nathan_Luong_SWE.pdf",
+    link: "/Nathan_SWE_2026.pdf",
   },
 ];
 
